@@ -1,0 +1,128 @@
+/* Sidepanel */
+
+/* .sidepanel {
+  background-color: var(--static11);
+  padding: 0 0.875rem;
+  transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out,
+    visibility 0.3s ease-in-out;
+  transform: translateX(0);
+  visibility: visible;
+  opacity: 1;
+  position: relative;
+}
+
+.sidepanel-hide {
+  display: none;
+  transition: 0.3s;
+
+  transition: transform 0.3s ease-in-out;
+  transform: translateX(-100%);
+  opacity: 0;
+  visibility: hidden;
+  position: absolute;
+} */
+
+.sidepanel {
+  background-color: var(--static11);
+  padding: 0 0.875rem;
+  display: block;
+  animation: appear 0.5s;
+}
+.sidepanel-hide {
+  display: none;
+  animation: vanish 0.5s;
+}
+@keyframes appear {
+  from {
+    opacity: 0;
+    transform: translateX(-100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+@keyframes vanish {
+  from {
+    display: block;
+    opacity: 1;
+    transform: translateX(0);
+  }
+  to {
+    display: none;
+    opacity: 0;
+    transform: translateX(-100%);
+  }
+}
+
+/* Section */
+.sidepanel__section {
+  padding-top: 1rem;
+}
+
+.sidepanel__section-title {
+  margin-top: 0;
+  padding-bottom: 5px;
+  /* border-bottom: solid 2px var(--text); */
+  font-size: 1.2rem;
+  text-align: left;
+}
+
+.sidepanel__contents {
+  text-align: left;
+  font-weight: var(--fw-medium);
+}
+
+.sidepanel__button {
+  border: none;
+  /* Button Text Styling */
+  text-align: left;
+  font-size: 1rem;
+  color: var(--text-900);
+  background-color: transparent;
+}
+
+.sidepanel__button--project {
+  margin-left: 1rem;
+}
+
+/* Grid-container */
+.sidepanel__buttons-container {
+  display: flex;
+  padding: 1rem;
+  align-items: center;
+  justify-content: start;
+  opacity: 0.5;
+  transition: opacity 0.3s;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto;
+}
+
+.grid-container--panel {
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.sidepanel__icon-container {
+  width: 20px;
+  height: auto;
+}
+
+.sidepanel__icon-clr {
+  color: red !important;
+}
+/* button hover effect */
+.sidepanel__buttons-container:hover {
+  opacity: 1;
+  cursor: pointer;
+}
+
+.click-effect {
+  border-radius: 50px;
+  background-color: var(--secondary20);
+  opacity: 1;
+}

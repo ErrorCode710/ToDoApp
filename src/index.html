@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+      rel="stylesheet"
+    />
+    <!-- <link rel="stylesheet" href="style.css" /> -->
+    <title>FeelToDo</title>
+  </head>
+  <body>
+    <!-- <form id="myForm">
+      <input type="text" id="doList" />
+      <button type="submit" id="submitButton">Submit</button>
+    </form>
+    <div id="result"></div> -->
+    <!-- <div class="sidebar">
+      <header>
+        <div class="sidebar__close-btn">
+          <i class="fas fa-times"></i>
+        </div>
+        <img src="" alt="" />
+      </header>
+    </div> -->
+    <header>
+      <nav>
+        <div class="header__nav-btn">
+          <i class="fa-solid fa-bars fa-lg"></i>
+        </div>
+      </nav>
+      <h1 class="header__title">
+        Feel<span class="header__title-logo">ToDo</span>
+      </h1>
+      <div class="header__toggle-menu">
+        <h4>Light</h4>
+        <span class="open">open</span>
+      </div>
+    </header>
+    <main>
+      <div class="main__wrapper">
+        <section class="sidepanel" id="sidenav">
+          <div class="sidepanel__contents grid-container">
+            <section class="sidepanel__section sidepanel__section--home">
+              <h2
+                class="sidepanel__section-title sidepanel__section-title--home"
+              >
+                Home
+              </h2>
+              <div
+                class="sidepanel__contents grid-container grid-container--panel"
+              >
+                <div class="sidepanel__buttons-container click-effect">
+                  <div class="sidepanel__icon-container">
+                    <img
+                      src="/src/assets/download.svg"
+                      class="sidepanel__icon-clr"
+                      alt=""
+                    />
+                  </div>
+                  <button class="sidepanel__button">All Task</button>
+                </div>
+                <div class="sidepanel__buttons-container">
+                  <div class="sidepanel__icon-container">
+                    <img src="/src/assets/Today.svg" alt="" />
+                  </div>
+                  <button class="sidepanel__button">Today</button>
+                </div>
+                <div class="sidepanel__buttons-container">
+                  <div class="sidepanel__icon-container">
+                    <img src="/src/assets/Future.svg" alt="" />
+                  </div>
+                  <button class="sidepanel__button">Next 7 days</button>
+                </div>
+                <div class="sidepanel__buttons-container">
+                  <div class="sidepanel__icon-container">
+                    <img src="/src/assets/StarFill.svg" alt="" />
+                  </div>
+                  <button class="sidepanel__button">Important</button>
+                </div>
+              </div>
+            </section>
+            <section class="sidepanel__section sidepanel__section--project">
+              <h2 class="sidepanel__section-title">Projects</h2>
+              <div
+                class="sidepanel__contents sidepanel__contents--project grid-container grid-container--panel"
+              >
+                <div
+                  class="sidepanel__buttons-container sidepanel__buttons-container--project"
+                >
+                  <div class="sidepanel__icon-container">
+                    <img src="/src/assets/Menu.svg" alt="" />
+                  </div>
+                  <button class="sidepanel__button">Example Project</button>
+                </div>
+                <div
+                  class="sidepanel__buttons-container sidepanel__buttons-container--add-project"
+                >
+                  <div class="sidepanel__icon-container">
+                    <img src="/src/assets/Add.svg" alt="" />
+                  </div>
+                  <button class="sidepanel__button sidepanel__button--project">
+                    Add Project
+                  </button>
+                </div>
+              </div>
+            </section>
+          </div>
+        </section>
+        <section class="main__left-panel" id="main">
+          <div class="left-panel__contents">
+            <div class="panel--banner">All Task</div>
+            <div class="list-toDo">
+              <ul class="list-toDo--wrapper">
+                <li>
+                  <div class="list__container">
+                    <div class="top">
+                      <div class="checklist">
+                        <input type="checkbox" class="checkbox" />
+                        <label for="Project">Project Name</label>
+                      </div>
+                      <div class="date">2024-08-05</div>
+                      <div class="list--icons">
+                        <img src="/src/assets/StarOut.svg" alt="" />
+                        <img src="/src/assets/menu3.svg" alt="" />
+                      </div>
+                    </div>
+                    <p class="list--description">
+                      Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                      Quibusdam, ea nostrum cumque ipsam tempora aut numquam
+                      atque, enim, modi dolor reprehenderit officia adipisci ad
+                      cum. Enim blanditiis placeat error iste!
+                    </p>
+                  </div>
+                </li>
+                <div class="list__container">
+                  <li>
+                    <div class="top">
+                      <div class="checklist">
+                        <input type="checkbox" class="checkbox" />
+                        <label for="Project">Project Name</label>
+                      </div>
+                      <div class="date">2024-08-05</div>
+                      <div class="list--icons">
+                        <img src="/src/assets/StarOut.svg" alt="" />
+                        <img src="/src/assets/menu3.svg" alt="" />
+                      </div>
+                    </div>
+                    <p class="list--description">
+                      Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                      Quibusdam, ea nostrum cumque ipsam tempora aut numquam
+                      atque, enim, modi dolor reprehenderit officia adipisci ad
+                      cum. Enim blanditiis placeat error iste!
+                    </p>
+                  </li>
+                </div>
+              </ul>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+    <script src="./index.js"></script>
+  </body>
+</html>
