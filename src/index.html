@@ -46,7 +46,7 @@
     </header>
     <main>
       <div class="main__wrapper">
-        <section class="sidepanel" id="sidenav">
+        <section class="sidepanel sidepanel-show" id="sidenav">
           <div class="sidepanel__contents grid-container">
             <section class="sidepanel__section sidepanel__section--home">
               <h2
@@ -92,16 +92,26 @@
               <div
                 class="sidepanel__contents sidepanel__contents--project grid-container grid-container--panel"
               >
-                <div
-                  class="sidepanel__buttons-container sidepanel__buttons-container--project"
-                >
-                  <div class="sidepanel__icon-container">
-                    <img src="/src/assets/Menu.svg" alt="" />
-                  </div>
-                  <button class="sidepanel__button">Example Project</button>
-                </div>
+                <ul class="project--container" id="projectContainer">
+                  <li>
+                    <div
+                      class="sidepanel__buttons-container sidepanel__buttons-container--project project--list"
+                    >
+                      <div class="sidepanel__icon-container">
+                        <img src="/src/assets/Menu.svg" alt="" />
+                      </div>
+                      <button class="sidepanel__button">Example Project</button>
+                      <img
+                        src="/src/assets/menu3.svg"
+                        alt=""
+                        class="menu-icon"
+                      />
+                    </div>
+                  </li>
+                </ul>
                 <div
                   class="sidepanel__buttons-container sidepanel__buttons-container--add-project"
+                  id="addProject-btn"
                 >
                   <div class="sidepanel__icon-container">
                     <img src="/src/assets/Add.svg" alt="" />
@@ -114,7 +124,7 @@
             </section>
           </div>
         </section>
-        <section class="main__left-panel" id="main">
+        <section class="main__left-panel shifted" id="main">
           <div class="left-panel__contents">
             <div class="panel--banner">All Task</div>
             <div class="list-toDo">
@@ -140,6 +150,7 @@
                     </p>
                   </div>
                 </li>
+
                 <div class="list__container">
                   <li>
                     <div class="top">

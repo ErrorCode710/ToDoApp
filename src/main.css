@@ -38,3 +38,6 @@ header {
   border-bottom: var(--accent) 3px solid;
   padding: 0rem 1.5rem;
 }
+.menu-icon {
+  width: 20px;
+}

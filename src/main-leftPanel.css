@@ -47,8 +47,3 @@
 .list--icons {
   display: flex;
 }
-
-/* Animation / transition */
-.main__wrapper {
-  transition: all 0.3s ease;
-}

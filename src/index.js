@@ -8,6 +8,12 @@ import "./sidePanel.css";
 import "./main-leftPanel.css";
 import "./mediaQueries.css";
 import "./sidebar.css";
+import "./form.css";
+
+// Js file
+import { displayForm, createForm, addProjectTolist } from "./addProject.js";
+import sideBar from "./sideBar.js";
+
 // const form = document.querySelector("#myForm");
 // form.addEventListener("submit", (event) => {
 //   event.preventDefault();
@@ -32,30 +38,8 @@ import "./sidebar.css";
 //   });
 // }
 
-/* Set the width of the side navigation to 250px and the left margin of the page content to 250px */
-
-// function openNav() {
-//   document.querySelector(".sidepanel").style.width = "250px";
-//   document.querySelector(".sidepanel__section").style.marginLeft = "250px";
-// }
-// const open = document.querySelector(".open");
-// open.addEventListener("click", openNav)
-// /* Set the width of the side navigation to 0 and the left margin of the page content to 0 */
-// function closeNav() {
-//   document.getElementById("mySidenav").style.width = "0";
-//   document.getElementById("main").style.marginLeft = "0";
-// }
-// console.log("hi");
 document.addEventListener("DOMContentLoaded", function () {
-  const sidenav = document.getElementById("sidenav");
-  const mainContent = document.getElementById("main");
-  const navBtn = document.querySelector(".header__nav-btn");
-
-  navBtn.addEventListener("click", () => {
-    if (sidenav.classList.contains("sidepanel-hide")) {
-      sidenav.classList.remove("sidepanel-hide");
-    } else {
-      sidenav.classList.add("sidepanel-hide");
-    }
-  });
+  sideBar();
+  displayForm();
+  addProjectTolist();
 });
