@@ -13,23 +13,9 @@
       href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
       rel="stylesheet"
     />
-    <!-- <link rel="stylesheet" href="style.css" /> -->
     <title>FeelToDo</title>
   </head>
   <body>
-    <!-- <form id="myForm">
-      <input type="text" id="doList" />
-      <button type="submit" id="submitButton">Submit</button>
-    </form>
-    <div id="result"></div> -->
-    <!-- <div class="sidebar">
-      <header>
-        <div class="sidebar__close-btn">
-          <i class="fas fa-times"></i>
-        </div>
-        <img src="" alt="" />
-      </header>
-    </div> -->
     <header>
       <nav>
         <div class="header__nav-btn">
@@ -46,8 +32,10 @@
     </header>
     <main>
       <div class="main__wrapper">
+        <!-- Sidepanel Section -->
         <section class="sidepanel sidepanel-show" id="sidenav">
           <div class="sidepanel__contents grid-container">
+            <!-- Home Section -->
             <section class="sidepanel__section sidepanel__section--home">
               <h2
                 class="sidepanel__section-title sidepanel__section-title--home"
@@ -87,10 +75,12 @@
                 </div>
               </div>
             </section>
-            <section class="sidepanel__section sidepanel__section--project">
+
+            <!-- Projects Section -->
+            <section class="sidepanel__section sidepanel__section--home">
               <h2 class="sidepanel__section-title">Projects</h2>
               <div
-                class="sidepanel__contents sidepanel__contents--project grid-container grid-container--panel"
+                class="sidepanel__contents grid-container grid-container--panel m-0"
               >
                 <ul class="project--container" id="projectContainer">
                   <li>
@@ -98,14 +88,14 @@
                       class="sidepanel__buttons-container sidepanel__buttons-container--project project--list"
                     >
                       <div class="sidepanel__icon-container">
-                        <img src="/src/assets/Menu.svg" alt="" />
+                        <img
+                          class="sidepanel__button"
+                          src="./src/assets/Menu.svg"
+                        />
                       </div>
-                      <button class="sidepanel__button">Example Project</button>
-                      <img
-                        src="/src/assets/menu3.svg"
-                        alt=""
-                        class="menu-icon"
-                      />
+                      <button class="sidepanel__button" id="">
+                        Example Project</button
+                      ><img class="menu-icon" src="./src/assets/menu3.svg" />
                     </div>
                   </li>
                 </ul>
@@ -124,11 +114,13 @@
             </section>
           </div>
         </section>
+
+        <!-- Main Content Section -->
         <section class="main__left-panel shifted" id="main">
           <div class="left-panel__contents">
-            <div class="panel--banner">All Task</div>
+            <div class="panel--banner"><span id="banner">All Task</span></div>
             <div class="list-toDo">
-              <ul class="list-toDo--wrapper">
+              <ul class="list-toDo--wrapper" id="listWrapper">
                 <li>
                   <div class="list__container">
                     <div class="top">
@@ -150,9 +142,8 @@
                     </p>
                   </div>
                 </li>
-
-                <div class="list__container">
-                  <li>
+                <li>
+                  <div class="list__container">
                     <div class="top">
                       <div class="checklist">
                         <input type="checkbox" class="checkbox" />
@@ -170,8 +161,8 @@
                       atque, enim, modi dolor reprehenderit officia adipisci ad
                       cum. Enim blanditiis placeat error iste!
                     </p>
-                  </li>
-                </div>
+                  </div>
+                </li>
               </ul>
             </div>
           </div>

@@ -12,6 +12,7 @@
 // }
 
 // 1st add a form and then add the list on the project container list
+import addTask from "./addTask.js";
 function createForm() {
   const parent = document.querySelector("#projectContainer");
 
@@ -63,7 +64,7 @@ function createForm() {
 function createList(projectName) {
   const parent = document.querySelector("#projectContainer");
 
-  const list = document.createElement("list");
+  const list = document.createElement("li");
   parent.append(list);
 
   const div = document.createElement("div");
@@ -84,8 +85,9 @@ function createList(projectName) {
   divIcon.append(iconLeft);
 
   const button = document.createElement("button");
-  button.classList.add("sidepanel__button");
+  button.classList.add("sidepanel__button", "c-p");
   button.textContent = projectName;
+  button.id = projectName + "Btn";
   div.append(button);
 
   const iconRight = document.createElement("img");
@@ -104,13 +106,18 @@ function addProjectTolist() {
   if (form) {
     form.addEventListener("submit", (e) => {
       e.preventDefault();
+
       const input = document.querySelector("#projectList").value;
+
       createList(input);
+      addTask(input);
       form.remove();
     });
   }
-  removeBtn.addEventListener("click", () => {
-    form.remove();
-  });
+  if (removeBtn) {
+    removeBtn.addEventListener("click", () => {
+      form.remove();
+    });
+  }
 }
 export { displayForm, addProjectTolist };
