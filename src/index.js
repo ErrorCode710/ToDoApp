@@ -8,7 +8,6 @@ import "@fortawesome/fontawesome-free/css/all.min.css";
 import "./sidePanel.css";
 import "./main-leftPanel.css";
 import "./mediaQueries.css";
-import "./sidebar.css";
 import "./form.css";
 
 // Js file
