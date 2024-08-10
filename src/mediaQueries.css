@@ -28,17 +28,20 @@
     transition: margin-left 0.5s ease;
   }
   .main__left-panel {
-    transition: margin-left 0.3s ease;
+    transition: margin-left 0.5s ease-in-out;
   }
   .sidepanel {
-    transition: width 1s ease-in-out;
+    transition: width 0.5s ease-in-out;
     width: 0;
     overflow: hidden;
     /* background-color: red; */
     white-space: nowrap;
+    max-height: none;
+    height: 100%;
   }
   .sidepanel-hide {
     width: 0;
+    padding: 0;
     /* max-height: 0; */
   }
   .sidepanel-show {

@@ -12,17 +12,17 @@
   transition: max-height 1s ease-in-out;
   white-space: nowrap;
   width: 100%;
-  /* overflow-y: auto; */
+  overflow-y: auto;
   white-space: nowrap;
-  max-height: 100vh;
-  overflow: hidden;
+  max-height: 80vh;
+  overflow-x: hidden;
 }
 .sidepanel-show {
-  max-height: 1000px;
+  max-height: 80vh;
 }
-/* .sidepanel-hide {
+.sidepanel-hide {
   max-height: 0;
-} */
+}
 .main__left-panel {
   transition: margin-bottom 5s ease-in-out;
 }
@@ -40,7 +40,7 @@
 
 .sidepanel__section-title {
   margin-top: 0;
-  padding-bottom: 5px;
+  padding-bottom: 0.315rem;
   /* border-bottom: solid 2px var(--text); */
   font-size: 1.2rem;
   text-align: left;
@@ -76,7 +76,7 @@
 }
 
 .sidepanel__icon-container {
-  width: 20px;
+  width: 1.25px;
   height: auto;
   /* Change */
   flex: 0 0 auto;
@@ -96,7 +96,7 @@
 }
 
 .click-effect {
-  border-radius: 50px;
+  border-radius: 20px;
   background-color: var(--secondary20);
   opacity: 1;
 }

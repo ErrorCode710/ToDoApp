@@ -20,7 +20,7 @@ header {
 }
 .header__nav-btn:hover {
   background-color: var(--secondary20);
-  border-radius: 10px;
+  border-radius: 10%;
 }
 
 .header__title {
