@@ -1,4 +1,5 @@
-function addtask(input) {
+//addTask.Js
+function addTask(input) {
   const btn = document.querySelector(`#${input}Btn`);
   console.log(btn);
   btn.addEventListener("click", () => {
@@ -20,4 +21,4 @@ function clearContent() {
     item.classList.add("list--hide");
   });
 }
-export default addtask;
+export { addTask };

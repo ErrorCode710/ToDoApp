@@ -1,18 +1,8 @@
-// function elemCreator(elem) {
-//   return document.createElement(elem);
-// }
-// function elemAppend(parent, child) {
-//   return parent.append(child);
-// }
-// function elemClass(parent, nameClass) {
-//   return parent.classList.add(nameClass);
-// }
-// function elemId(parent, nameId) {
-//   return (parent.id = nameId);
-// }
+//addProject.js file
 
-// 1st add a form and then add the list on the project container list
-import addTask from "./addTask.js";
+import {addTask} from "./addTask.js";
+// import addTodo from "./addTask.js";
+
 function createForm() {
   const parent = document.querySelector("#projectContainer");
 
