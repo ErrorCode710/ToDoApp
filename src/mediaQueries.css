@@ -28,21 +28,13 @@
     transition: margin-left 0.5s ease;
   }
   .main__left-panel {
-    transition: margin-left 0.5s ease;
-    /* width: 100%; */
-    /* min-width: 950px; */
+    transition: margin-left 0.3s ease;
   }
   .sidepanel {
+    width: 650px;
     overflow: hidden;
-    /* white-space: nowrap; */
-    width: 0;
-    transition: width 0.5s ease;
   }
   .sidepanel-show {
     width: 650px;
-  }
-  .sidepanel-hide {
-    width: 0px;
-    padding: 0;
   }
 }
