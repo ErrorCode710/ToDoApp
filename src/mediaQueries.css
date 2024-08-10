@@ -31,10 +31,18 @@
     transition: margin-left 0.3s ease;
   }
   .sidepanel {
-    width: 650px;
+    transition: width 1s ease-in-out;
+    width: 0;
     overflow: hidden;
+    /* background-color: red; */
+    white-space: nowrap;
+  }
+  .sidepanel-hide {
+    width: 0;
+    /* max-height: 0; */
   }
   .sidepanel-show {
     width: 650px;
+    /* max-height: 0 */
   }
 }
