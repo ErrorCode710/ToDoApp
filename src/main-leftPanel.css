@@ -30,8 +30,17 @@
   border-radius: 15px;
   padding: 2px 8px;
 }
+.list {
+  display: block;
+}
+.list--hide {
+  display: none;
+}
 .list--icons img {
   max-width: 20px;
+}
+.list__container--hide {
+  display: none;
 }
 .list__container {
   background-color: var(--secondary30);

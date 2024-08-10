@@ -1,33 +1,11 @@
-/* @media (min-width: 768px) {
-  .main__wrapper {
-    display: flex;
-    transition: margin-left 0.3s ease;
-  }
-  .sidepanel {
-    transition: width 0.5s ease;
-    overflow: hidden;
-    white-space: nowrap;
-  }
-  .sidepanel-show {
-    width: 650px;
-  }
-  .sidepanel-hide {
-    width: 0px;
-    padding: 0;
-  }
-  .main__left-panel {
-    transition: margin-left 0.3s;
-    min-width: 950px;
-    max-width: 100%;
-    background-color: red;
-  }
-} */
 @media (min-width: 768px) {
   .main__wrapper {
     flex-direction: row;
     transition: margin-left 0.5s ease;
   }
   .main__left-panel {
+    min-width: 70%;
+    max-width: 100%;
     transition: margin-left 0.5s ease-in-out;
   }
   .sidepanel {

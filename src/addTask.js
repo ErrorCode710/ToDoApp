@@ -12,7 +12,12 @@ function changeBanner(title) {
   span.textContent = title;
 }
 function clearContent() {
+  const list = document.querySelectorAll(".list");
   const wrapper = document.querySelector("#listWrapper");
-  wrapper.innerHTML = "";
+  // wrapper.innerHTML = "";
+  // Alternative solution
+  list.forEach((item) => {
+    item.classList.add("list--hide");
+  });
 }
 export default addtask;
