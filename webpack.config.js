@@ -7,6 +7,7 @@ module.exports = {
     filename: "bundle.js",
     path: path.resolve(__dirname, "dist"),
     clean: true,
+    assetModuleFilename: "assets/[name][ext]",  
   },
   module: {
     rules: [
@@ -18,6 +19,10 @@ module.exports = {
         test: /\.(png|svg|jpg|jpeg|gif)$/i,
         type: "asset/resource",
       },
+      {
+        test: /\.html$/i,
+        loader: 'html-loader',
+      },
     ],
   },
   plugins: [
@@ -27,7 +32,7 @@ module.exports = {
   ],
   mode: "development",
   devServer: {
-    static: path.join(__dirname),
+    static: path.join(__dirname, "dist"),
     compress: true,
     port: 3300,
     open: true,
