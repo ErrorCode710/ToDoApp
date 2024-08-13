@@ -1,13 +1,22 @@
 //addTask.Js
-function addTask(input) {
-  const btn = document.querySelector(`#${input}Btn`);
+import { arrayStorage } from "./storage";
+function addTask(input, id) {
+  const btn = document.querySelector(`#${id}`); // unique Id
   console.log(btn);
   btn.addEventListener("click", () => {
     changeBanner(input);
     clearContent();
+    displayToDo(id);
+    console.log(id);
   });
 }
 
+function displayToDo(uniqueID) {
+  const display = document.querySelector(`#${uniqueID}`);
+  arrayStorage[uniqueID].forEach((toDo) => {
+    console.log(toDo);
+  });
+}
 function changeBanner(title) {
   const span = document.querySelector("#banner");
   span.textContent = title;
@@ -21,4 +30,5 @@ function clearContent() {
     item.classList.add("list--hide");
   });
 }
-export { addTask };
+
+export { addTask, displayToDo };

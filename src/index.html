@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en" data-theme="dark">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -48,7 +48,7 @@
                 <div class="sidepanel__buttons-container click-effect">
                   <div class="sidepanel__icon-container">
                     <img
-                      src="assets/download.svg"
+                      src="/src/assets/img/download.svg"
                       class="sidepanel__icon-clr"
                       alt=""
                     />
@@ -57,19 +57,19 @@
                 </div>
                 <div class="sidepanel__buttons-container">
                   <div class="sidepanel__icon-container">
-                    <img src="./assets/Today.svg" alt="" />
+                    <img src="/src/assets/img/Today.svg" alt="" />
                   </div>
                   <button class="sidepanel__button">Today</button>
                 </div>
                 <div class="sidepanel__buttons-container">
                   <div class="sidepanel__icon-container">
-                    <img src="./assets/Future.svg" alt="" />
+                    <img src="/src/assets/img/Future.svg" alt="" />
                   </div>
                   <button class="sidepanel__button">Next 7 days</button>
                 </div>
                 <div class="sidepanel__buttons-container">
                   <div class="sidepanel__icon-container">
-                    <img src="./assets/StarFill.svg" alt="" />
+                    <img src="/src/assets/img/StarFill.svg" alt="" />
                   </div>
                   <button class="sidepanel__button">Important</button>
                 </div>
@@ -90,12 +90,12 @@
                       <div class="sidepanel__icon-container">
                         <img
                           class="sidepanel__button"
-                          src="./assets/Menu.svg"
+                          src="/src/assets/img/Menu.svg"
                         />
                       </div>
                       <button class="sidepanel__button" id="">
                         Example Project</button
-                      ><img class="menu-icon" src="./assets/menu3.svg" />
+                      ><img class="menu-icon" src="/src/assets/img/menu3.svg" />
                     </div>
                   </li>
                 </ul>
@@ -104,7 +104,7 @@
                   id="addProject-btn"
                 >
                   <div class="sidepanel__icon-container">
-                    <img src="./assets/Add.svg" alt="" />
+                    <img src="/src/assets/img/Add.svg" alt="" />
                   </div>
                   <button class="sidepanel__button sidepanel__button--project">
                     Add Project
@@ -130,8 +130,8 @@
                       </div>
                       <div class="date">2024-08-05</div>
                       <div class="list--icons">
-                        <img src="/src/assets/StarOut.svg" alt="" />
-                        <img src="/src/assets/menu3.svg" alt="" />
+                        <img src="/src/assets/img/StarOut.svg" alt="" />
+                        <img src="/src/assets/img/menu3.svg" alt="" />
                       </div>
                     </div>
                     <p class="list--description">
@@ -151,8 +151,8 @@
                       </div>
                       <div class="date">2024-08-05</div>
                       <div class="list--icons">
-                        <img src="/src/assets/StarOut.svg" alt="" />
-                        <img src="/src/assets/menu3.svg" alt="" />
+                        <img src="/src/assets/img/StarOut.svg" alt="" />
+                        <img src="/src/assets/img/menu3.svg" alt="" />
                       </div>
                     </div>
                     <p class="list--description">
@@ -164,9 +164,45 @@
                   </div>
                 </li>
               </ul>
-              <div>
-                <button id="addToDo">Add Task</button>
+              <!--  Task Form  -->
+              <!-- <form id="taskForm" class="taskform">
+                <section class="taskform__title">
+                  <input
+                    type="text"
+                    class="taskform__input taskform__input--title"
+                    placeholder="Task Name?"
+                    id="titleInput"
+                  />
+                </section>
+                <section class="taskform__details">
+                  <input
+                    type="text"
+                    class="taskform__input taskform__input--description"
+                    placeholder="Description"
+                    id="detailsInput"
+                  />
+                </section>
+                <section class="taskform__date">
+                  <input
+                    type="date"
+                    class="taskform__input taskform__input--date"
+                    id="dateInput"
+                    placeholder="Add a Date"
+                  />
+                  <span class="custom-calendar-icon"></span>
+                </section>
+              </div> -->
+            </div>
+            <div
+              class="sidepanel__buttons-container sidepanel__buttons-container--add-project"
+              id="addTask-btn"
+            >
+              <div class="sidepanel__icon-container">
+                <img src="/src/assets/img/Add.svg" alt="" />
               </div>
+              <button class="sidepanel__button sidepanel__button--project">
+                Add Task
+              </button>
             </div>
           </div>
         </section>

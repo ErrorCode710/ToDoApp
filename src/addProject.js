@@ -1,8 +1,14 @@
 //addProject.js file
 
-import {addTask} from "./addTask.js";
+import { addTask } from "./mainUi.js";
+import { commonBtn } from "./commonComponents.js";
+import menuIcon from "/src/assets/img/Menu.svg";
+import { taskStorage } from "./storage.js";
+// import { uniqueID } from "./storage.js";
 // import addTodo from "./addTask.js";
+import { setStoredUniqueID } from "./storage.js";
 
+// To Create A form on the left side panel
 function createForm() {
   const parent = document.querySelector("#projectContainer");
 
@@ -20,7 +26,7 @@ function createForm() {
   divInput.append(divIcon);
 
   const icon = document.createElement("img");
-  icon.src = "./src/assets/menu.svg";
+  icon.src = menuIcon;
   divIcon.append(icon);
 
   const input = document.createElement("input");
@@ -31,27 +37,12 @@ function createForm() {
   input.classList.add("input");
   divInput.append(input);
 
-  const divBtnCon = document.createElement("div");
-  divBtnCon.classList.add("form__button-container");
-  form.append(divBtnCon);
-
-  const addBtn = document.createElement("button");
-  addBtn.classList.add("form__button", "form__button--add");
-  addBtn.textContent = "Add";
-  addBtn.id = "submitBtn";
-  addBtn.type = "submit";
-  divBtnCon.append(addBtn);
-
-  const removeBtn = document.createElement("button");
-  removeBtn.classList.add("form__button", "form__button--remove");
-  removeBtn.id = "removeBtn";
-  removeBtn.textContent = "Cancel";
-  divBtnCon.append(removeBtn);
+  commonBtn(form, "submitProject", "removeProject");
 
   addProjectTolist();
 }
-
-function createList(projectName) {
+//DOM creation for the list
+function createList(projectName, id) {
   const parent = document.querySelector("#projectContainer");
 
   const list = document.createElement("li");
@@ -71,18 +62,19 @@ function createList(projectName) {
 
   const iconLeft = document.createElement("img");
   iconLeft.classList.add("sidepanel__button");
-  iconLeft.src = "./src/assets/Menu.svg";
+  iconLeft.src = "/assets/Menu.svg";
   divIcon.append(iconLeft);
 
   const button = document.createElement("button");
+  // const UniqueId = `button-${Date.now()}`; // Create uniqueID
   button.classList.add("sidepanel__button", "c-p");
   button.textContent = projectName;
-  button.id = projectName + "Btn";
+  button.id = id; // Passed this to add task.js
   div.append(button);
 
   const iconRight = document.createElement("img");
   iconRight.classList.add("menu-icon");
-  iconRight.src = "./src/assets/menu3.svg";
+  iconRight.src = "/assets/menu3.svg";
   div.append(iconRight);
 }
 function displayForm() {
@@ -90,17 +82,20 @@ function displayForm() {
   addBtn.addEventListener("click", createForm);
 }
 function addProjectTolist() {
-  const removeBtn = document.querySelector("#removeBtn");
+  const removeBtn = document.querySelector("#removeProject");
   const form = document.querySelector("#ProjectForm");
 
   if (form) {
     form.addEventListener("submit", (e) => {
       e.preventDefault();
+      const uniqueID = `id-${Date.now()}`; //Unique Id creator
+      setStoredUniqueID(uniqueID);
 
-      const input = document.querySelector("#projectList").value;
+      const input = document.querySelector("#projectList").value; // The value here passed to the create List and Addtask
+      createList(input, uniqueID);
+      addTask(input, uniqueID);
+      taskStorage(uniqueID);
 
-      createList(input);
-      addTask(input);
       form.remove();
     });
   }
@@ -110,4 +105,10 @@ function addProjectTolist() {
     });
   }
 }
-export { displayForm, addProjectTolist };
+function getId(uniqueID) {
+  return function () {
+    return uniqueID;
+  };
+}
+
+export { displayForm, addProjectTolist, getId };

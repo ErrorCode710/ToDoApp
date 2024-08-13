@@ -1,0 +1,33 @@
+.taskform {
+  background-color: var(--secondary);
+  border-radius: 10px;
+}
+
+.taskform__input {
+  border: none;
+  outline: none;
+  background: none;
+  width: 100%;
+  margin: 0.5rem;
+  color: var(--text);
+}
+
+.taskform__input--title {
+  font-weight: 600;
+}
+
+.taskform__input--date {
+  width: auto;
+  color: var(--text);
+  position: relative;
+}
+
+input[type="date"] {
+  padding-right: 2rem;
+  color: var(--text); /* Adjusted from white to var(--text) for consistency */
+}
+
+/* Placeholder for text inputs (not for date inputs) */
+input::placeholder {
+  color: #999;
+}

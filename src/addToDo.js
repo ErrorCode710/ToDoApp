@@ -1,62 +1,171 @@
+import { commonBtn } from "./commonComponents";
+import { getStoredUniqueID } from "./storage";
+import { arrayStorage } from "./storage";
+import { getId } from "./addProject";
+import { addProjectTolist } from "./addProject";
+import { pusher } from "./storage";
+import { displayToDo } from "./mainUi";
+// import { uniqueID } from "./storage";
+class Todo {
+  constructor(title, date, description) {
+    this.title = title;
+    this.date = date;
+    this.description = description;
+  }
+  createList() {
+    const listWrapper = document.querySelector("#listWrapper");
+
+    const listItem = document.createElement("li");
+    listItem.className = "list";
+
+    const container = document.createElement("div");
+    container.className = "list__container";
+
+    const topDiv = document.createElement("div");
+    topDiv.className = "top";
+
+    const checklistDiv = document.createElement("div");
+    checklistDiv.className = "checklist";
+
+    const checkbox = document.createElement("input");
+    checkbox.type = "checkbox";
+    checkbox.className = "checkbox";
+    const checkboxId = `checkbox-${Date.now()}`; // Unique id for each checkbox
+    checkbox.id = checkboxId;
+
+    const label = document.createElement("label");
+    label.htmlFor = "Project";
+    label.htmlFor = checkboxId;
+    label.textContent = this.title;
+
+    checklistDiv.appendChild(checkbox);
+    checklistDiv.appendChild(label);
+
+    const dateDiv = document.createElement("div");
+    dateDiv.className = "date";
+    dateDiv.textContent = this.date;
+
+    const iconsDiv = document.createElement("div");
+    iconsDiv.className = "list--icons";
+
+    const starImg = document.createElement("img");
+    starImg.src = "assets/StarOut.svg";
+    starImg.alt = "";
+    iconsDiv.appendChild(starImg);
+
+    const menuImg = document.createElement("img");
+    menuImg.src = "assets/menu3.svg";
+    menuImg.alt = "";
+    iconsDiv.appendChild(menuImg);
+
+    topDiv.appendChild(checklistDiv);
+    topDiv.appendChild(dateDiv);
+    topDiv.appendChild(iconsDiv);
+
+    const descriptionP = document.createElement("p");
+    descriptionP.className = "list--description";
+    descriptionP.textContent = this.description;
+
+    container.appendChild(topDiv);
+    container.appendChild(descriptionP);
+
+    listItem.appendChild(container);
+
+    listWrapper.appendChild(listItem);
+  }
+}
 function addToDo() {
-  const btn = document.querySelector("#addToDo");
+  const btn = document.querySelector("#addTask-btn");
   btn.addEventListener("click", () => {
-    createList();
+    createToDoForm();
+    getValueForm();
   });
 }
-function createList() {
-  const parent = document.querySelector("#listWrapper");
 
-  const list = document.createElement("li");
-  list.classList.add("list");
-  parent.append(list);
+function createToDoForm() {
+  // Select the parent element
+  const parent = document.querySelector(".list-toDo");
 
-  const listCon = document.createElement("div");
-  listCon.classList.add("list__container");
-  list.append(listCon);
+  // Create the task form container
+  const taskForm = document.createElement("form");
+  taskForm.id = "taskForm";
+  taskForm.className = "taskform";
 
-  const top = document.createElement("div");
-  top.classList.add("top");
-  listCon.append(top);
+  // Create the title section
+  const titleSection = document.createElement("section");
+  titleSection.className = "taskform__title";
 
-  const checklistCon = document.createElement("div");
-  checklistCon.classList.add("checklist");
-  top.append(checklistCon);
+  const titleInput = document.createElement("input");
+  titleInput.type = "text";
+  titleInput.className = "taskform__input taskform__input--title";
+  titleInput.placeholder = "Task Name?";
+  titleInput.id = "titleInput";
 
-  const input = document.createElement("input");
-  input.type = "checkbox";
-  input.classList.add("checkbox");
-  checklistCon.append(input);
+  titleSection.appendChild(titleInput);
 
-  const label = document.createElement("label");
-  label.setAttribute("for", "Project");
-  label.textContent = "Task Name";
-  checklistCon.append(label);
+  // Create the details section
+  const detailsSection = document.createElement("section");
+  detailsSection.className = "taskform__details";
 
-  const date = document.createElement("div");
-  date.classList.add("date");
-  date.textContent = "08-9-2024`";
-  top.append(date);
+  const detailsInput = document.createElement("input");
+  detailsInput.type = "text";
+  detailsInput.className = "taskform__input taskform__input--description";
+  detailsInput.placeholder = "Description";
+  detailsInput.id = "detailsInput";
 
-  const iconCon = document.createElement("div");
-  iconCon.classList.add("list--icons");
-  top.append(iconCon);
+  detailsSection.appendChild(detailsInput);
 
-  const img1 = document.createElement("img");
-  img1.src = "src/assets/StarOut.svg";
-  iconCon.append(img1);
+  // Create the date section
+  const dateSection = document.createElement("section");
+  dateSection.className = "taskform__date";
 
-  const img2 = document.createElement("img");
-  img2.src = "src/assets/menu3.svg";
-  iconCon.append(img2);
+  const dateInput = document.createElement("input");
+  dateInput.type = "date";
+  dateInput.className = "taskform__input taskform__input--date";
+  dateInput.id = "dateInput";
 
-  const p = document.createElement("p");
-  p.classList.add("list--description");
-  p.textContent = `Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                      Quibusdam, ea nostrum cumque ipsam tempora aut numquam
-                      atque, enim, modi dolor reprehenderit officia adipisci ad
-                      cum. Enim blanditiis placeat error iste!`;
-  listCon.append(p);
+  dateSection.appendChild(dateInput);
+
+  // Append sections to the task form
+  taskForm.appendChild(titleSection);
+  taskForm.appendChild(detailsSection);
+  taskForm.appendChild(dateSection);
+
+  parent.appendChild(taskForm);
+  commonBtn(taskForm, "addTask", "removeTask");
 }
 
+// Get the fucking value of this shit form and then passed to the class TODO
+function getValueForm() {
+  const form = document.getElementById("taskForm");
+  const removeBtn = document.querySelector("#removeTask");
+
+  if (form) {
+    form.addEventListener("submit", (e) => {
+      e.preventDefault(); // Prevent default form submission
+      console.log("clicked");
+      const title = document.querySelector("#titleInput").value;
+      const date = document.querySelector("#dateInput").value;
+      const details = document.querySelector("#detailsInput").value;
+      addToDoToArray(title, date, details);
+      form.remove();
+    });
+  }
+  removeBtn.addEventListener("click", () => {
+    form.remove();
+  });
+}
+function addToDoToArray(title, date, details) {
+  //? If we put uniqueId on the parameters we need also to put on the value form
+  const toDo = new Todo(title, date, details); // which is irrelavant
+  const uniqueId = getStoredUniqueID();
+  pusher(uniqueId, toDo);
+  // console.log(uniqueID);
+  // arrayStorage[uniqueID].push(toDo);// What we need is the unique Id from the addProject
+
+  toDo.createList();
+  return toDo;
+}
+// what we are trying to achieve i get the unique id in order to use it as our identifier and push the toDo to the arrayStorage
+function pushAray() {}
 export { addToDo };

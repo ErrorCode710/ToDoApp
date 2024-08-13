@@ -2,9 +2,8 @@
 body {
   min-height: 100svh;
   font-family: var(--ff-main);
-  /* background-color: var(--background); */
+  background-color: var(--background);
   color: var(--text-950);
-  overflow-x: scroll;
 }
 
 header {
@@ -35,7 +34,7 @@ header {
 
 header {
   /* border-bottom: 5px solid var(--ff-main); */
-  border-bottom: var(--accent) 3px solid;
+  border-bottom: var(--primary) 2px solid;
   padding: 0rem 1.5rem;
 }
 .menu-icon {
