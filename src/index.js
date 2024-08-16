@@ -12,14 +12,18 @@ import "./assets/style/form.css";
 import "./assets/style/toDoForm.css";
 
 // Js file
-import { displayForm, createForm, addProjectTolist } from "./addProject.js";
+// import { displayForm, createForm, addProjectTolist } from "./addProject.js";
 import sideBar from "./sideBar.js";
-import { addToDo } from "./addToDo.js";
-import { displayToDo } from "./mainUi.js";
+// import { addToDo } from "./addToDo.js";
+// import { displayToDo } from "./mainUi.js";
+import { ProjectController } from "./controllers/ProjectController.js";
+import { handleProjectClick } from "./controllers/ProjectController.js";
+import { toDoController } from "./controllers/ToDoController.js";
 
 document.addEventListener("DOMContentLoaded", function () {
   sideBar();
-  displayForm();
-  addProjectTolist();
-  addToDo();
+  ProjectController();
+  // handleProjectClick();
+  toDoController();
+  
 });
