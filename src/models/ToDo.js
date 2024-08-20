@@ -1,5 +1,6 @@
-import { Storage } from "../helper/storage";
+import { Storage } from "./storage.js";
 import { displayToDo } from "../views/ToDoView";
+import { isDateValid } from "../helper/isDateValid";
 export class Todo {
   constructor(title, details, date) {
     this.title = title;
@@ -16,14 +17,13 @@ export class Todo {
     };
     this.storage.addToDo(key, todo);
   }
-
   print() {
     console.log(
       `To Do: ${this.title}, details: ${this.details}, date:${this.date}`
     );
   }
-  display() {
-    return displayToDo("id", this.title, this.date, this.details);
+  previewDisplay() {
+    return displayToDo("id", this.title, isDateValid(this.date), this.details);
   }
   listID() {
     return this.storage.getIdList();
@@ -31,13 +31,7 @@ export class Todo {
   displayToDo(key) {
     const todos = this.storage.accessToDo(key);
     todos.forEach((todo) => {
-      console.log(`
-        This is the Task Name ${todo.taskName},
-        this is the Date ${todo.date}
-        this is the detais ${todo.details}
-
-        `);
-     displayToDo(key, todo.taskName, todo.date, todo.details);
+      displayToDo(key, todo.taskName, isDateValid(todo.date), todo.details);
     });
   }
 }

@@ -1,0 +1,12 @@
+/* helper Class */
+.m-0 {
+  margin-top: 0 !important;
+}
+.c-p {
+  cursor: pointer;
+}
+.click-effect {
+  border-radius: 30px;
+  background-color: var(--secondary);
+  opacity: 1;
+}

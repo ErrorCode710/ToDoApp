@@ -80,7 +80,7 @@ export function displayToDo(uniqueID, toDoTitle, toDoDate, toDoDescription) {
             id: uniqueID,
           }),
           createElement("label", {
-            htmlFor: "Project",
+            htmlFor: uniqueID,
             textContent: toDoTitle,
           })
         ),
@@ -126,4 +126,3 @@ export function displayToDo(uniqueID, toDoTitle, toDoDate, toDoDescription) {
 
   listWrapper.append(list);
 }
-

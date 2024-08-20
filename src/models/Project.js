@@ -1,7 +1,8 @@
-import { Storage } from "../helper/storage";
+import { Storage } from "./storage.js";
 import { displayProject, updateAddTaskID } from "../views/ProjectView";
 import { displayBanner } from "../views/ProjectView";
 import { clearContents } from "../views/ProjectView";
+import { toggleClickEffect } from "../views/ProjectView";
 
 export class Project {
   constructor(title) {
@@ -16,17 +17,23 @@ export class Project {
     this.storage.addProject(this.uniqueID, this.title);
     this.storage.print(this.title, this.uniqueID);
   }
+  deleteProject(id) {
+    this.storage.deleteProject(id);
+  }
   display() {
-    return displayProject(this.title, this.uniqueID);
+    displayProject(this.title, this.uniqueID);
   }
   updateBanner(id) {
     displayBanner(this.storage.access(id));
   }
   updateAddTaskId(id) {
-    updateAddTaskID(id)
+    updateAddTaskID(id);
   }
   clearContents() {
     clearContents();
+  }
+  clickEffect(e) {
+    toggleClickEffect(e);
   }
 }
 

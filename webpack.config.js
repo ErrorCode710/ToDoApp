@@ -7,7 +7,7 @@ module.exports = {
     filename: "bundle.js",
     path: path.resolve(__dirname, "dist"),
     clean: true,
-    assetModuleFilename: "assets/[name][ext]",  
+    assetModuleFilename: "assets/[name][ext]",
   },
   module: {
     rules: [
@@ -21,13 +21,14 @@ module.exports = {
       },
       {
         test: /\.html$/i,
-        loader: 'html-loader',
+        loader: "html-loader",
       },
     ],
   },
   plugins: [
     new HtmlWebpackPlugin({
       template: "./src/index.html",
+      cache: false,
     }),
   ],
   mode: "development",
@@ -37,5 +38,6 @@ module.exports = {
     port: 3300,
     open: true,
     hot: true,
+    watchFiles: ["src/**/*.html"],
   },
 };

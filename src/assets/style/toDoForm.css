@@ -31,3 +31,12 @@ input[type="date"] {
 input::placeholder {
   color: #999;
 }
+input[type="checkbox"] {
+  accent-color: var(--accent-500); /* Changes the color of the checkbox */
+  cursor: pointer; /* Adds a pointer cursor on hover */
+  border: none;
+}
+label[for="Project"] {
+  font-size: 1rem;
+  font-weight: 500;
+}

@@ -27,6 +27,10 @@
   justify-content: space-between;
   align-items: center;
 }
+.checklist {
+  display: flex;
+  align-items: center;
+}
 .date {
   border: 1px solid var(--text);
   border-radius: 15px;
@@ -49,7 +53,7 @@
   border-radius: 10px;
   display: flex;
   flex-direction: column;
-  padding: 0.5rem;
+  padding: 0.675rem;
 }
 .list--details {
   display: flex;
@@ -57,4 +61,7 @@
 }
 .list--icons {
   display: flex;
+}
+.list--description {
+  margin: 10px;
 }

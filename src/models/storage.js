@@ -11,8 +11,6 @@ export class Storage {
       ],
     },
   };
-  static TodoStorage = [];
-
   constructor() {}
   addProject(key, title) {
     if (!Storage.projectStorage[key]) {
@@ -22,24 +20,21 @@ export class Storage {
   addToDo(key, value) {
     Storage.projectStorage[key].todo.push(value);
   }
-
-  print(name, key) {
-    console.log(`Name of the project: ${name}, the key ${key}`);
-    console.log(Storage.projectStorage);
-  }
-  access(id) {
-    return Storage.projectStorage[id].title;
-  }
-  getIdList() {
-    return Object.keys(Storage.projectStorage);
-  }
   accessToDo(key) {
     const todos = Storage.projectStorage[key]?.todo;
     return todos ? todos : [];
   }
+  deleteProject(key) {
+    delete Storage.projectStorage[key];
+  }
+  print(name, key) {
+    console.log(`Name of the project: ${name}, the key ${key}`);
+    console.log(Storage.projectStorage);
+  }
+  access(key) {
+    return Storage.projectStorage[key].title;
+  }
+  getIdList() {
+    return Object.keys(Storage.projectStorage);
+  }
 }
-//get the list of Id on the array Storage and then compared it to the button clicked id if its matched then push
-
-// Adding a new todo item to the project
-// const newTodo = "Deploy the website";
-// projects[projectID].todo.push(newTodo);

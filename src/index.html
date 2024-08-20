@@ -95,16 +95,34 @@
                       </div>
                       <button class="sidepanel__button" id="ExampleProject">
                         Example Project</button
-                      ><img class="menu-icon" src="/src/assets/img/menu3.svg" />
+                      ><button class="option--button">
+                        <img
+                          class="menu-icon"
+                          src="/src/assets/img/menu3.svg"
+                        />
+                      </button>
+
+                      <!-- <div id="my-popover" popover>
+                        <p>Yeah</p>
+                      </div> -->
                     </div>
+                    <!-- <div class="option" id="my-popover" popover>
+                      <button>Rename</button>
+                      <button>Delete</button>
+                    </div> -->
                   </li>
                 </ul>
+
                 <div
                   class="sidepanel__buttons-container sidepanel__buttons-container--add-project"
                   id="addProject-btn"
                 >
                   <div class="sidepanel__icon-container">
-                    <img src="/src/assets/img/Add.svg" alt="" />
+                    <img
+                      src="/src/assets/img/Add.svg"
+                      alt="Menu Icon"
+                      id="addProjectMenu"
+                    />
                   </div>
                   <button class="sidepanel__button sidepanel__button--project">
                     Add Project
@@ -165,33 +183,6 @@
                 </li>
               </ul>
               <!--  Task Form  -->
-              <!-- <form id="taskForm" class="taskform">
-                <section class="taskform__title">
-                  <input
-                    type="text"
-                    class="taskform__input taskform__input--title"
-                    placeholder="Task Name?"
-                    id="titleInput"
-                  />
-                </section>
-                <section class="taskform__details">
-                  <input
-                    type="text"
-                    class="taskform__input taskform__input--description"
-                    placeholder="Description"
-                    id="detailsInput"
-                  />
-                </section>
-                <section class="taskform__date">
-                  <input
-                    type="date"
-                    class="taskform__input taskform__input--date"
-                    id="dateInput"
-                    placeholder="Add a Date"
-                  />
-                  <span class="custom-calendar-icon"></span>
-                </section>
-              </div> -->
             </div>
             <div
               class="sidepanel__buttons-container sidepanel__buttons-container--add-task"

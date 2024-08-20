@@ -1,0 +1,21 @@
+.option--button {
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+.option button {
+  margin: 5px 0;
+}
+/* #my-popover {
+  background: #333;
+  color: white;
+  font-weight: 400;
+  padding: 1rem;
+  max-width: 200px;
+  line-height: 1.4;
+  position: absolute;
+  top: 1rem;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+} */

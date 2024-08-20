@@ -1,6 +1,8 @@
 import { createElement } from "../helper/createElement";
 import { createButton } from "../helper/createButton";
 import menuIcon from "/src/assets/img/Menu.svg";
+import { popoverMenu } from "../controllers/ProjectController";
+import "tippy.js/themes/light.css";
 
 export function displayForm() {
   const parent = document.querySelector("#projectContainer");
@@ -59,14 +61,19 @@ export function displayProject(title, key) {
         id: key,
         "data-id": key,
       }),
-      createElement("img", {
-        className: "menu-icon",
-        src: "/assets/menu3.svg",
-      })
+      createElement(
+        "button",
+        { className: "option--button" },
+        createElement("img", {
+          className: "menu-icon addProjectMenu",
+          src: "/assets/menu3.svg",
+        })
+      )
     )
   );
 
   parent.append(list);
+  popoverMenu();
 }
 
 export function displayBanner(projectTitle) {
@@ -80,4 +87,18 @@ export function updateAddTaskID(uniqueID) {
 export function clearContents() {
   const wrapper = document.querySelector("#listWrapper");
   wrapper.innerHTML = "";
+}
+
+export function toggleClickEffect(e) {
+  const clickEvents = e.target;
+
+  const grandParent = document.querySelector("#sidenav");
+  const targetClass = grandParent.querySelectorAll(".click-effect");
+
+  targetClass.forEach((element) => {
+    element.classList.remove("click-effect");
+  });
+  if (clickEvents.parentElement.classList.contains("project--list")) {
+    clickEvents.parentElement.classList.toggle("click-effect");
+  }
 }
