@@ -2,6 +2,7 @@ import { createElement } from "../helper/createElement";
 import { createButton } from "../helper/createButton";
 import { Todo } from "../models/ToDo";
 import { TodoController } from "../controllers/ToDoController";
+import doneIcon from "../assets/img/Done.svg";
 
 export function displayToDoForm() {
   const parent = document.querySelector(".list-toDo");
@@ -64,7 +65,7 @@ export function displayToDo(
   isTodoDone = false
 ) {
   const listWrapper = document.querySelector("#listContainer");
-  strikeThrough(null);
+
   // listWrapper.innerHTML = "";
   const list = createElement(
     "li",
@@ -117,17 +118,30 @@ export function displayToDo(
           {
             className: "list--cta",
           },
-          createElement(
-            "div",
-            {
-              className: "Important",
-              id: "importantTodo",
-            },
-            createElement("img", {
-              src: "assets/StarOut.svg",
-              alt: "",
-            })
-          ),
+          !isTodoDone
+            ? createElement(
+                "div",
+                {
+                  className: "Important",
+                  id: "importantTodo",
+                },
+                createElement("img", {
+                  src: "assets/StarOut.svg",
+                  alt: "",
+                })
+              )
+            : createElement(
+                "div",
+                {
+                  className: "deleteToDo",
+                  id: "deleteDoneTodo",
+                  
+                },
+                createElement("img", {
+                  src: "assets/Done.svg",
+                  alt: "",
+                })
+              ),
           createElement(
             "div",
             {
@@ -157,29 +171,9 @@ export function displayToDo(
   listWrapper.append(list);
   const todo = new TodoController();
   todo.setUpPopoverMenu();
+  strikeThrough(null);
 }
-// export function strikeThrough(targetID = null) {
-//   if (targetID !== null) {
-//     const checkboxId = document.getElementById(targetID);
-//     const state = checkboxId.checked;
-//     const parent = document.querySelector(`[data-id="${targetID}"]`);
-//     if (parent) {
-//       if (state) {
-//         parent.classList.add("done-todo");
-//       } else {
-//         parent.classList.remove("done-todo");
-//       }
-//     }
-//   } else {
-//     const checkboxes = document.querySelectorAll(
-//       'input[type="checkbox"]:checked'
-//     );
-//     checkboxes.forEach((checkbox) => {
-//       const parent = checkbox.closest("[data-id]");
-//       parent.classList.add("done-todo");
-//     });
-//   }
-// }
+
 export function strikeThrough(targetID = null) {
   if (targetID == null) {
     const checkboxes = document.querySelectorAll(
@@ -192,7 +186,9 @@ export function strikeThrough(targetID = null) {
   } else {
     const checkboxId = document.getElementById(targetID);
     const state = checkboxId.checked;
+    console.log(state);
     const parent = document.querySelector(`[data-id="${targetID}"]`);
+
     if (parent) {
       if (state) {
         parent.classList.add("done-todo");

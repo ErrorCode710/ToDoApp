@@ -99,6 +99,8 @@
   --accent-950: #00181a;
 }
 :root[data-theme="dark"] {
+  --oppacitybg: rgba(41, 48, 61, 0.265);
+  --oppacitytxtclr: rgba(242, 242, 242, 0.228);
   --text-50: #0d0d0d;
   --text-100: #1a1a1a;
   --text-200: #333333;

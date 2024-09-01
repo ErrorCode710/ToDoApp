@@ -1,5 +1,5 @@
 import { Storage } from "./storage.js";
-import { displayToDo } from "../views/ToDoView";
+import { changeToDeleteIcon, displayToDo } from "../views/ToDoView";
 import { isDateValid } from "../helper/isDateValid";
 import { getAddTaskButtonID } from "../helper/getAddTaskButtonID.js";
 import { getData2 } from "../helper/getDataID.js";
@@ -30,7 +30,6 @@ export class Todo {
     const container = document.querySelector("#listContainer");
     container.innerHTML = "";
     this.displayToDo();
-    
   }
 
   genID() {
@@ -55,6 +54,12 @@ export class Todo {
   }
   isTodoDone(key, targetID, value) {
     this.storage.markAsDone(key, targetID, value);
+    strikeThrough(targetID);
+
+    this.renderAllTodo();
+  }
+  deleteCompletedTodo(){
+    const btn = "ds "
   }
   displayToDo() {
     console.log("display");

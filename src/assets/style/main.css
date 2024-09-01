@@ -18,6 +18,7 @@ header {
   background-color: var(--background);
   border-bottom: var(--primary) 2px solid;
   padding: 0rem 1.5rem;
+  z-index: 100;
 }
 main {
   padding-top: 60px;

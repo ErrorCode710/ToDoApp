@@ -23,7 +23,7 @@ export class TodoController {
   }
 
   setUpPopoverMenu() {
-    const elements = document.querySelectorAll(".list--cta");
+    const elements = document.querySelectorAll("#editTodo");
     tippy(elements, {
       content: `
       <div class="option" id="optionTodo">
@@ -74,15 +74,18 @@ export class TodoController {
         if (checkboxId) {
           const todo = new Todo();
           const value = checkboxId.checked;
-          strikeThrough(targetID);
           todo.isTodoDone(key, targetID, value);
+          this.handleDoneTodoRemove(targetID);
         }
       });
     } else {
       console.error(`not found`);
     }
   }
-
+  handleDoneTodoRemove(targetID) {
+    const btn = document.querySelector("#deleteDoneTodo");
+    btn.addEventListener("click", () => this.handleRemoveTodo(targetID));
+  }
   handleRemoveTodo(targetID) {
     const key = getAddTaskButtonID();
     const todo = new Todo();

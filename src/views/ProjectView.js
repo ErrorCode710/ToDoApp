@@ -4,6 +4,7 @@ import menuIcon from "/src/assets/img/Menu.svg";
 import { popoverMenu } from "../controllers/ProjectController";
 import { ProjectController } from "../controllers/ProjectController";
 import "tippy.js/themes/light.css";
+import { strikeThrough } from "./ToDoView";
 
 export function displayForm() {
   const parent = document.querySelector("#projectContainer");
