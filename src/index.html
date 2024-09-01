@@ -2,7 +2,7 @@
 <html lang="en" data-theme="dark">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
@@ -32,10 +32,8 @@
     </header>
     <main>
       <div class="main__wrapper">
-        <!-- Sidepanel Section -->
         <section class="sidepanel sidepanel-show" id="sidenav">
           <div class="sidepanel__contents grid-container">
-            <!-- Home Section -->
             <section class="sidepanel__section sidepanel__section--home">
               <h2
                 class="sidepanel__section-title sidepanel__section-title--home"
@@ -75,14 +73,15 @@
                 </div>
               </div>
             </section>
-
-            <!-- Projects Section -->
             <section class="sidepanel__section sidepanel__section--home">
               <h2 class="sidepanel__section-title">Projects</h2>
               <div
-                class="sidepanel__contents grid-container grid-container--panel m-0"
+                class="sidepanel__contents grid-container grid-container--panel grid-container--panel--project m-0"
               >
-                <ul class="project--container" id="projectContainer">
+                <ul
+                  class="project--container grid-container grid-container--panel m-1"
+                  id="projectContainer"
+                >
                   <li>
                     <div
                       class="sidepanel__buttons-container sidepanel__buttons-container--project project--list"
@@ -101,20 +100,11 @@
                           src="/src/assets/img/menu3.svg"
                         />
                       </button>
-
-                      <!-- <div id="my-popover" popover>
-                        <p>Yeah</p>
-                      </div> -->
                     </div>
-                    <!-- <div class="option" id="my-popover" popover>
-                      <button>Rename</button>
-                      <button>Delete</button>
-                    </div> -->
                   </li>
                 </ul>
-
                 <div
-                  class="sidepanel__buttons-container sidepanel__buttons-container--add-project"
+                  class="sidepanel__buttons-container sidepanel__buttons-container--add-project disableHover"
                   id="addProject-btn"
                 >
                   <div class="sidepanel__icon-container">
@@ -132,24 +122,28 @@
             </section>
           </div>
         </section>
-
-        <!-- Main Content Section -->
         <section class="main__left-panel shifted" id="main">
           <div class="left-panel__contents">
             <div class="panel--banner"><span id="banner">All Task</span></div>
             <div class="list-toDo">
-              <ul class="list-toDo--wrapper" id="listWrapper">
+              <ul class="list-toDo--wrapper" id="listContainer">
                 <li class="list">
                   <div class="list__container">
                     <div class="top">
                       <div class="checklist">
-                        <input type="checkbox" class="checkbox" />
-                        <label for="Project">Project Name</label>
+                        <input type="checkbox" class="checkbox" /><label
+                          for="Project"
+                          >Project Name</label
+                        >
                       </div>
                       <div class="date">2024-08-05</div>
-                      <div class="list--icons">
-                        <img src="/src/assets/img/StarOut.svg" alt="" />
-                        <img src="/src/assets/img/menu3.svg" alt="" />
+                      <div class="list--cta">
+                        <div class="important" id="importantTodo">
+                          <img src="/src/assets/img/StarOut.svg" alt="" />
+                        </div>
+                        <div class="editTodo" id="editTodo">
+                          <img src="/src/assets/img/menu3.svg" alt="" />
+                        </div>
                       </div>
                     </div>
                     <p class="list--description">
@@ -164,13 +158,19 @@
                   <div class="list__container">
                     <div class="top">
                       <div class="checklist">
-                        <input type="checkbox" class="checkbox" />
-                        <label for="Project">Project Name</label>
+                        <input type="checkbox" class="checkbox" /><label
+                          for="Project"
+                          >Project Name</label
+                        >
                       </div>
                       <div class="date">2024-08-05</div>
-                      <div class="list--icons">
-                        <img src="/src/assets/img/StarOut.svg" alt="" />
-                        <img src="/src/assets/img/menu3.svg" alt="" />
+                      <div class="list--cta">
+                        <div class="important" id="importantTodo">
+                          <img src="/src/assets/img/StarOut.svg" alt="" />
+                        </div>
+                        <div class="editTodo" id="editTodo">
+                          <img src="/src/assets/img/menu3.svg" alt="" />
+                        </div>
                       </div>
                     </div>
                     <p class="list--description">
@@ -182,16 +182,18 @@
                   </div>
                 </li>
               </ul>
-              <!--  Task Form  -->
             </div>
             <div
-              class="sidepanel__buttons-container sidepanel__buttons-container--add-task"
+              class="sidepanel__buttons-container sidepanel__buttons-container--add-task disableHover"
               id="addTask-btn"
             >
               <div class="sidepanel__icon-container">
                 <img src="/src/assets/img/Add.svg" alt="" />
               </div>
-              <button class="sidepanel__button sidepanel__button--project">
+              <button
+                class="sidepanel__button sidepanel__button--project"
+                id="addTask-btn"
+              >
                 Add Task
               </button>
             </div>

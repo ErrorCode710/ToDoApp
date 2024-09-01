@@ -1,28 +1,32 @@
-export function getDataID(e) {
-  const clickedElements = e.target;
-
-  if (clickedElements.classList.contains("sidepanel__button")) {
-    const dataID = clickedElements.getAttribute("data-id");
-    // console.log(dataID);
-    return dataID;
+export function getData2(selector) {
+  const inputType = handleInput(selector); //
+  if (inputType === "Event" && selector.target.type === "checkbox") {
+    return selector.target.id;
+  } else if (inputType === "Event") {
+    const id = selector.target.getAttribute("data-id");
+    return id;
+  } else if (inputType === "Element") {
+    const target = document.querySelector(selector);
+    if (target) {
+      const parent = target.closest("li");
+      const children = parent.querySelector("[data-id]");
+      return children.dataset.id;
+    }
   } else {
-    null;
+    return "Unknown input type";
   }
 }
-export function getDataID1(clickedElements, targetClass, parent) {
-  const event = clickedElements.target;
-  const grandParent = document.querySelectorAll(`.project--container`); //sidepanel__Button
+function getCheckboxID() {}
+function handleInput(input) {
+  //
 
-  // Get the project container element
-  const projectContainer = document.getElementById("projectContainer");
-
-  // Search for the first element within the project container that has a data-id attribute
-  const elementWithDataId = projectContainer.querySelector("[data-id]");
-
-  // Get the data-id attribute
-  const dataId = elementWithDataId
-    ? elementWithDataId.getAttribute("data-id")
-    : null;
-
-  console.log(dataId);
+  if (input instanceof Event) {
+    return "Event";
+  } else if (typeof input === "string" || input instanceof Element) {
+    return "Element";
+  } else {
+    return "Unknown input type";
+  }
 }
+
+// if parameter is selector proceed this condition  then if its event

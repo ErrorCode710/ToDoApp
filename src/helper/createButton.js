@@ -19,6 +19,8 @@ export function createButton(parent, addId, removeId) {
       textContent: "Cancel",
     })
   );
-  
+
   parent.append(divBtnCon);
+  divBtnCon.scrollIntoView({ behavior: "smooth", block: "start" });
+  return divBtnCon;
 }

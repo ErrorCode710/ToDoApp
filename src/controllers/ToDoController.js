@@ -1,57 +1,125 @@
 import { displayToDoForm } from "../views/ToDoView";
 import { Todo } from "../models/ToDo";
-import { accessToDoID } from "../helper/accessID";
+import { getAddTaskButtonID } from "../helper/getAddTaskButtonID";
 import { removeForm } from "../helper/removeForm";
+import tippy from "tippy.js";
+import { getData2 } from "../helper/getDataID";
+import { strikeThrough } from "../views/ToDoView";
 
-export function toDoController() {
-  const addForm = document.querySelector("#addTask-btn");
-
-  addForm.addEventListener("click", (e) => {
-    console.log("clicked");
-    const form = displayToDoForm();
-    handleFormSubmission(form);
-  });
-}
-export function handleToDoClick() {
-  const uniqueID = accessToDoID();
-  const newTodo = new Todo();
-  newTodo.displayToDo(uniqueID);
-}
-
-function handleFormSubmission(form) {
-  form.addEventListener("submit", (e) => {
-    e.preventDefault();
-    const newToDo = createToDoForm(form);
-    if (isToDoValid(newToDo)) {
-      addToDoToStorage(newToDo);
-      newToDo.previewDisplay();
-      newToDo.print();
-      form.remove();
-    } else {
-      console.log("Failed To Add To Do");
-    }
-  });
-  removeForm("#removeTask", form);
-}
-function isToDoValid(toDo) {
-  const uniqueID = accessToDoID();
-  const keyList = toDo.listID();
-  return compareKeyandID(uniqueID, keyList);
-}
-function compareKeyandID(id, key) {
-  if (id && key.includes(id)) {
-    return true;
-  } else {
-    return "No Project Found";
+export class TodoController {
+  constructor() {}
+  // INITIALIZER
+  initialize() {
+    this.setUpAddProject();
+    this.handleTodoClick();
   }
-}
-function addToDoToStorage(toDo) {
-  const uniqueID = accessToDoID();
-  toDo.addToDo(uniqueID);
-}
-function createToDoForm(form) {
-  const title = form.querySelector("#titleInput").value;
-  const details = form.querySelector("#detailsInput").value;
-  const date = form.querySelector("#dateInput").value;
-  return new Todo(title, details, date);
+  // EVENT SETUP
+  setUpAddProject() {
+    const addForm = document.querySelector("#addTask-btn");
+    addForm.addEventListener("click", () => {
+      const form = displayToDoForm();
+      this.handleFormSubmission(form);
+    });
+  }
+
+  setUpPopoverMenu() {
+    const elements = document.querySelectorAll(".list--cta");
+    tippy(elements, {
+      content: `
+      <div class="option" id="optionTodo">
+        <button id="editTodoBtn">Edit</button>
+        <button id="deleteTodoBtn">Delete</button>
+      </div>
+    `,
+      trigger: "click",
+      arrow: false,
+      allowHTML: true,
+      interactive: true,
+      onShow: (instance) => {
+        const popoverContent = instance.popper.querySelector("#optionTodo");
+        const renameButton = popoverContent.querySelector("#editTodoBtn");
+        const deleteButton = popoverContent.querySelector("#deleteTodoBtn");
+
+        renameButton.addEventListener("click", () => {});
+        deleteButton.addEventListener("click", () => {
+          const targetID = getData2("#deleteTodoBtn");
+          this.handleRemoveTodo(targetID);
+        });
+      },
+    });
+  }
+  //EVENT HANDLER
+  handleFormSubmission(form) {
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const todo = this.createToDoForm(form);
+      if (this.isToDoValid(todo)) {
+        this.formAction(todo);
+        form.remove();
+      } else {
+        console.log("Failed To Add To Do");
+      }
+    });
+    removeForm("#removeTask", form);
+  }
+
+  handleTodoClick() {
+    const parent = document.querySelector("#listContainer");
+    if (parent) {
+      parent.addEventListener("click", (e) => {
+        const key = getAddTaskButtonID();
+        const targetID = getData2(e);
+        const checkboxId = document.getElementById(targetID);
+
+        if (checkboxId) {
+          const todo = new Todo();
+          const value = checkboxId.checked;
+          strikeThrough(targetID);
+          todo.isTodoDone(key, targetID, value);
+        }
+      });
+    } else {
+      console.error(`not found`);
+    }
+  }
+
+  handleRemoveTodo(targetID) {
+    const key = getAddTaskButtonID();
+    const todo = new Todo();
+    todo.removeToDo(key, targetID);
+    todo.renderAllTodo();
+  }
+  // UTILITY
+  createToDoForm(form) {
+    const title = form.querySelector("#titleInput").value;
+    const details = form.querySelector("#detailsInput").value;
+    const date = form.querySelector("#dateInput").value;
+    return new Todo(title, details, date);
+  }
+
+  formAction(todo) {
+    const key = getAddTaskButtonID();
+    this.addToDoToStorage(todo);
+    todo.renderAllTodo();
+    todo.print();
+  }
+
+  isToDoValid(toDo) {
+    const uniqueID = getAddTaskButtonID();
+    const keyList = toDo.listID();
+    return this.compareKeyandID(uniqueID, keyList);
+  }
+
+  compareKeyandID(id, key) {
+    if (id && key.includes(id)) {
+      return true;
+    } else {
+      return "No Project Found";
+    }
+  }
+
+  addToDoToStorage(toDo) {
+    const uniqueID = getAddTaskButtonID();
+    toDo.addToDo(uniqueID);
+  }
 }

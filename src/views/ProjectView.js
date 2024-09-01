@@ -2,11 +2,12 @@ import { createElement } from "../helper/createElement";
 import { createButton } from "../helper/createButton";
 import menuIcon from "/src/assets/img/Menu.svg";
 import { popoverMenu } from "../controllers/ProjectController";
+import { ProjectController } from "../controllers/ProjectController";
 import "tippy.js/themes/light.css";
 
 export function displayForm() {
   const parent = document.querySelector("#projectContainer");
-
+  // We need to put like it only need one #projecForm here
   const form = createElement(
     "form",
     { id: "ProjectForm", className: "form" },
@@ -31,6 +32,29 @@ export function displayForm() {
   createButton(form, "submitProject", "removeProject");
 
   parent.append(form);
+  return form;
+}
+{
+  /* <input type="text" name="username" value="Default text"> */
+}
+
+export function createRenameForm(title, id) {
+  const parent = document.querySelector(id);
+  parent.textContent = "";
+  const form = createElement(
+    "form",
+    {
+      className: "renameForm",
+    },
+    createElement("input", {
+      type: "text",
+      value: title,
+      id: "renameInput",
+      classList: "input input--rename",
+    })
+  );
+  parent.append(form);
+
   return form;
 }
 export function displayProject(title, key) {
@@ -73,28 +97,29 @@ export function displayProject(title, key) {
   );
 
   parent.append(list);
-  popoverMenu();
+  list.scrollIntoView({ behavior: "smooth", block: "start" });
+  const project = new ProjectController();
+  project.setUpPopoverMenu();
+  // ProjectController.setUpPopoverMenu();
 }
 
 export function displayBanner(projectTitle) {
   const banner = document.querySelector("#banner");
   banner.innerHTML = projectTitle;
 }
-export function updateAddTaskID(uniqueID) {
+export function AssignIdToAddTask(uniqueID) {
   const btn = document.querySelector(".sidepanel__buttons-container--add-task");
   btn.id = uniqueID;
 }
 export function clearContents() {
-  const wrapper = document.querySelector("#listWrapper");
+  const wrapper = document.querySelector("#listContainer");
   wrapper.innerHTML = "";
 }
 
 export function toggleClickEffect(e) {
   const clickEvents = e.target;
-
   const grandParent = document.querySelector("#sidenav");
   const targetClass = grandParent.querySelectorAll(".click-effect");
-
   targetClass.forEach((element) => {
     element.classList.remove("click-effect");
   });

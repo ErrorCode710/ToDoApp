@@ -4,14 +4,24 @@ body {
   font-family: var(--ff-main);
   background-color: var(--background);
   color: var(--text-950);
+  overflow: scroll;
 }
 
 header {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: var(--background);
+  border-bottom: var(--primary) 2px solid;
+  padding: 0rem 1.5rem;
 }
-
+main {
+  padding-top: 60px;
+}
 /* Header Styling */
 .header__nav-btn {
   display: block;
@@ -32,14 +42,6 @@ header {
   color: var(--accent);
 }
 
-header {
-  /* border-bottom: 5px solid var(--ff-main); */
-  border-bottom: var(--primary) 2px solid;
-  padding: 0rem 1.5rem;
-}
 .menu-icon {
   width: 20px;
-  
 }
-
-

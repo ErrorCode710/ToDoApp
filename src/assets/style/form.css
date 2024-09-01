@@ -30,6 +30,7 @@
   gap: 10px;
   margin-top: 0.5rem;
   align-items: center;
+  margin-left: 1.5rem;
 }
 .form__button--add {
   background-color: var(--primary);
@@ -43,13 +44,41 @@
   gap: 5px;
   align-items: center;
 }
-.input {
+/* .input {
   border: none;
-  outline: none;
+  outline: red;
   background: none;
   width: 100%;
   margin: 0.5rem;
   color: var(--text);
+} */
+.input {
+  width: 170px;
+  box-sizing: border-box;
+  /* border: 2px solid var(--primary); */
+  border: none;
+  border-radius: 2px;
+  transition: width 0.4s ease-in-out;
+  background: none;
+  outline: 2px solid;
+  color: var(--text);
+  padding: 0 10px;
+}
+.input:valid {
+  outline-color: var(--primary);
+}
+.input:invalid {
+  outline-color: var(--secondary-500);
+}
+.input--rename {
+  margin: 0;
+  padding: 0;
+}
+.input--rename:focus {
+  width: 100%;
+}
+.input:focus {
+  width: 100%;
 }
 .taskform:last-child {
   padding-left: 0.5rem;

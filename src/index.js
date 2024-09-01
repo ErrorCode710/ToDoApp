@@ -2,9 +2,7 @@
 import "./assets/style/reset.css";
 // import "./style.css";
 import "./assets/style/main.css";
-
 import "./assets/style/globalVariable.css";
-
 import "./assets/style/sidePanel.css";
 import "./assets/style/main-leftPanel.css";
 import "./assets/style/mediaQueries.css";
@@ -14,22 +12,31 @@ import "./assets/style/option.css";
 import "./assets/style/utility.css";
 import "driver.js/dist/driver.css";
 import "tippy.js/dist/tippy.css";
+import "./assets/style/todoItems.css"
 
 // Js file
 import sideBar from "./sideBar.js";
 import { ProjectController } from "./controllers/ProjectController.js";
 import { handleProjectClick } from "./controllers/ProjectController.js";
-import { toDoController } from "./controllers/ToDoController.js";
+import {
+  TodoController,
+  toDoController,
+} from "./controllers/ToDoController.js";
 import { driver } from "driver.js";
 
 import { popoverMenu } from "./views/ProjectView.js";
 
 document.addEventListener("DOMContentLoaded", function () {
   sideBar();
-  ProjectController();
+  // toDoController();
+  const project = new ProjectController();
+  project.initializedAll();
+  const todo = new TodoController();
+  todo.initialize();
+  // ProjectController();
   // popoverMenu();
   // handleProjectClick();
-  toDoController();
+
   // const driverObj = driver({
   //   showProgress: true,
   //   steps: [

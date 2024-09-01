@@ -1,0 +1,221 @@
+import { displayForm } from "../views/ProjectView";
+import { Project } from "../models/Project";
+import { Todo } from "../models/ToDo";
+import { removeForm } from "../helper/removeForm";
+import { getData2 } from "../helper/getDataID";
+import { createRenameForm } from "../views/ProjectView";
+import tippy from "tippy.js";
+
+export function ProjectController() {
+  setUpAddProjectForm();
+  handleProjectClick();
+  dblclick();
+  // handleDeleteProject();
+}
+function setUpAddProjectForm() {
+  const addForm = document.querySelector("#addProject-btn");
+  addForm.addEventListener("click", () => {
+    const form = displayForm();
+    const input = form.querySelector('input[type="text"]');
+    input.focus();
+    handleProjectSubmission(form);
+    form.scrollIntoView({ behavior: "smooth", block: "start" });
+  });
+}
+
+function handleProjectSubmission(form) {
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    const projectName = form.querySelector("#projectList").value;
+    const newProject = new Project(projectName);
+    newProject.addNewProject();
+
+    newProject.renderAllProjects();
+
+    form.remove();
+  });
+  form.addEventListener("focusout", (e) => {
+    setTimeout(() => {
+      if (!form.contains(document.activeElement)) {
+        form.remove();
+      }
+    }, 100);
+  });
+
+  removeForm("#removeProject", form);
+}
+
+function handleProjectClick() {
+  const parent = document.querySelector("#projectContainer");
+  parent.addEventListener("click", (e) => {
+    const projectID = getData2(e);
+    console.log(projectID);
+    if (projectID) {
+      const project = new Project();
+      const todo = new Todo();
+      //Update Banner
+      project.updateBanner(projectID);
+      project.updateAddTaskId(projectID);
+      //Add Click Effect
+      project.clickEffect(e);
+      //Clear Contents
+      project.clearContents();
+      // //Display ToDo
+      todo.displayToDo(projectID);
+    }
+  });
+}
+
+function handleDeleteProject(projectID) {
+  const key = getData2(projectID);
+  const project = new Project();
+  project.removeProject(key);
+  project.renderAllProjects();
+}
+// NOTE: REFRACTOR THIS SHIT
+function handleRenameProject(projectID) {
+  const key = getData2(projectID);
+  const project = new Project();
+  const prevTitle = project.retrieveProjectTitle(`${key}`);
+  console.log(prevTitle);
+
+  const form = createRenameForm(prevTitle, `#${key}`);
+  const input = form.querySelector('input[type="text"]');
+
+  if (form) {
+    // Handle form submission
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const renameValue = input.value;
+      project.renameProject(key, renameValue);
+      project.renderAllProjects();
+      console.log(key);
+      form.remove();
+    });
+
+    // Handle double-click on the form
+    form.addEventListener("dblclick", (e) => {
+      console.log("Form double-clicked");
+      const renameValue = input.value;
+      project.renameProject(key, renameValue);
+      project.renderAllProjects();
+      console.log(key);
+    });
+
+    // Focus input field
+    input.focus();
+
+    // Handle focus out to rename
+    form.addEventListener("focusout", (e) => {
+      setTimeout(() => {
+        if (!form.contains(document.activeElement)) {
+          const liveTitle = input.value;
+          console.log(liveTitle);
+          project.renameProject(key, liveTitle);
+          project.renderAllProjects();
+          form.remove();
+        }
+      }, 100);
+    });
+  }
+}
+
+export function popoverMenu() {
+  const popover = tippy(document.querySelectorAll(".option--button"), {
+    content: `
+    <div class="option" id="option" >
+      <button id="renameBtn">Rename</button>
+      <button id="deleteBtn">Delete</button>
+    </div>
+  `,
+    trigger: "click",
+    arrow: false, // Disable the arrow
+    allowHTML: true, // Allow HTML content inside the tooltip
+    interactive: true,
+    onShow(instance) {
+      const popoverContent = instance.popper.querySelector("#option");
+      const renameButton = popoverContent.querySelector("#renameBtn");
+      const deleteButton = popoverContent.querySelector("#deleteBtn");
+
+      renameButton.addEventListener("click", () => {
+        handleRenameProject("#renameBtn");
+      });
+
+      deleteButton.addEventListener("click", () => {
+        console.log("Click");
+        handleDeleteProject("#deleteBtn");
+      });
+    },
+    onHide(instance) {
+      // Remove event listeners if necessary when the popover is hidden
+      const popoverContent = instance.popper.querySelector("#option");
+
+      const renameButton = popoverContent.querySelector("#renameButton");
+      const deleteButton = popoverContent.querySelector("#deleteButton");
+
+      if (renameButton && deleteButton) {
+        // Remove event listeners using the stored handlers
+        renameButton.removeEventListener("click", instance._renameHandler);
+        deleteButton.removeEventListener("click", instance._deleteHandler);
+      }
+    },
+  });
+}
+import { displayToDoForm } from "../views/ToDoView";
+import { Todo } from "../models/ToDo";
+import { accessToDoID } from "../helper/accessID";
+import { removeForm } from "../helper/removeForm";
+
+export function toDoController() {
+  const addForm = document.querySelector("#addTask-btn");
+
+  addForm.addEventListener("click", (e) => {
+    console.log("clicked");
+    const form = displayToDoForm();
+    handleFormSubmission(form);
+  });
+}
+export function handleToDoClick() {
+  const uniqueID = accessToDoID();
+  const newTodo = new Todo();
+  newTodo.displayToDo(uniqueID);
+}
+
+function handleFormSubmission(form) {
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const newToDo = createToDoForm(form);
+    if (isToDoValid(newToDo)) {
+      addToDoToStorage(newToDo);
+      newToDo.previewDisplay();
+      newToDo.print();
+      form.remove();
+    } else {
+      console.log("Failed To Add To Do");
+    }
+  });
+  removeForm("#removeTask", form);
+}
+function isToDoValid(toDo) {
+  const uniqueID = accessToDoID();
+  const keyList = toDo.listID();
+  return compareKeyandID(uniqueID, keyList);
+}
+function compareKeyandID(id, key) {
+  if (id && key.includes(id)) {
+    return true;
+  } else {
+    return "No Project Found";
+  }
+}
+function addToDoToStorage(toDo) {
+  const uniqueID = accessToDoID();
+  toDo.addToDo(uniqueID);
+}
+function createToDoForm(form) {
+  const title = form.querySelector("#titleInput").value;
+  const details = form.querySelector("#detailsInput").value;
+  const date = form.querySelector("#dateInput").value;
+  return new Todo(title, details, date);
+}

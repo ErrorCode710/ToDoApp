@@ -8,9 +8,6 @@ import tippy from "tippy.js";
 // Refactored ProjectController Class
 export class ProjectController {
   constructor() {
-    console.log("ProjectController initialized"); // Debug log
-  }
-  initializedAll() {
     this.setUpAddProjectForm();
     this.handleProjectClick();
     this.setUpPopoverMenu();
@@ -18,18 +15,12 @@ export class ProjectController {
 
   setUpAddProjectForm() {
     const addForm = document.querySelector("#addProject-btn");
-
-    if (addForm) {
-      addForm.addEventListener("click", () => {
-        const form = displayForm();
-        const input = form.querySelector('input[type="text"]');
-        this.handleFormFocus(form, input, null, null);
-        form.scrollIntoView({ behavior: "smooth", block: "start" });
-        this.handleProjectSubmission(form);
-      });
-    } else {
-      console.error("Add project button not found"); // Debug log
-    }
+    addForm.addEventListener("click", () => {
+      const form = displayForm();
+      const input = form.querySelector('input[type="text"]');
+      this.handleFormFocus(form, input, null, null); // Setup form with default values
+      form.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
   }
 
   handleProjectSubmission(form) {
@@ -51,26 +42,22 @@ export class ProjectController {
 
   handleProjectClick() {
     const parent = document.querySelector("#projectContainer");
-    if (parent) {
-      console.log("Project container found"); // Debug log
-      parent.addEventListener("click", (e) => {
-        const projectID = getData2(e);
-        if (projectID) {
-          console.log("Project ID found:", projectID);
-          const project = new Project();
-          const todo = new Todo();
-          this.handleProjectActions(projectID, project, todo, e);
-        }
-      });
-    }
+    parent.addEventListener("click", (e) => {
+      const projectID = getData2(e);
+      if (projectID) {
+        const project = new Project();
+        const todo = new Todo();
+        this.handleProjectActions(projectID, project, todo);
+      }
+    });
   }
 
-  handleProjectActions(projectID, project, todo, event) {
+  handleProjectActions(projectID, project, todo) {
     project.updateBanner(projectID);
-    project.AssignIdToAddTask(projectID);
-    project.clickEffect(event);
+    project.updateAddTaskId(projectID);
+    project.clickEffect(e);
     project.clearContents();
-    todo.displayToDo();
+    todo.displayToDo(projectID);
   }
 
   handleDeleteProject(projectID) {
@@ -83,7 +70,6 @@ export class ProjectController {
   handleRenameProject(projectID) {
     const key = getData2(projectID);
     const project = new Project();
-    console.log(`Rename Project:${key}`);
     const prevTitle = project.retrieveProjectTitle(`${key}`);
     const form = createRenameForm(prevTitle, `#${key}`);
     const input = form.querySelector('input[type="text"]');
@@ -92,19 +78,12 @@ export class ProjectController {
       this.handleFormFocus(form, input, key, project);
     }
   }
-  handleRename(e, key, input, project, form) {
-    e.preventDefault();
-    const renameValue = input.value;
-    project.renameProject(key, renameValue);
-    project.renderAllProjects();
-    form.remove();
-  }
 
   handleFormFocus(form, input, key, project) {
     if (key && project) {
       form.addEventListener("submit", (e) => {
         e.preventDefault();
-        this.handleRename(e, key, input, project, form);
+        this.handleRename(e, key, input, project);
       });
       form.addEventListener("focusout", (e) => {
         e.preventDefault();
@@ -113,6 +92,15 @@ export class ProjectController {
     }
     input.focus();
   }
+
+  handleRename(e, key, input, project) {
+    e.preventDefault();
+    const renameValue = input.value;
+    project.renameProject(key, renameValue);
+    project.renderAllProjects();
+    form.remove();
+  }
+
   handleFocusOut(form, key, input, project) {
     setTimeout(() => {
       if (!form.contains(document.activeElement)) {
@@ -123,10 +111,11 @@ export class ProjectController {
       }
     }, 100);
   }
+
   setUpPopoverMenu() {
     tippy(document.querySelectorAll(".option--button"), {
       content: `
-      <div class="option" id="option">
+      <div class="option" id="option" >
         <button id="renameBtn">Rename</button>
         <button id="deleteBtn">Delete</button>
       </div>
@@ -136,19 +125,16 @@ export class ProjectController {
       allowHTML: true,
       interactive: true,
       onShow: (instance) => {
-        // Use arrow function here to preserve `this`
         const popoverContent = instance.popper.querySelector("#option");
         const renameButton = popoverContent.querySelector("#renameBtn");
         const deleteButton = popoverContent.querySelector("#deleteBtn");
 
-        // Add event listeners using arrow functions
         renameButton.addEventListener("click", () => {
-          this.handleRenameProject("#renameBtn");
-          console.log(this.handleRenameProject);
+          this.handleRenameProject(instance.reference.dataset.projectId);
         });
 
         deleteButton.addEventListener("click", () => {
-          this.handleDeleteProject("#deleteBtn");
+          this.handleDeleteProject(instance.reference.dataset.projectId);
         });
       },
     });

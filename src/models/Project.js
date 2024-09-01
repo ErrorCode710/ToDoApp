@@ -3,6 +3,7 @@ import { displayProject, updateAddTaskID } from "../views/ProjectView";
 import { displayBanner } from "../views/ProjectView";
 import { clearContents } from "../views/ProjectView";
 import { toggleClickEffect } from "../views/ProjectView";
+import { AssignIdToAddTask } from "../views/ProjectView";
 
 export class Project {
   constructor(title) {
@@ -13,21 +14,31 @@ export class Project {
   genID() {
     return "proj-" + Date.now();
   }
-  addProject() {
-    this.storage.addProject(this.uniqueID, this.title);
+  addNewProject() {
+    this.storage.createProject(this.uniqueID, this.title);
     this.storage.print(this.title, this.uniqueID);
   }
-  deleteProject(id) {
-    this.storage.deleteProject(id);
+  removeProject(id) {
+    this.storage.removeProject(id);
   }
-  display() {
-    displayProject(this.title, this.uniqueID);
+  renameProject(key, newtitle) {
+    this.storage.renameProject(key, newtitle);
+  }
+  renderAllProjects() {
+    const parent = document.querySelector("#projectContainer");
+    parent.innerHTML = "";
+    for (let key in Storage.projectStorage) {
+      if (Storage.projectStorage.hasOwnProperty(key)) {
+        const project = Storage.projectStorage[key];
+        displayProject(project.title, key);
+      }
+    }
   }
   updateBanner(id) {
-    displayBanner(this.storage.access(id));
+    displayBanner(this.storage.retrieveProjectTitle(id));
   }
-  updateAddTaskId(id) {
-    updateAddTaskID(id);
+  AssignIdToAddTask(id) {
+    AssignIdToAddTask(id);
   }
   clearContents() {
     clearContents();
@@ -35,13 +46,8 @@ export class Project {
   clickEffect(e) {
     toggleClickEffect(e);
   }
+  retrieveProjectTitle(id) {
+    const title = this.storage.retrieveProjectTitle(id);
+    return title;
+  }
 }
-
-// push project to array as it becomes like this
-// arrayStorage['id1'].push('value1')
-
-// id1 is the indentifier
-// we need to push the uniqueID to the arrayStorage
-// PROBLEM
-// How can we passed the id on the updateBanner to
-// We need to get the uniqueID

@@ -1,5 +1,7 @@
 import { createElement } from "../helper/createElement";
 import { createButton } from "../helper/createButton";
+import { Todo } from "../models/ToDo";
+import { TodoController } from "../controllers/ToDoController";
 
 export function displayToDoForm() {
   const parent = document.querySelector(".list-toDo");
@@ -50,10 +52,20 @@ export function displayToDoForm() {
 
   parent.append(taskForm);
   createButton(taskForm, "addTask", "removeTask");
+
   return taskForm;
 }
-export function displayToDo(uniqueID, toDoTitle, toDoDate, toDoDescription) {
-  const listWrapper = document.querySelector("#listWrapper");
+export function displayToDo(
+  uniqueID,
+  toDoTitle,
+  toDoDate,
+  toDoDescription,
+  todoID,
+  isTodoDone = false
+) {
+  const listWrapper = document.querySelector("#listContainer");
+  strikeThrough(null);
+  // listWrapper.innerHTML = "";
   const list = createElement(
     "li",
     {
@@ -63,6 +75,7 @@ export function displayToDo(uniqueID, toDoTitle, toDoDate, toDoDescription) {
       "div",
       {
         className: "list__container",
+        "data-id": todoID,
       },
       createElement(
         "div",
@@ -78,51 +91,114 @@ export function displayToDo(uniqueID, toDoTitle, toDoDate, toDoDescription) {
             type: "checkbox",
             className: "checkbox",
             id: uniqueID,
+            checked: isTodoDone,
           }),
-          createElement("label", {
-            htmlFor: uniqueID,
-            textContent: toDoTitle,
-          })
+          createElement(
+            "label",
+            {
+              htmlFor: uniqueID,
+            },
+            createElement("span", {
+              textContent: toDoTitle,
+            })
+          )
         ),
-        createElement("div", {
-          className: "date",
-          textContent: toDoDate,
-        }),
         createElement(
           "div",
           {
-            className: "list--icons",
+            className: "date",
           },
-          createElement("img", {
-            src: "assets/StarOut.svg",
-            alt: "",
-          }),
-          createElement("img", {
-            src: "assets/menu3.svg",
-            alt: "",
+          createElement("span", {
+            textContent: toDoDate,
           })
+        ),
+        createElement(
+          "div",
+          {
+            className: "list--cta",
+          },
+          createElement(
+            "div",
+            {
+              className: "Important",
+              id: "importantTodo",
+            },
+            createElement("img", {
+              src: "assets/StarOut.svg",
+              alt: "",
+            })
+          ),
+          createElement(
+            "div",
+            {
+              className: "editTodo",
+              id: "editTodo",
+            },
+            createElement("img", {
+              src: "assets/menu3.svg",
+              alt: "",
+            })
+          )
         )
       ),
-      createElement("p", {
-        className: "list--description",
-        textContent: toDoDescription,
-      })
+      createElement(
+        "p",
+        {
+          className: "list--description",
+          // textContent: toDoDescription,
+        },
+        createElement("span", {
+          textContent: toDoDescription,
+        })
+      )
     )
   );
 
-  // const list = createElement(
-  //   "li",
-  //   {
-  //     className: "list",
-  //   },
-  //   createElement(
-  //     "div",
-  //     {
-  //       className: "list__container",
-  //     },
-  //     createElement("div,")
-  //   )
-  // );
-
   listWrapper.append(list);
+  const todo = new TodoController();
+  todo.setUpPopoverMenu();
+}
+// export function strikeThrough(targetID = null) {
+//   if (targetID !== null) {
+//     const checkboxId = document.getElementById(targetID);
+//     const state = checkboxId.checked;
+//     const parent = document.querySelector(`[data-id="${targetID}"]`);
+//     if (parent) {
+//       if (state) {
+//         parent.classList.add("done-todo");
+//       } else {
+//         parent.classList.remove("done-todo");
+//       }
+//     }
+//   } else {
+//     const checkboxes = document.querySelectorAll(
+//       'input[type="checkbox"]:checked'
+//     );
+//     checkboxes.forEach((checkbox) => {
+//       const parent = checkbox.closest("[data-id]");
+//       parent.classList.add("done-todo");
+//     });
+//   }
+// }
+export function strikeThrough(targetID = null) {
+  if (targetID == null) {
+    const checkboxes = document.querySelectorAll(
+      'input[type="checkbox"]:checked'
+    );
+    checkboxes.forEach((checkbox) => {
+      const parent = checkbox.closest("[data-id]");
+      parent.classList.add("done-todo");
+    });
+  } else {
+    const checkboxId = document.getElementById(targetID);
+    const state = checkboxId.checked;
+    const parent = document.querySelector(`[data-id="${targetID}"]`);
+    if (parent) {
+      if (state) {
+        parent.classList.add("done-todo");
+      } else if (state === false) {
+        parent.classList.remove("done-todo");
+      }
+    }
+  }
 }
