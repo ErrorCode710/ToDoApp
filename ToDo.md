@@ -15,7 +15,7 @@
   - [x] <span style="color:#50fa7b;"><s>View To-Dos</s></span> ✨
   - [ ] Edit To-Dos ⭐
   - [x] Delete To-Dos ⭐
-  - [ ]🔵 Done To-Dos⭐
+  - [x] 🔵 Done To-Dos⭐
 
 - [ ] 2. Project Management
 
@@ -39,7 +39,9 @@
   - [x] <span style="color:#50fa7b;"><s>Refactor the handleRename function</s></span> ✨
   - [ ] Fix styling issues of input fields on smaller screens ⭐
   - [ ] Ensure click effect persists when adding a new project ⭐
-  - [ ] Expand the side panel to fit the screen ⭐
-
+  - [x] Expand the side panel to fit the screen ⭐
+  - [ ] If we delete the a project the todo panel automatically reflect the above todo
+  - [ ] When the project list become long the add task form affected and cant be seen
+        
 
 

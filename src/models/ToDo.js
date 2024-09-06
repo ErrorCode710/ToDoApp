@@ -62,7 +62,6 @@ export class Todo {
     const btn = "ds "
   }
   displayToDo() {
-    console.log("display");
     const key = getAddTaskButtonID();
     const todos = this.storage.retrieveTodos(key);
     todos.forEach((todo) => {
@@ -77,4 +76,4 @@ export class Todo {
     });
   }
 }
-// goal is to set the checkbox id relative to the list data-id
+

@@ -31,9 +31,13 @@ export class Storage {
     return index;
   }
   removeTodo(key, targetID) {
-    const index = this.findTodoIndex(key, targetID);
-    Storage.projectStorage[key]["todo"].splice(index, 1);
-    return Storage.projectStorage;
+    if (targetID) {
+      const index = this.findTodoIndex(key, targetID);
+      Storage.projectStorage[key]["todo"].splice(index, 1);
+      return Storage.projectStorage;
+    } else {
+      console.error(`${targetID} is not found`);
+    }
   }
   markAsDone(key, targetID, value) {
     const index = this.findTodoIndex(key, targetID);

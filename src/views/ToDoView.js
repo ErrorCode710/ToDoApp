@@ -97,7 +97,7 @@ export function displayToDo(
           createElement(
             "label",
             {
-              htmlFor: uniqueID,
+              htmlFor: "Project",
             },
             createElement("span", {
               textContent: toDoTitle,
@@ -134,8 +134,7 @@ export function displayToDo(
                 "div",
                 {
                   className: "deleteToDo",
-                  id: "deleteDoneTodo",
-                  
+                  id: `deleteDoneTodo-${todoID}`,
                 },
                 createElement("img", {
                   src: "assets/Done.svg",
@@ -186,7 +185,6 @@ export function strikeThrough(targetID = null) {
   } else {
     const checkboxId = document.getElementById(targetID);
     const state = checkboxId.checked;
-    console.log(state);
     const parent = document.querySelector(`[data-id="${targetID}"]`);
 
     if (parent) {

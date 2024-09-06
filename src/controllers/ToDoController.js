@@ -24,30 +24,56 @@ export class TodoController {
 
   setUpPopoverMenu() {
     const elements = document.querySelectorAll("#editTodo");
+    console.log(`Found Elements:`, Array.from(elements));
+
+    if (elements.length === 0) {
+      console.error("No elements found with ID 'editTodo'");
+      return;
+    }
+
     tippy(elements, {
       content: `
-      <div class="option" id="optionTodo">
-        <button id="editTodoBtn">Edit</button>
-        <button id="deleteTodoBtn">Delete</button>
-      </div>
-    `,
+    <div class="option" id="optionTodo">
+      <button id="editTodoBtn">Edit</button>
+      <button id="deleteTodoBtn">Delete</button>
+    </div>
+  `,
       trigger: "click",
       arrow: false,
       allowHTML: true,
       interactive: true,
       onShow: (instance) => {
-        const popoverContent = instance.popper.querySelector("#optionTodo");
-        const renameButton = popoverContent.querySelector("#editTodoBtn");
-        const deleteButton = popoverContent.querySelector("#deleteTodoBtn");
-
-        renameButton.addEventListener("click", () => {});
-        deleteButton.addEventListener("click", () => {
-          const targetID = getData2("#deleteTodoBtn");
-          this.handleRemoveTodo(targetID);
-        });
+        console.log("Popover is being shown");
+        console.log(
+          "Popover content:",
+          instance.popper.querySelector(".option")
+        );
+        console.log(
+          "Rename button:",
+          instance.popper.querySelector("#editTodoBtn")
+        );
+        console.log(
+          "Delete button:",
+          instance.popper.querySelector("#deleteTodoBtn")
+        );
+      },
+      onHidden: (instance) => {
+        console.log("Popover is hidden");
       },
     });
+
+    // Additional check for visibility with increased timeout
+    setTimeout(() => {
+      const popperElement = document.querySelector("[data-tippy-root]");
+      console.log("Instance popper element:", popperElement);
+      if (popperElement) {
+        console.log("Parent of popper element:", popperElement.parentElement);
+      } else {
+        console.error("Popper element not found");
+      }
+    }, 2000); // Increased timeout duration
   }
+
   //EVENT HANDLER
   handleFormSubmission(form) {
     form.addEventListener("submit", (e) => {
@@ -67,15 +93,19 @@ export class TodoController {
     const parent = document.querySelector("#listContainer");
     if (parent) {
       parent.addEventListener("click", (e) => {
+        console.log("handleTodoClick triggered");
+
+        e.stopPropagation();
         const key = getAddTaskButtonID();
         const targetID = getData2(e);
         const checkboxId = document.getElementById(targetID);
 
         if (checkboxId) {
+          console.log("Checkbox ID found:", checkboxId);
           const todo = new Todo();
           const value = checkboxId.checked;
           todo.isTodoDone(key, targetID, value);
-          this.handleDoneTodoRemove(targetID);
+          // this.handleDoneTodoRemove(targetID);
         }
       });
     } else {
@@ -83,8 +113,17 @@ export class TodoController {
     }
   }
   handleDoneTodoRemove(targetID) {
-    const btn = document.querySelector("#deleteDoneTodo");
-    btn.addEventListener("click", () => this.handleRemoveTodo(targetID));
+    const parent = document.querySelector("#listContainer");
+    if (parent) {
+      parent.addEventListener("click", (e) => {
+        const btn = e.target.closest(`#deleteDoneTodo-${targetID}`);
+        if (btn) {
+          this.handleRemoveTodo(targetID);
+        }
+      });
+    } else {
+      console.error(`Parent element not found`);
+    }
   }
   handleRemoveTodo(targetID) {
     const key = getAddTaskButtonID();

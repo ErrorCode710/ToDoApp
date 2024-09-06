@@ -38,7 +38,6 @@ export class ProjectController {
 
     form.addEventListener("submit", (e) => {
       e.preventDefault();
-      console.log("Form submitted"); // Debug log
       const projectName = input.value;
       const newProject = new Project(projectName);
       newProject.addNewProject();
@@ -56,7 +55,6 @@ export class ProjectController {
       parent.addEventListener("click", (e) => {
         const projectID = getData2(e);
         if (projectID) {
-          console.log("Project ID found:", projectID);
           const project = new Project();
           const todo = new Todo();
           this.handleProjectActions(projectID, project, todo, e);
