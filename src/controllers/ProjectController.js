@@ -70,13 +70,11 @@ export class ProjectController {
           }
         });
 
-        // Mark the event listener as attached
         parent.dataset.listenerAttached = true;
-        parent.setAttribute("data-listener-attached", "true"); // Explicitly set the attribute
+        parent.setAttribute("data-listener-attached", "true");
       }
     }
   }
-  // if projectID didnt much to any of project id on storage return 0
   handleProjectActions(projectID, project, todo, event) {
     const found = this.isProjectValid(projectID);
     if (found) {
