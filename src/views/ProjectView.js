@@ -63,7 +63,7 @@ export function displayProject(title, key) {
   // parent.innerHTML = "";
   const list = createElement(
     "li",
-    {},
+    { "data-id": key },
     createElement(
       "div",
       {
@@ -119,12 +119,22 @@ export function clearContents() {
 
 export function toggleClickEffect(e) {
   const clickEvents = e.target;
+  if (!clickEvents) {
+    console.error("Event target is undefined");
+    return;
+  }
+
   const grandParent = document.querySelector("#sidenav");
   const targetClass = grandParent.querySelectorAll(".click-effect");
   targetClass.forEach((element) => {
     element.classList.remove("click-effect");
   });
-  if (clickEvents.parentElement.classList.contains("project--list")) {
-    clickEvents.parentElement.classList.toggle("click-effect");
+
+  const projectList = clickEvents.closest(".project--list");
+  console.log(`Hmmm: ${projectList}`);
+  if (projectList) {
+    projectList.classList.toggle("click-effect");
+  } else {
+    console.log("Element not found");
   }
 }

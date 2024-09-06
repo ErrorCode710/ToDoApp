@@ -58,7 +58,12 @@ export class Storage {
     console.log(Storage.projectStorage);
   }
   retrieveProjectTitle(key) {
-    return Storage.projectStorage[key].title;
+    if (key) {
+      console.log(`test key is ${key}`)
+      return Storage.projectStorage[key].title;
+    } else {
+      return "No key Found";
+    }
   }
   retrieveProjectIds() {
     return Object.keys(Storage.projectStorage);

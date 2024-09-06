@@ -15,7 +15,7 @@ export class ProjectController {
     this.handleProjectClick();
     this.setUpPopoverMenu();
   }
-
+  //EVENT SETUP
   setUpAddProjectForm() {
     const addForm = document.querySelector("#addProject-btn");
 
@@ -31,7 +31,7 @@ export class ProjectController {
       console.error("Add project button not found"); // Debug log
     }
   }
-
+  // EVENT HANDLER
   handleProjectSubmission(form) {
     const input = form.querySelector('input[type="text"]');
     this.handleFormFocus(form, input, null, null);
@@ -49,31 +49,57 @@ export class ProjectController {
   }
 
   handleProjectClick() {
+    console.log("handleProjectClick method called");
     const parent = document.querySelector("#projectContainer");
     if (parent) {
       console.log("Project container found"); // Debug log
-      parent.addEventListener("click", (e) => {
-        const projectID = getData2(e);
-        if (projectID) {
-          const project = new Project();
-          const todo = new Todo();
-          this.handleProjectActions(projectID, project, todo, e);
-        }
-      });
+
+      // Check if the event listener is already attached
+      if (!parent.dataset.listenerAttached) {
+        parent.addEventListener("click", (e) => {
+          e.stopPropagation();
+          const projectID = getData2(e);
+          console.log(`Project ID found: ${projectID}`);
+
+          if (projectID) {
+            const project = new Project();
+            const todo = new Todo();
+            this.handleProjectActions(projectID, project, todo, e);
+          } else {
+            console.log("No project found");
+          }
+        });
+
+        // Mark the event listener as attached
+        parent.dataset.listenerAttached = true;
+        parent.setAttribute("data-listener-attached", "true"); // Explicitly set the attribute
+      }
     }
   }
-
+  // if projectID didnt much to any of project id on storage return 0
   handleProjectActions(projectID, project, todo, event) {
-    project.updateBanner(projectID);
-    project.AssignIdToAddTask(projectID);
-    project.clickEffect(event);
-    project.clearContents();
-    todo.displayToDo();
+    const found = this.isProjectValid(projectID);
+    if (found) {
+      project.updateBanner(projectID);
+      project.AssignIdToAddTask(projectID);
+      project.clickEffect(event);
+      project.clearContents();
+      todo.displayToDo();
+    } else {
+      console.log("error");
+    }
   }
 
   handleDeleteProject(projectID) {
     const key = getData2(projectID);
     const project = new Project();
+    const parent = document.querySelector("#projectContainer");
+    if (parent) {
+      parent.removeEventListener("click", this.handleProjectClick);
+      parent.dataset.listenerAttached = false;
+      parent.removeAttribute("data-listener-attached");
+    }
+
     project.removeProject(key);
     project.renderAllProjects();
   }
@@ -121,6 +147,15 @@ export class ProjectController {
       }
     }, 100);
   }
+  // UTILITY
+  isProjectValid(projectID) {
+    const project = new Project();
+    const isProjectValid = project.retrieveProject(projectID);
+    const found = isProjectValid.some((key) => {
+      return key === projectID;
+    });
+    return found;
+  }
   setUpPopoverMenu() {
     tippy(document.querySelectorAll(".option--button"), {
       content: `
@@ -134,15 +169,12 @@ export class ProjectController {
       allowHTML: true,
       interactive: true,
       onShow: (instance) => {
-        // Use arrow function here to preserve `this`
         const popoverContent = instance.popper.querySelector("#option");
         const renameButton = popoverContent.querySelector("#renameBtn");
         const deleteButton = popoverContent.querySelector("#deleteBtn");
 
-        // Add event listeners using arrow functions
         renameButton.addEventListener("click", () => {
           this.handleRenameProject("#renameBtn");
-          console.log(this.handleRenameProject);
         });
 
         deleteButton.addEventListener("click", () => {

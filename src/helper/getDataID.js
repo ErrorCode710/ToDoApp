@@ -4,12 +4,12 @@ export function getData2(selector) {
     return selector.target.id;
   } else if (inputType === "Event") {
     let id = selector.target.getAttribute("data-id"); // if it cant find the data id on this area search for parents
-    if(!id){
-      const parent = selector.target.closest("[data-id]")
-      if(parent){
-        id = parent.getAttribute("data-id")
+    if (!id) {
+      const parent = selector.target.closest("[data-id]");
+      if (parent) {
+        id = parent.getAttribute("data-id");
       }
-      return id
+      return id;
     }
     return id;
   } else if (inputType === "Element") {
@@ -23,7 +23,7 @@ export function getData2(selector) {
     return "Unknown input type";
   }
 }
-function getCheckboxID() {}
+
 function handleInput(input) {
   //
 

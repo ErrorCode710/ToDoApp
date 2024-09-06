@@ -42,6 +42,7 @@
   - [x] Expand the side panel to fit the screen ⭐
   - [ ] If we delete the a project the todo panel automatically reflect the above todo
   - [ ] When the project list become long the add task form affected and cant be seen
+  - [x] On Project rename avoid No input
         
 
 

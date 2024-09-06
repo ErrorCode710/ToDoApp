@@ -21,8 +21,18 @@ export class Project {
   removeProject(id) {
     this.storage.removeProject(id);
   }
+  retrieveProject(id) {
+    return this.storage.retrieveProjectIds(id);
+  }
   renameProject(key, newtitle) {
-    this.storage.renameProject(key, newtitle);
+    if (newtitle === "") {
+      const prevTitle = this.retrieveProjectTitle(`${key}`);
+      this.storage.renameProject(key, prevTitle);
+      this.updateBanner(key);
+    } else {
+      this.storage.renameProject(key, newtitle);
+      this.updateBanner(key);
+    }
   }
   renderAllProjects() {
     const parent = document.querySelector("#projectContainer");
@@ -48,6 +58,8 @@ export class Project {
   }
   retrieveProjectTitle(id) {
     const title = this.storage.retrieveProjectTitle(id);
-    return title;
+    if (id) {
+      return title;
+    }
   }
 }
