@@ -55,10 +55,10 @@ export class Todo {
   isTodoDone(key, targetID, value) {
     this.storage.markAsDone(key, targetID, value);
     strikeThrough(targetID);
-    // this.renderAllTodo();
+    this.renderAllTodo();
   }
-  deleteCompletedTodo(){
-    const btn = "ds "
+  deleteCompletedTodo() {
+    const btn = "ds ";
   }
   displayToDo() {
     const key = getAddTaskButtonID();
@@ -75,4 +75,3 @@ export class Todo {
     });
   }
 }
-

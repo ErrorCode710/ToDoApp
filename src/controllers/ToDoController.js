@@ -40,13 +40,31 @@ export class TodoController {
         const renameButton = popoverContent.querySelector("#editTodoBtn");
         const deleteButton = popoverContent.querySelector("#deleteTodoBtn");
 
-        renameButton.addEventListener("click", () => {});
-        deleteButton.addEventListener("click", () => {
+        popoverContent.addEventListener("click", (e) => {
+          e.stopPropagation();
+          e.stopImmediatePropagation();
+          logEventPhase(e);
+        });
+        renameButton.addEventListener("click", (e) => {
+          e.stopPropagation();
+        });
+        deleteButton.addEventListener("click", (e) => {
+          e.stopPropagation();
           const targetID = getData2("#deleteTodoBtn");
           this.handleRemoveTodo(targetID);
         });
       },
     });
+  }
+  logEventPhase(e) {
+    const phaseNames = ["capturing", "target", "bubbling"];
+    console.log(
+      `Event type: ${e.type} | Phase: ${
+        phaseNames[e.eventPhase - 1]
+      } | Target: ${e.target.tagName} | Current Target: ${
+        e.currentTarget.tagName
+      }`
+    );
   }
 
   //EVENT HANDLER
@@ -65,22 +83,23 @@ export class TodoController {
   }
 
   handleTodoClick() {
+    console.log("handletTodoClick is running");
     const parent = document.querySelector("#listContainer");
     if (parent) {
       parent.addEventListener("click", (e) => {
-        console.log("handleTodoClick triggered");
-
         e.stopPropagation();
-        const key = getAddTaskButtonID();
-        const targetID = getData2(e);
-        const checkboxId = document.getElementById(targetID);
+        const found = document.querySelector("#optionTodo");
+        if (!found) {
+          const key = getAddTaskButtonID();
+          const targetID = getData2(e);
+          const checkboxId = document.getElementById(targetID);
 
-        if (checkboxId) {
-          const todo = new Todo();
-          const value = checkboxId.checked;
-          todo.isTodoDone(key, targetID, value);
-
-          this.handleDoneTodoRemove(targetID);
+          if (checkboxId) {
+            const todo = new Todo();
+            const value = checkboxId.checked;
+            todo.isTodoDone(key, targetID, value);
+            this.handleDoneTodoRemove(targetID);
+          }
         }
       });
     } else {
@@ -89,16 +108,13 @@ export class TodoController {
   }
   handleDoneTodoRemove(targetID) {
     const parent = document.querySelector("#listContainer");
-    if (parent) {
-      parent.addEventListener("click", (e) => {
-        const btn = e.target.closest(`#deleteDoneTodo-${targetID}`);
-        if (btn) {
-          this.handleRemoveTodo(targetID);
-        }
-      });
-    } else {
-      console.error(`Parent element not found`);
-    }
+    parent.addEventListener("click", (e) => {
+      const btn = e.target.closest(`#deleteDoneTodo-${targetID}`);
+      e.stopPropagation();
+      if (btn) {
+        this.handleRemoveTodo(targetID);
+      }
+    });
   }
   handleRemoveTodo(targetID) {
     const key = getAddTaskButtonID();

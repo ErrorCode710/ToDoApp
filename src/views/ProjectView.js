@@ -131,7 +131,6 @@ export function toggleClickEffect(e) {
   });
 
   const projectList = clickEvents.closest(".project--list");
-  console.log(`Hmmm: ${projectList}`);
   if (projectList) {
     projectList.classList.toggle("click-effect");
   } else {

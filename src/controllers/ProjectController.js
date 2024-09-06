@@ -49,7 +49,6 @@ export class ProjectController {
   }
 
   handleProjectClick() {
-    console.log("handleProjectClick method called");
     const parent = document.querySelector("#projectContainer");
     if (parent) {
       console.log("Project container found"); // Debug log
@@ -59,9 +58,8 @@ export class ProjectController {
         parent.addEventListener("click", (e) => {
           e.stopPropagation();
           const projectID = getData2(e);
-          console.log(`Project ID found: ${projectID}`);
 
-          if (projectID) {
+         if (projectID) {
             const project = new Project();
             const todo = new Todo();
             this.handleProjectActions(projectID, project, todo, e);
@@ -105,7 +103,6 @@ export class ProjectController {
   handleRenameProject(projectID) {
     const key = getData2(projectID);
     const project = new Project();
-    console.log(`Rename Project:${key}`);
     const prevTitle = project.retrieveProjectTitle(`${key}`);
     const form = createRenameForm(prevTitle, `#${key}`);
     const input = form.querySelector('input[type="text"]');
