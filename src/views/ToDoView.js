@@ -24,6 +24,7 @@ export function displayToDoForm() {
         placeholder: "Task Name?",
         id: "titleInput",
         required: "true",
+        autocomplete: "off",
       })
     ),
     createElement(
@@ -36,6 +37,7 @@ export function displayToDoForm() {
         className: "taskform__input taskform__input--description",
         placeholder: "Description",
         id: "detailsInput",
+        autocomplete: "off",
       })
     ),
     createElement(
@@ -103,15 +105,27 @@ export function displayToDo(
               textContent: toDoTitle,
             })
           )
+          // createElement("input", {
+          //   type: "text",
+          //   className: "edit-task-name ",
+          //   value: toDoTitle,
+          // })
         ),
         createElement(
           "div",
           {
             className: "date",
           },
-          createElement("span", {
+          createElement("time", {
+            datetime: toDoDate,
+            className: "testdate",
             textContent: toDoDate,
           })
+          // createElement("input", {
+          //   type: "date",
+          //   className: "edit-task-date ",
+          //   value: toDoDate,
+          // })
         ),
         createElement(
           "div",
@@ -163,6 +177,11 @@ export function displayToDo(
         createElement("span", {
           textContent: toDoDescription,
         })
+        // createElement("input", {
+        //   type: "input",
+        //   className: "edit-task-description ",
+        //   value: toDoDescription,
+        // })
       )
     )
   );
@@ -195,4 +214,128 @@ export function strikeThrough(targetID = null) {
       }
     }
   }
+}
+export function displayRenameForm(targetID) {
+  console.log(targetID);
+  const target = document.querySelector(`[data-id="${targetID}"]`);
+  const parent = target.closest("li")
+    ? target.closest("li")
+    : console.log("No Parent Found");
+  const title = parent.querySelector('label[for="Project"]');
+  const toDoTitle = title.textContent;
+  const checkbox = parent.querySelector('input[type="checkbox"]');
+  const isTodoDone = checkbox ? checkbox.checked : false;
+  const date = parent.querySelector("time");
+  const toDoDate = date.textContent;
+  const description = parent.querySelector(".list--description");
+  const toDoDescription = description.textContent;
+
+  // const form = (parent.outerHTML = `<form>
+  //   <li class="list">
+  //     <div class="list__container" data-id="${targetID}">
+  //       <div class="top">
+  //         <div class="checklist">
+  //           <input type="checkbox" class="checkbox" id="${targetID}" />
+  //           <label for="Project">
+  //             <input type="text" name="taskName" value="${toDoTitle}" />
+  //           </label>
+  //         </div>
+  //         <div class="date">
+  //           <input type="date" name="taskDate" value="${toDoDate}"/>
+  //         </div>
+  //         <div class="list--cta">
+  //           <div class="Important" id="importantTodo">
+  //             <img src="assets/StarOut.svg" alt="" />
+  //           </div>
+  //           <div class="editTodo" id="editTodo" aria-expanded="false">
+  //             <img src="assets/menu3.svg" alt="" />
+  //           </div>
+  //         </div>
+  //       </div>
+  //       <p class="list--description">
+  //         <input name="taskDescription" placeholder="description" value="${toDoDescription}"></input>
+  //       </p>
+  //     </div>
+  //   </li>
+  // </form>`);
+  // return form;
+  const form = createElement(
+    "li",
+    { className: "list" },
+    createElement(
+      "div",
+      { className: "list__container", "data-id": targetID },
+      createElement(
+        "div",
+        { className: "top" },
+        createElement(
+          "div",
+          { className: "checklist" },
+          createElement("input", {
+            type: "checkbox",
+            className: "checkbox",
+            id: targetID,
+            checked: isTodoDone,
+          }),
+          // createElement(
+          //   "label",
+          //   { htmlFor: "Project" },
+          //   createElement("span", { textContent: toDoTitle })
+          // ),
+          createElement("input", {
+            type: "text",
+            className: "edit-task-name  ",
+            value: toDoTitle,
+          })
+        ),
+        createElement(
+          "div",
+          { className: "date" },
+          // createElement("span", { textContent: toDoDate }),
+          createElement("input", {
+            type: "date",
+            className: "edit-task-date  ",
+            value: toDoDate,
+          })
+        ),
+        createElement(
+          "div",
+          { className: "list--cta" },
+          !isTodoDone
+            ? createElement(
+                "div",
+                { className: "Important", id: "importantTodo" },
+                createElement("img", { src: "assets/StarOut.svg", alt: "" })
+              )
+            : createElement(
+                "div",
+                { className: "deleteToDo", id: `deleteDoneTodo-${todoID}` },
+                createElement("img", { src: "assets/Done.svg", alt: "" })
+              ),
+          createElement(
+            "div",
+            { className: "editTodo", id: "editTodo" },
+            createElement("img", { src: "assets/menu3.svg", alt: "" })
+          )
+        )
+      ),
+      createElement(
+        "p",
+        { className: "list--description" },
+        createElement("span", { textContent: toDoDescription }),
+        createElement("input", {
+          type: "input",
+          className: "edit-task-description  ",
+          value: toDoDescription,
+          placeholder: "Description",
+        })
+      )
+    )
+  );
+  // parent.outerHTML = form;
+  console.log(form);
+  console.log(parent.outerHTML);
+  parent.replaceWith(form);
+
+  console.log(toDoTitle, isTodoDone, toDoDate);
 }

@@ -26,6 +26,7 @@ export function displayForm() {
         required: "true",
         placeholder: "Enter Project Name",
         className: "input",
+        autocomplete: "off",
       })
     )
   );

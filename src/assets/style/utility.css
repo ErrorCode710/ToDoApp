@@ -19,3 +19,6 @@
 .disableHover:hover {
   background-color: initial;
 }
+.hidden {
+  display: none;
+}

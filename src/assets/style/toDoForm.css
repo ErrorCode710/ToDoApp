@@ -40,3 +40,14 @@ label[for="Project"] {
   font-size: 1rem;
   font-weight: 500;
 }
+
+input {
+  background-color: transparent;
+  border: none;
+  outline: none;
+  color: var(--text);
+}
+input[type="date"]::-webkit-calendar-picker-indicator {
+  opacity: 0;
+  cursor: pointer;
+}

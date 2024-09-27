@@ -6,7 +6,7 @@
 - ⭐ MVP
 - ✨ Sprinkle
 
-- [x] <span style="color:#50fa7b;"><s>1. To-Do Item Management</s></span>
+- [ ] 1. To-Do Item Management</span>
 
   - [x] <span style="color:#50fa7b;"><s>Title</s></span>
   - [x] <span style="color:#50fa7b;"><s>Description</s></span>
@@ -43,6 +43,36 @@
   - [ ] If we delete the a project the todo panel automatically reflect the above todo
   - [ ] When the project list become long the add task form affected and cant be seen
   - [x] On Project rename avoid No input
-        
 
+  PLANING
+  -RENAME FEATURE
+  // CREATE RENAME FORM IN JUST OVERLAY IT TO THE TODO
 
+ <form>
+  <li class="list">
+    <div class="list__container" data-id="1725635531290">
+      <div class="top">
+        <div class="checklist">
+          <input type="checkbox" class="checkbox" id="1725635531290" />
+          <label for="Project">
+            <input type="text" name="taskName" value="Task Name" />
+          </label>
+        </div>
+        <div class="date">
+          <input type="date" name="taskDate" />
+        </div>
+        <div class="list--cta">
+          <div class="Important" id="importantTodo">
+            <img src="assets/StarOut.svg" alt="" />
+          </div>
+          <div class="editTodo" id="editTodo" aria-expanded="false">
+            <img src="assets/menu3.svg" alt="" />
+          </div>
+        </div>
+      </div>
+      <p class="list--description">
+        <input name="taskDescription" placeholder="description"></input>
+      </p>
+    </div>
+  </li>
+</form>

@@ -1,9 +1,10 @@
 export function createElement(type, attributes = {}, ...children) {
   const element = document.createElement(type);
+  
 
   // Set attributes
   for (const key in attributes) {
-    if (key.startsWith("data-")) {
+    if (key.startsWith("data-") || key.startsWith("datetime")) {
       element.setAttribute(key, attributes[key]);
     } else {
       element[key] = attributes[key];
@@ -21,3 +22,4 @@ export function createElement(type, attributes = {}, ...children) {
 
   return element;
 }
+

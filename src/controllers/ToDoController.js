@@ -5,6 +5,7 @@ import { removeForm } from "../helper/removeForm";
 import tippy from "tippy.js";
 import { getData2 } from "../helper/getDataID";
 import { strikeThrough } from "../views/ToDoView";
+import { displayRenameForm } from "../views/ToDoView";
 
 export class TodoController {
   constructor() {}
@@ -39,14 +40,9 @@ export class TodoController {
         const popoverContent = instance.popper.querySelector("#optionTodo");
         const renameButton = popoverContent.querySelector("#editTodoBtn");
         const deleteButton = popoverContent.querySelector("#deleteTodoBtn");
-
-        popoverContent.addEventListener("click", (e) => {
-          e.stopPropagation();
-          e.stopImmediatePropagation();
-          logEventPhase(e);
-        });
         renameButton.addEventListener("click", (e) => {
-          e.stopPropagation();
+          const targetID = getData2("#editTodoBtn");
+          this.handelRenameTodo(targetID);
         });
         deleteButton.addEventListener("click", (e) => {
           e.stopPropagation();
@@ -88,12 +84,11 @@ export class TodoController {
     if (parent) {
       parent.addEventListener("click", (e) => {
         e.stopPropagation();
-        const found = document.querySelector("#optionTodo");
-        if (!found) {
+        const condition = this.isRunningBackground(parent);
+        if (condition) {
           const key = getAddTaskButtonID();
           const targetID = getData2(e);
           const checkboxId = document.getElementById(targetID);
-
           if (checkboxId) {
             const todo = new Todo();
             const value = checkboxId.checked;
@@ -121,6 +116,11 @@ export class TodoController {
     const todo = new Todo();
     todo.removeToDo(key, targetID);
     todo.renderAllTodo();
+    
+  }
+  handelRenameTodo(targetID) {
+    console.log("click");
+    displayRenameForm(targetID);
   }
   // UTILITY
   createToDoForm(form) {
@@ -154,5 +154,19 @@ export class TodoController {
   addToDoToStorage(toDo) {
     const uniqueID = getAddTaskButtonID();
     toDo.addToDo(uniqueID);
+  }
+  isRunningBackground(parent) {
+    const popover = document.querySelector("#optionTodo");
+    const form = document.querySelector("form");
+    const renameForm =
+      parent.querySelector(`input[type="text"].edit-task-name.hidden`) !== null; // this will return true because it has hidden
+    // what we are tyring to achieve is when the class has hidden
+    console.log(renameForm);
+    // const renameForm = parent.closest(".hidden");
+    if (!popover && !form && renameForm) {
+      return true;
+    } else {
+      return false;
+    }
   }
 }

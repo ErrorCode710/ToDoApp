@@ -31,6 +31,33 @@ export class ProjectController {
       console.error("Add project button not found"); // Debug log
     }
   }
+  setUpPopoverMenu() {
+    tippy(document.querySelectorAll(".option--button"), {
+      content: `
+      <div class="option" id="option">
+        <button id="renameBtn">Rename</button>
+        <button id="deleteBtn">Delete</button>
+      </div>
+    `,
+      trigger: "click",
+      arrow: false,
+      allowHTML: true,
+      interactive: true,
+      onShow: (instance) => {
+        const popoverContent = instance.popper.querySelector("#option");
+        const renameButton = popoverContent.querySelector("#renameBtn");
+        const deleteButton = popoverContent.querySelector("#deleteBtn");
+
+        renameButton.addEventListener("click", () => {
+          this.handleRenameProject("#renameBtn");
+        });
+
+        deleteButton.addEventListener("click", () => {
+          this.handleDeleteProject("#deleteBtn");
+        });
+      },
+    });
+  }
   // EVENT HANDLER
   handleProjectSubmission(form) {
     const input = form.querySelector('input[type="text"]');
@@ -59,7 +86,7 @@ export class ProjectController {
           e.stopPropagation();
           const projectID = getData2(e);
 
-         if (projectID) {
+          if (projectID) {
             const project = new Project();
             const todo = new Todo();
             this.handleProjectActions(projectID, project, todo, e);
@@ -150,32 +177,5 @@ export class ProjectController {
       return key === projectID;
     });
     return found;
-  }
-  setUpPopoverMenu() {
-    tippy(document.querySelectorAll(".option--button"), {
-      content: `
-      <div class="option" id="option">
-        <button id="renameBtn">Rename</button>
-        <button id="deleteBtn">Delete</button>
-      </div>
-    `,
-      trigger: "click",
-      arrow: false,
-      allowHTML: true,
-      interactive: true,
-      onShow: (instance) => {
-        const popoverContent = instance.popper.querySelector("#option");
-        const renameButton = popoverContent.querySelector("#renameBtn");
-        const deleteButton = popoverContent.querySelector("#deleteBtn");
-
-        renameButton.addEventListener("click", () => {
-          this.handleRenameProject("#renameBtn");
-        });
-
-        deleteButton.addEventListener("click", () => {
-          this.handleDeleteProject("#deleteBtn");
-        });
-      },
-    });
   }
 }
