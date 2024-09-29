@@ -1,4 +1,4 @@
-import { displayToDoForm } from "../views/ToDoView";
+import { displayToDo, displayToDoForm } from "../views/ToDoView";
 import { Todo } from "../models/ToDo";
 import { getAddTaskButtonID } from "../helper/getAddTaskButtonID";
 import { removeForm } from "../helper/removeForm";
@@ -38,11 +38,12 @@ export class TodoController {
       interactive: true,
       onShow: (instance) => {
         const popoverContent = instance.popper.querySelector("#optionTodo");
-        const renameButton = popoverContent.querySelector("#editTodoBtn");
+        const editButton = popoverContent.querySelector("#editTodoBtn");
         const deleteButton = popoverContent.querySelector("#deleteTodoBtn");
-        renameButton.addEventListener("click", (e) => {
+        editButton.addEventListener("click", (e) => {
           const targetID = getData2("#editTodoBtn");
-          this.handelRenameTodo(targetID);
+          // this.handelEditTodo(targetID);
+          this.handleEditTodoSingle(targetID);
         });
         deleteButton.addEventListener("click", (e) => {
           e.stopPropagation();
@@ -51,16 +52,6 @@ export class TodoController {
         });
       },
     });
-  }
-  logEventPhase(e) {
-    const phaseNames = ["capturing", "target", "bubbling"];
-    console.log(
-      `Event type: ${e.type} | Phase: ${
-        phaseNames[e.eventPhase - 1]
-      } | Target: ${e.target.tagName} | Current Target: ${
-        e.currentTarget.tagName
-      }`
-    );
   }
 
   //EVENT HANDLER
@@ -116,13 +107,64 @@ export class TodoController {
     const todo = new Todo();
     todo.removeToDo(key, targetID);
     todo.renderAllTodo();
-    
   }
-  handelRenameTodo(targetID) {
-    console.log("click");
-    displayRenameForm(targetID);
-  }
+  // handelEditTodo(targetID) {
+  //   const form = displayRenameForm(targetID);
+  //   const todo = new Todo();
+  //   const key = getAddTaskButtonID();
+  //   const index = targetID;
+
+  //   form.addEventListener("submit", (e) => {
+  //     e.preventDefault();
+  //     //titleId-1727504209993
+  //     const renameValue = document.querySelector(
+  //       `[data-id="titleId-${targetID}"]`
+  //     ).value;
+  //     console.log(renameValue);
+  //     todo.renameTodo(key, index, renameValue);
+  //     todo.renderAllTodo();
+  //     form.remove();
+  //   });
+  //   removeForm(`[data-id="remove-${targetID}"]`, form);
+  // }
   // UTILITY
+
+  handleEditTodoSingle = (() => {
+    let currentRenameForm = null;
+
+    return (targetID) => {
+      // debugger;
+      if (currentRenameForm) {
+        const todo = new Todo();
+        currentRenameForm.remove();
+        todo.renderAllTodo();
+        currentRenameForm = null;
+      }
+
+      const form = displayRenameForm(targetID);
+      currentRenameForm = form;
+
+      const todo = new Todo();
+      const key = getAddTaskButtonID();
+      const index = targetID;
+
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const renameValue = document.querySelector(
+          `[data-id="titleId-${targetID}"]`
+        ).value;
+        console.log(renameValue);
+        todo.renameTodo(key, index, renameValue);
+        todo.renderAllTodo();
+        form.remove();
+        currentRenameForm = null;
+        console.log("Form removed after submission");
+      });
+
+      removeForm(`[data-id="remove-${targetID}"]`, form);
+      
+    };
+  })();
   createToDoForm(form) {
     const title = form.querySelector("#titleInput").value;
     const details = form.querySelector("#detailsInput").value;
@@ -161,7 +203,7 @@ export class TodoController {
     const renameForm =
       parent.querySelector(`input[type="text"].edit-task-name.hidden`) !== null; // this will return true because it has hidden
     // what we are tyring to achieve is when the class has hidden
-    console.log(renameForm);
+
     // const renameForm = parent.closest(".hidden");
     if (!popover && !form && renameForm) {
       return true;

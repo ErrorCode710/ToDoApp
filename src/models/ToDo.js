@@ -57,8 +57,8 @@ export class Todo {
     strikeThrough(targetID);
     this.renderAllTodo();
   }
-  deleteCompletedTodo() {
-    const btn = "ds ";
+  renameTodo(key, targetID, renameValue) {
+    this.storage.renameTodo(key, targetID, renameValue);
   }
   displayToDo() {
     const key = getAddTaskButtonID();

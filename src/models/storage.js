@@ -5,9 +5,10 @@ export class Storage {
       todo: [
         {
           id: 1,
-          toDotitle: "Learn Coding",
-          toDoDetails: "Short",
-          toDoDate: "07-10-24",
+          done: true,
+          taskName: "Learn Coding",
+          details: "Short",
+          date: "07-10-24",
         },
       ],
     },
@@ -29,6 +30,11 @@ export class Storage {
     const todos = Storage.projectStorage[key]?.todo;
     const index = todos.findIndex(({ id }) => id == targetID);
     return index;
+  }
+  renameTodo(key, targetID, renameValue) {
+    const index = this.findTodoIndex(key, targetID);
+    const newTitle = (Storage.projectStorage[key]["todo"][index]["taskName"] =
+      renameValue);
   }
   removeTodo(key, targetID) {
     if (targetID) {
