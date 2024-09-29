@@ -42,8 +42,8 @@ export class TodoController {
         const deleteButton = popoverContent.querySelector("#deleteTodoBtn");
         editButton.addEventListener("click", (e) => {
           const targetID = getData2("#editTodoBtn");
-          // this.handelEditTodo(targetID);
-          this.handleEditTodoSingle(targetID);
+          this.handelEditTodo(targetID);
+          // this.handleEditTodoSingle(targetID);
         });
         deleteButton.addEventListener("click", (e) => {
           e.stopPropagation();
@@ -108,63 +108,85 @@ export class TodoController {
     todo.removeToDo(key, targetID);
     todo.renderAllTodo();
   }
-  // handelEditTodo(targetID) {
-  //   const form = displayRenameForm(targetID);
-  //   const todo = new Todo();
-  //   const key = getAddTaskButtonID();
-  //   const index = targetID;
+  handelEditTodo(targetID) {
+    const todo = new Todo();
+    const existingForm = document.querySelector(".taskform");
+    if (existingForm) {
+      existingForm.remove();
+      todo.renderAllTodo();
+    }
+    const form = displayRenameForm(targetID);
 
-  //   form.addEventListener("submit", (e) => {
-  //     e.preventDefault();
-  //     //titleId-1727504209993
-  //     const renameValue = document.querySelector(
-  //       `[data-id="titleId-${targetID}"]`
-  //     ).value;
-  //     console.log(renameValue);
-  //     todo.renameTodo(key, index, renameValue);
-  //     todo.renderAllTodo();
-  //     form.remove();
-  //   });
-  //   removeForm(`[data-id="remove-${targetID}"]`, form);
-  // }
+    const key = getAddTaskButtonID();
+    const index = targetID;
+
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+
+      const renameValue = document.querySelector(
+        `[data-id="titleId-${targetID}"]`
+      ).value;
+      console.log(renameValue);
+      todo.renameTodo(key, index, renameValue);
+      todo.renderAllTodo();
+      form.remove();
+    });
+    removeForm(`[data-id="remove-${targetID}"]`, form);
+    const closeButton = document.querySelector(
+      `[data-id="remove-${targetID}"]`
+    );
+    closeButton.addEventListener("click", () => {
+      form.remove();
+      todo.renderAllTodo();
+    });
+  }
   // UTILITY
 
-  handleEditTodoSingle = (() => {
-    let currentRenameForm = null;
+  //   handleEditTodoSingle = (() => {
+  //     let currentRenameForm = null;
+  //     let formCounter = 0;
 
-    return (targetID) => {
-      // debugger;
-      if (currentRenameForm) {
-        const todo = new Todo();
-        currentRenameForm.remove();
-        todo.renderAllTodo();
-        currentRenameForm = null;
-      }
+  //     return (targetID) => {
+  //       // debugger;
+  //       if (currentRenameForm) {
+  //         const todo = new Todo();
+  //         currentRenameForm.remove();
+  //         todo.renderAllTodo();
+  //         currentRenameForm = null;
+  //       }
+  //  formCounter++;
+  //  console.log(`Form opened ${formCounter} times`);
+  //       const form = displayRenameForm(targetID);
+  //       currentRenameForm = form;
 
-      const form = displayRenameForm(targetID);
-      currentRenameForm = form;
+  //       const todo = new Todo();
+  //       const key = getAddTaskButtonID();
+  //       const index = targetID;
 
-      const todo = new Todo();
-      const key = getAddTaskButtonID();
-      const index = targetID;
+  //       form.addEventListener("submit", (e) => {
+  //         e.preventDefault();
+  //         const renameValue = document.querySelector(
+  //           `[data-id="titleId-${targetID}"]`
+  //         ).value;
+  //         console.log(renameValue);
+  //         todo.renameTodo(key, index, renameValue);
+  //         todo.renderAllTodo();
+  //         form.remove();
+  //         currentRenameForm = null;
+  //         console.log("Form removed after submission");
+  //       });
 
-      form.addEventListener("submit", (e) => {
-        e.preventDefault();
-        const renameValue = document.querySelector(
-          `[data-id="titleId-${targetID}"]`
-        ).value;
-        console.log(renameValue);
-        todo.renameTodo(key, index, renameValue);
-        todo.renderAllTodo();
-        form.remove();
-        currentRenameForm = null;
-        console.log("Form removed after submission");
-      });
-
-      removeForm(`[data-id="remove-${targetID}"]`, form);
-      
-    };
-  })();
+  //       // removeForm(`[data-id="remove-${targetID}"]`, form,);
+  //       const closeButton = document.querySelector(
+  //         `[data-id="remove-${targetID}"]`
+  //       );
+  //       closeButton.addEventListener("click", () => {
+  //         form.remove();
+  //         todo.renderAllTodo();
+  //         currentRenameForm = null;
+  //       });
+  //     };
+  //   })();
   createToDoForm(form) {
     const title = form.querySelector("#titleInput").value;
     const details = form.querySelector("#detailsInput").value;
