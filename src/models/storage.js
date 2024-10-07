@@ -21,6 +21,7 @@ export class Storage {
   }
   addToDo(key, value) {
     Storage.projectStorage[key].todo.push(value);
+    console.log(Storage.projectStorage);
   }
   retrieveTodos(key) {
     const todos = Storage.projectStorage[key]?.todo;
@@ -31,11 +32,22 @@ export class Storage {
     const index = todos.findIndex(({ id }) => id == targetID);
     return index;
   }
-  renameTodo(key, targetID, renameValue) {
+  renameTodo(key, targetID, renameValue, renameDescription, renameDate) {
     const index = this.findTodoIndex(key, targetID);
     const newTitle = (Storage.projectStorage[key]["todo"][index]["taskName"] =
       renameValue);
+    const newDescription = (Storage.projectStorage[key]["todo"][index][
+      "details"
+    ] = renameDescription);
+    const newDate = (Storage.projectStorage[key]["todo"][index]["date"] =
+      renameDate);
   }
+  // renameTodoDescription(key,targetID,renameValue){
+  //    const index = this.findTodoIndex(key, targetID);
+  //   const newDescription = (Storage.projectStorage[key]["todo"][index]["taskName"] =
+  //     renameValue);
+  // }
+
   removeTodo(key, targetID) {
     if (targetID) {
       const index = this.findTodoIndex(key, targetID);

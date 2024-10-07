@@ -42,7 +42,7 @@ export class TodoController {
         const deleteButton = popoverContent.querySelector("#deleteTodoBtn");
         editButton.addEventListener("click", (e) => {
           const targetID = getData2("#editTodoBtn");
-          this.handelEditTodo(targetID);
+          this.handleEditTodo(targetID);
           // this.handleEditTodoSingle(targetID);
         });
         deleteButton.addEventListener("click", (e) => {
@@ -72,6 +72,7 @@ export class TodoController {
   handleTodoClick() {
     console.log("handletTodoClick is running");
     const parent = document.querySelector("#listContainer");
+    console.log(parent);
     if (parent) {
       parent.addEventListener("click", (e) => {
         e.stopPropagation();
@@ -79,7 +80,11 @@ export class TodoController {
         if (condition) {
           const key = getAddTaskButtonID();
           const targetID = getData2(e);
-          const checkboxId = document.getElementById(targetID);
+          const checkboxId = document.querySelector(
+            `[data-id="checkboxId-${targetID}"]`
+          );
+          console.log(checkboxId);
+          console.log("This is triggered");
           if (checkboxId) {
             const todo = new Todo();
             const value = checkboxId.checked;
@@ -108,7 +113,7 @@ export class TodoController {
     todo.removeToDo(key, targetID);
     todo.renderAllTodo();
   }
-  handelEditTodo(targetID) {
+  handleEditTodo(targetID) {
     const todo = new Todo();
     const existingForm = document.querySelector(".taskform");
     if (existingForm) {
@@ -116,18 +121,25 @@ export class TodoController {
       todo.renderAllTodo();
     }
     const form = displayRenameForm(targetID);
-
     const key = getAddTaskButtonID();
     const index = targetID;
 
     form.addEventListener("submit", (e) => {
       e.preventDefault();
-
+      //FOR TITLE
       const renameValue = document.querySelector(
         `[data-id="titleId-${targetID}"]`
       ).value;
-      console.log(renameValue);
-      todo.renameTodo(key, index, renameValue);
+      //FOR DESCRIPTION
+      const renameDescription = document.querySelector(
+        `[data-id="descriptionId-${targetID}"]`
+      ).value;
+      // FOR DATE
+      const renameDate = document.querySelector(
+        `[data-id="dateId-${targetID}"]`
+      ).value;
+      console.log(renameDate);
+      todo.renameTodo(key, index, renameValue, renameDescription, renameDate);
       todo.renderAllTodo();
       form.remove();
     });
@@ -135,58 +147,9 @@ export class TodoController {
     const closeButton = document.querySelector(
       `[data-id="remove-${targetID}"]`
     );
-    closeButton.addEventListener("click", () => {
-      form.remove();
-      todo.renderAllTodo();
-    });
   }
   // UTILITY
 
-  //   handleEditTodoSingle = (() => {
-  //     let currentRenameForm = null;
-  //     let formCounter = 0;
-
-  //     return (targetID) => {
-  //       // debugger;
-  //       if (currentRenameForm) {
-  //         const todo = new Todo();
-  //         currentRenameForm.remove();
-  //         todo.renderAllTodo();
-  //         currentRenameForm = null;
-  //       }
-  //  formCounter++;
-  //  console.log(`Form opened ${formCounter} times`);
-  //       const form = displayRenameForm(targetID);
-  //       currentRenameForm = form;
-
-  //       const todo = new Todo();
-  //       const key = getAddTaskButtonID();
-  //       const index = targetID;
-
-  //       form.addEventListener("submit", (e) => {
-  //         e.preventDefault();
-  //         const renameValue = document.querySelector(
-  //           `[data-id="titleId-${targetID}"]`
-  //         ).value;
-  //         console.log(renameValue);
-  //         todo.renameTodo(key, index, renameValue);
-  //         todo.renderAllTodo();
-  //         form.remove();
-  //         currentRenameForm = null;
-  //         console.log("Form removed after submission");
-  //       });
-
-  //       // removeForm(`[data-id="remove-${targetID}"]`, form,);
-  //       const closeButton = document.querySelector(
-  //         `[data-id="remove-${targetID}"]`
-  //       );
-  //       closeButton.addEventListener("click", () => {
-  //         form.remove();
-  //         todo.renderAllTodo();
-  //         currentRenameForm = null;
-  //       });
-  //     };
-  //   })();
   createToDoForm(form) {
     const title = form.querySelector("#titleInput").value;
     const details = form.querySelector("#detailsInput").value;

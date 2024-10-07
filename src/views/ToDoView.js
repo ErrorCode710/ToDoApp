@@ -94,7 +94,7 @@ export function displayToDo(
           createElement("input", {
             type: "checkbox",
             className: "checkbox",
-            id: uniqueID,
+            "data-id": `checkboxId-${todoID}`,
             checked: isTodoDone,
           }),
           createElement(
@@ -226,8 +226,8 @@ export function displayRenameForm(targetID) {
   }
   {
     updateTaskNameField(replaceElement, target, targetID);
-    updateDescriptionField(replaceElement, target);
-    updateDateField(replaceElement, target);
+    updateDescriptionField(replaceElement, target, targetID);
+    updateDateField(replaceElement, target, targetID);
 
     const parent = target.parentElement;
     parent.replaceWith(replaceElement);
@@ -249,7 +249,7 @@ function updateTaskNameField(replaceElement, target, targetID) {
   taskNameField.value = taskNameText;
   taskNameField.setAttribute("data-id", `titleId-${targetID}`);
 }
-function updateDescriptionField(replaceElement, target) {
+function updateDescriptionField(replaceElement, target, targetID) {
   const descriptionField = target.querySelector(".descriptionInput");
   if (!descriptionField) {
     return;
@@ -259,12 +259,17 @@ function updateDescriptionField(replaceElement, target) {
   );
   const descriptionFieldText = descriptionField.textContent;
   descriptionInput.value = descriptionFieldText;
+  descriptionInput.setAttribute("data-id", `descriptionId-${targetID}`);
 }
-function updateDateField(replaceElement, target) {
+function updateDateField(replaceElement, target, targetID) {
   const dateField = target.querySelector(".dateValue");
+  if (!dateField) {
+    return;
+  }
   const dateInput = replaceElement.querySelector(".taskform__input--date");
   const dateTextCon = dateField.textContent;
   dateInput.value = dateTextCon;
+  dateInput.setAttribute("data-id", `dateId-${targetID}`);
 }
 function setFocusOnTaskNameField(replaceElement) {
   const taskNameField = replaceElement.querySelector("input[required]");
