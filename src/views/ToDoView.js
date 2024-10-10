@@ -78,7 +78,9 @@ export function displayToDo(
     createElement(
       "div",
       {
-        className: "list__container",
+        className: isTodoDone
+          ? "list__container done-todo "
+          : "list__container ",
         "data-id": todoID,
       },
       createElement(
@@ -192,11 +194,11 @@ export function displayToDo(
   listWrapper.append(list);
   const todo = new TodoController();
   todo.setUpPopoverMenu();
-  strikeThrough(null);
+  // strikeThrough("On");
 }
 
-export function strikeThrough(targetID = null) {
-  if (targetID == null) {
+export function strikeThrough(targetID = "On") {
+  if (targetID == "On") {
     const checkboxes = document.querySelectorAll(
       'input[type="checkbox"]:checked'
     );
@@ -205,12 +207,16 @@ export function strikeThrough(targetID = null) {
       parent.classList.add("done-todo");
     });
   } else {
-    const checkboxId = document.getElementById(targetID);
+    const checkboxId = document.querySelector(
+      `[data-id="checkboxId-${targetID}"]`
+    );
     const state = checkboxId.checked;
     const parent = document.querySelector(`[data-id="${targetID}"]`);
+    console.log(parent);
 
     if (parent) {
       if (state) {
+        console.log("StrikethroughTestTrigger");
         parent.classList.add("done-todo");
       } else if (state === false) {
         parent.classList.remove("done-todo");

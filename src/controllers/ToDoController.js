@@ -41,9 +41,9 @@ export class TodoController {
         const editButton = popoverContent.querySelector("#editTodoBtn");
         const deleteButton = popoverContent.querySelector("#deleteTodoBtn");
         editButton.addEventListener("click", (e) => {
+          console.log("popOver TRiggered");
           const targetID = getData2("#editTodoBtn");
           this.handleEditTodo(targetID);
-          // this.handleEditTodoSingle(targetID);
         });
         deleteButton.addEventListener("click", (e) => {
           e.stopPropagation();
@@ -68,28 +68,26 @@ export class TodoController {
     });
     removeForm("#removeTask", form);
   }
-
   handleTodoClick() {
     console.log("handletTodoClick is running");
     const parent = document.querySelector("#listContainer");
     console.log(parent);
     if (parent) {
       parent.addEventListener("click", (e) => {
-        e.stopPropagation();
         const condition = this.isRunningBackground(parent);
         if (condition) {
           const key = getAddTaskButtonID();
-          const targetID = getData2(e);
+          const targetID = getData2(e.target);
           const checkboxId = document.querySelector(
             `[data-id="checkboxId-${targetID}"]`
           );
-          console.log(checkboxId);
-          console.log("This is triggered");
+
           if (checkboxId) {
             const todo = new Todo();
             const value = checkboxId.checked;
+            console.log(value);
             todo.isTodoDone(key, targetID, value);
-            this.handleDoneTodoRemove(targetID);
+            this.handleDoneTodoRemove(targetID); // select the targ
           }
         }
       });
@@ -106,6 +104,13 @@ export class TodoController {
         this.handleRemoveTodo(targetID);
       }
     });
+    // console.log("outside click")
+    // const btn = document.querySelector(`#deleteDoneTodo-${targetID}`);
+    // if (btn) {
+    //   btn.addEventListener("click", () => {
+    //     this.handleRemoveTodo(targetID);
+    //   });
+    // }
   }
   handleRemoveTodo(targetID) {
     const key = getAddTaskButtonID();
@@ -186,11 +191,15 @@ export class TodoController {
     const popover = document.querySelector("#optionTodo");
     const form = document.querySelector("form");
     const renameForm =
-      parent.querySelector(`input[type="text"].edit-task-name.hidden`) !== null; // this will return true because it has hidden
-    // what we are tyring to achieve is when the class has hidden
+      parent.querySelector(`input[type="text"].edit-task-name.hidden`) !== null;
+    console.log("Popover:", popover);
+    console.log("Form:", form);
+    console.log("Rename form hidden:", renameForm);
 
     // const renameForm = parent.closest(".hidden");
-    if (!popover && !form && renameForm) {
+    // if  popover is not exist thenn this code will run
+    if (!popover && !form) {
+      console.log("Returning true");
       return true;
     } else {
       return false;
