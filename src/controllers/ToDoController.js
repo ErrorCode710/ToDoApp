@@ -72,22 +72,27 @@ export class TodoController {
     console.log("handletTodoClick is running");
     const parent = document.querySelector("#listContainer");
     console.log(parent);
+
     if (parent) {
       parent.addEventListener("click", (e) => {
-        const condition = this.isRunningBackground(parent);
-        if (condition) {
-          const key = getAddTaskButtonID();
-          const targetID = getData2(e.target);
-          const checkboxId = document.querySelector(
-            `[data-id="checkboxId-${targetID}"]`
-          );
+        // Check if the clicked element is a checkbox
+        if (e.target.type === "checkbox" && e.target.hasAttribute("data-id")) {
+          const condition = this.isRunningBackground(parent);
 
-          if (checkboxId) {
-            const todo = new Todo();
-            const value = checkboxId.checked;
-            console.log(value);
-            todo.isTodoDone(key, targetID, value);
-            this.handleDoneTodoRemove(targetID); // select the targ
+          if (condition) {
+            const key = getAddTaskButtonID();
+            const targetID = getData2(e.target); // Pass the clicked checkbox to get the ID
+            const checkboxId = document.querySelector(
+              `[data-id="checkboxId-${targetID}"]`
+            );
+
+            if (checkboxId) {
+              const todo = new Todo();
+              const value = checkboxId.checked;
+              console.log(value);
+              this.handleDoneTodoRemove(targetID);
+              todo.isTodoDone(key, targetID, value); // Process checkbox click
+            }
           }
         }
       });
