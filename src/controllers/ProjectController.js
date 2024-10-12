@@ -59,6 +59,7 @@ export class ProjectController {
     });
   }
   // EVENT HANDLER
+
   handleProjectSubmission(form) {
     const input = form.querySelector('input[type="text"]');
     this.handleFormFocus(form, input, null, null);
@@ -77,6 +78,8 @@ export class ProjectController {
 
   handleProjectClick() {
     const parent = document.querySelector("#projectContainer");
+    const presetProject = document.querySelector("#presetProjectContainer");
+    console.log(presetProject);
     if (parent) {
       console.log("Project container found"); // Debug log
 
@@ -98,6 +101,23 @@ export class ProjectController {
         parent.dataset.listenerAttached = true;
         parent.setAttribute("data-listener-attached", "true");
       }
+    }
+    if (presetProject) {
+      presetProject.addEventListener("click", (e) => {
+        const target = e.target;
+        if (
+          target.tagName === "BUTTON" ||
+          (target.tagName === "DIV" &&
+            target.classList.contains("sidepanel__buttons-container"))
+        ) {
+          const presetProjectID = getData2(e);
+
+          if (presetProjectID) {
+            const project = new Project();
+            project.updateBanner(presetProjectID);
+          }
+        }
+      });
     }
   }
   handleProjectActions(projectID, project, todo, event) {
@@ -178,4 +198,10 @@ export class ProjectController {
     });
     return found;
   }
+}
+export class PresetProjectController extends ProjectController {
+  constructor() {
+    super();
+  }
+  initializedPreset() {}
 }

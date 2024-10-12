@@ -12,11 +12,14 @@ import "./assets/style/option.css";
 import "./assets/style/utility.css";
 import "driver.js/dist/driver.css";
 import "tippy.js/dist/tippy.css";
-import "./assets/style/todoItems.css"
+import "./assets/style/todoItems.css";
 
 // Js file
 import sideBar from "./sideBar.js";
-import { ProjectController } from "./controllers/ProjectController.js";
+import {
+  PresetProjectController,
+  ProjectController,
+} from "./controllers/ProjectController.js";
 import { handleProjectClick } from "./controllers/ProjectController.js";
 import {
   TodoController,
@@ -33,6 +36,8 @@ document.addEventListener("DOMContentLoaded", function () {
   project.initializedAll();
   const todo = new TodoController();
   todo.initialize();
+  const presetProject = new PresetProjectController();
+  presetProject.initializedPreset();
   // ProjectController();
   // popoverMenu();
   // handleProjectClick();

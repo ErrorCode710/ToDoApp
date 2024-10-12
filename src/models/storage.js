@@ -77,7 +77,13 @@ export class Storage {
   }
   retrieveProjectTitle(key) {
     if (key) {
-      return Storage.projectStorage[key].title;
+      const title = Storage.projectStorage[key].title || null;
+      console.log(title);
+      if (title) {
+        return title;
+      } else {
+        return false;
+      }
     } else {
       return "No key Found";
     }

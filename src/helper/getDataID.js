@@ -39,26 +39,24 @@ export function getData2(selector) {
   const inputType = handleInput(selector);
 
   if (inputType === "Event" && selector.target.type === "checkbox") {
-    return selector.target.id || selector.target.getAttribute("data-id"); // Return the checkbox's id or data-id
+    return selector.target.id || selector.target.getAttribute("data-id"); // Return id or data-id
   } else if (inputType === "Event") {
-    let id = selector.target.getAttribute("data-id");
+    let id = selector.target.id || selector.target.getAttribute("data-id");
 
-    // If no data-id on the current target, search parent elements
     if (!id) {
-      const parent = selector.target.closest("[data-id]"); // Walk up the DOM tree
+      const parent = selector.target.closest("[id], [data-id]"); // Search for both id and data-id
       if (parent) {
-        id = parent.getAttribute("data-id");
+        id = parent.id || parent.getAttribute("data-id");
       }
     }
     return id;
   } else if (inputType === "Element") {
-    // If selector is an element, no need for querySelector
     const target =
-      selector instanceof Element ? selector : document.querySelector(selector); // Safeguard for when it's already an element
+      selector instanceof Element ? selector : document.querySelector(selector);
     if (target) {
       const parent = target.closest("li");
-      const children = parent ? parent.querySelector("[data-id]") : null;
-      return children ? children.dataset.id : null;
+      const children = parent ? parent.querySelector("[id], [data-id]") : null;
+      return children ? children.id || children.dataset.id : null;
     }
   } else {
     return "Unknown input type";
