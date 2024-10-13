@@ -24,8 +24,8 @@ export class Todo {
     };
     this.storage.addToDo(key, todo);
   }
-  removeToDo(key, targetID) {
-    this.storage.removeTodo(key, targetID);
+  removeToDo(targetID) {
+    this.storage.removeTodo(targetID);
   }
   renderAllTodo() {
     const container = document.querySelector("#listContainer");
@@ -53,14 +53,13 @@ export class Todo {
   listID() {
     return this.storage.retrieveProjectIds();
   }
-  isTodoDone(key, targetID, value) {
-    this.storage.markAsDone(key, targetID, value);
+  isTodoDone(targetID, value) {
+    this.storage.markAsDone(targetID, value);
     strikeThrough(targetID);
     this.renderAllTodo();
   }
-  renameTodo(key, targetID, renameValue, renameDescription, renameDate) {
+  renameTodo(targetID, renameValue, renameDescription, renameDate) {
     this.storage.renameTodo(
-      key,
       targetID,
       renameValue,
       renameDescription,
@@ -80,7 +79,6 @@ export class Todo {
       this.displayToDoItem(todos);
     }
     const todos = this.storage.retrieveTodos(key);
-    console.log(`Check DsT`, todos);
     this.displayToDoItem(todos);
   }
   displayToDoItem(todos) {

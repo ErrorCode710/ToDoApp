@@ -13,6 +13,12 @@ export class Storage {
       ],
     },
   };
+  static presetTitles = {
+    ProjectAllTask: "All Task",
+    ProjectToday: "Today",
+    Project7days: "Next 7 Days",
+    ProjectImportant: "Important",
+  };
   constructor() {}
   createProject(key, title) {
     if (!Storage.projectStorage[key]) {
@@ -28,12 +34,63 @@ export class Storage {
     console.log(todos);
     return todos ? todos : [];
   }
+  // findTodoIndex(key, targetID) {
+  //   const isIndexPresetProject = this.isIdPresetProject(key);
+  //   if (isIndexPresetProject) {
+  //     const todos = this.retrieveAllTodos();
+  //     const index = todos.findIndex(({ id }) => id == targetID);
+  //     if (index) {
+  //       console.log(index);
+  //       return index;
+  //     } else {
+  //       return "Can't Find Index";
+  //     }
+  //   } else {
+  //     const todos = Storage.projectStorage[key]?.todo;
+  //     const index = todos.findIndex(({ id }) => id == targetID);
+  //     if (index) {
+  //       return index;
+  //     } else {
+  //       return "Can't Find Index";
+  //     }
+  //   }
+  // }
   findTodoIndex(key, targetID) {
-    const todos = Storage.projectStorage[key]?.todo;
+    const todos = this.isIdPresetProject(key)
+      ? this.retrieveAllTodos()
+      : Storage.projectStorage[key]?.todo;
+    if (!todos) {
+      console.error("No todos found for the specified key.");
+      return "Can't Find Index";
+    }
     const index = todos.findIndex(({ id }) => id == targetID);
+    if (index === -1) {
+      console.log("Can't Find Index");
+      return "Can't Find Index";
+    }
+
     return index;
   }
-  renameTodo(key, targetID, renameValue, renameDescription, renameDate) {
+  //   findTodoById1(id) {
+  //     const todos = Object.values(Storage.projectStorage).flatMap(
+  //       (project) => project.todo
+  //     );
+  //     return todos.find((todo) => todo.id === id) || null;
+  // }
+  findProjectKeyById(id) {
+    console.log(`testfind`, id);
+    // Iterate over each project in projectStorage
+    for (const [key, project] of Object.entries(Storage.projectStorage)) {
+      const todo = project.todo.find((todo) => todo.id == id);
+      if (todo) {
+        return key;
+      }
+    }
+
+    return null;
+  }
+  renameTodo(targetID, renameValue, renameDescription, renameDate) {
+    const key = this.findProjectKeyById(targetID);
     const index = this.findTodoIndex(key, targetID);
     const newTitle = (Storage.projectStorage[key]["todo"][index]["taskName"] =
       renameValue);
@@ -43,18 +100,20 @@ export class Storage {
     const newDate = (Storage.projectStorage[key]["todo"][index]["date"] =
       renameDate);
   }
-  removeTodo(key, targetID) {
+  removeTodo(targetID) {
     if (targetID) {
-      const index = this.findTodoIndex(key, targetID);
-      Storage.projectStorage[key]["todo"].splice(index, 1);
+      const ProjectKey = this.findProjectKeyById(targetID);
+      const index = this.findTodoIndex(ProjectKey, targetID);
+      Storage.projectStorage[ProjectKey]["todo"].splice(index, 1);
       return Storage.projectStorage;
     } else {
       console.error(`${targetID} is not found`);
     }
   }
-  markAsDone(key, targetID, value) {
-    const index = this.findTodoIndex(key, targetID);
-    Storage.projectStorage[key]["todo"][index]["done"] = value;
+  markAsDone(targetID, value) {
+    const ProjectKey = this.findProjectKeyById(targetID);
+    const index = this.findTodoIndex(ProjectKey, targetID);
+    Storage.projectStorage[ProjectKey]["todo"][index]["done"] = value; // to find the exact or specific todo then modified value
     return Storage.projectStorage;
   }
   removeProject(key) {
@@ -69,6 +128,9 @@ export class Storage {
   print(name, key) {
     console.log(`Name of the project: ${name}, the key ${key}`);
     console.log(Storage.projectStorage);
+  }
+  isIdPresetProject(id) {
+    return Object.keys(Storage.presetTitles).includes(id);
   }
   retrieveProjectTitle(key) {
     if (key) {
@@ -90,6 +152,7 @@ export class Storage {
     const allTodos = Object.values(Storage.projectStorage).flatMap(
       (project) => project.todo
     );
+    console.log(`This is the all of todos`, allTodos);
     return allTodos;
   }
 }

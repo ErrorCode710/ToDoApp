@@ -41,7 +41,6 @@ export class TodoController {
         const editButton = popoverContent.querySelector("#editTodoBtn");
         const deleteButton = popoverContent.querySelector("#deleteTodoBtn");
         editButton.addEventListener("click", (e) => {
-        
           const targetID = getData2("#editTodoBtn");
           this.handleEditTodo(targetID);
         });
@@ -69,9 +68,7 @@ export class TodoController {
     removeForm("#removeTask", form);
   }
   handleTodoClick() {
-    
     const parent = document.querySelector("#listContainer");
-   
 
     if (parent) {
       parent.addEventListener("click", (e) => {
@@ -80,7 +77,6 @@ export class TodoController {
           // const condition = this.isRunningBackground(parent);
           const condition = true; // Testing if this condition will work
           if (condition) {
-            const key = getAddTaskButtonID();
             const targetID = getData2(e.target); // Pass the clicked checkbox to get the ID
             const checkboxId = document.querySelector(
               `[data-id="checkboxId-${targetID}"]`
@@ -91,7 +87,8 @@ export class TodoController {
               const value = checkboxId.checked;
               console.log(value);
               this.handleDoneTodoRemove(targetID);
-              todo.isTodoDone(key, targetID, value); // Process checkbox click
+              todo.isTodoDone(targetID, value); // Process checkbox click
+              console.log(targetID);
             }
           }
         }
@@ -118,9 +115,8 @@ export class TodoController {
     // }
   }
   handleRemoveTodo(targetID) {
-    const key = getAddTaskButtonID();
     const todo = new Todo();
-    todo.removeToDo(key, targetID);
+    todo.removeToDo(targetID);
     todo.renderAllTodo();
   }
   handleEditTodo(targetID) {
@@ -131,7 +127,7 @@ export class TodoController {
       todo.renderAllTodo();
     }
     const form = displayRenameForm(targetID);
-    const key = getAddTaskButtonID();
+
     const index = targetID;
 
     form.addEventListener("submit", (e) => {
@@ -148,8 +144,8 @@ export class TodoController {
       const renameDate = document.querySelector(
         `[data-id="dateId-${targetID}"]`
       ).value;
-      console.log(renameDate);
-      todo.renameTodo(key, index, renameValue, renameDescription, renameDate);
+
+      todo.renameTodo(index, renameValue, renameDescription, renameDate);
       todo.renderAllTodo();
       form.remove();
     });
@@ -197,9 +193,9 @@ export class TodoController {
     const form = document.querySelector("form");
     const renameForm =
       parent.querySelector(`input[type="text"].edit-task-name.hidden`) !== null;
-    console.log("Popover:", popover);
-    console.log("Form:", form);
-    console.log("Rename form hidden:", renameForm);
+    // console.log("Popover:", popover);
+    // console.log("Form:", form);
+    // console.log("Rename form hidden:", renameForm);
 
     // const renameForm = parent.closest(".hidden");
     // if  popover is not exist thenn this code will run

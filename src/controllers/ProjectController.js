@@ -79,7 +79,7 @@ export class ProjectController {
   handleProjectClick() {
     const parent = document.querySelector("#projectContainer");
     const presetProject = document.querySelector("#presetProjectContainer");
-    console.log(presetProject);
+  
     if (parent) {
       console.log("Project container found"); // Debug log
 

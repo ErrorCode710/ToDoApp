@@ -6,12 +6,12 @@ import { toggleClickEffect } from "../views/ProjectView";
 import { AssignIdToAddTask } from "../views/ProjectView";
 
 export class Project {
-  static presetTitles = {
-    ProjectAllTask: "All Task",
-    ProjectToday: "Today",
-    Project7days: "Next 7 Days",
-    ProjectImportant: "Important",
-  };
+  // static presetTitles = {
+  //   ProjectAllTask: "All Task",
+  //   ProjectToday: "Today",
+  //   Project7days: "Next 7 Days",
+  //   ProjectImportant: "Important",
+  // };
   constructor(title) {
     this.title = title;
     this.uniqueID = this.genID();
@@ -67,10 +67,11 @@ export class Project {
     displayBanner(projectTitle);
   }
   isIdPresetProject(id) {
-    return Object.keys(Project.presetTitles).includes(id);
+    const project = this.storage.isIdPresetProject(id);
+    return project;
   }
   retrievePresetTitle(id) {
-    return Project.presetTitles[id];
+    return Storage.presetTitles[id];
   }
   retrieveProjectTitle(id) {
     if (this.isIdPresetProject(id)) {
@@ -81,5 +82,4 @@ export class Project {
       return title;
     }
   }
-  
 }
