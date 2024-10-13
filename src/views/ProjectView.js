@@ -5,6 +5,7 @@ import { popoverMenu } from "../controllers/ProjectController";
 import { ProjectController } from "../controllers/ProjectController";
 import "tippy.js/themes/light.css";
 import { strikeThrough } from "./ToDoView";
+import { getAddTaskButtonID } from "../helper/getAddTaskButtonID";
 
 export function displayForm() {
   const parent = document.querySelector("#projectContainer");
@@ -70,6 +71,7 @@ export function displayProject(title, key) {
       {
         className:
           "sidepanel__buttons-container sidepanel__buttons-container--project project--list",
+        "aria-label": `Projects`,
       },
       createElement(
         "div",
@@ -117,23 +119,26 @@ export function clearContents() {
   const wrapper = document.querySelector("#listContainer");
   wrapper.innerHTML = "";
 }
-
-export function toggleClickEffect(e) {
-  const clickEvents = e.target;
+// Project preset needs event.target
+export function toggleClickEffect() {
+  const key = getAddTaskButtonID();
+  let clickEvents = document.querySelector(`[data-id="${key}"]`);
   if (!clickEvents) {
+    clickEvents = document.querySelector(`#${key}`);
     console.error("Event target is undefined");
-    return;
   }
-
   const grandParent = document.querySelector("#sidenav");
   const targetClass = grandParent.querySelectorAll(".click-effect");
   targetClass.forEach((element) => {
     element.classList.remove("click-effect");
   });
-
-  const projectList = clickEvents.closest(".project--list");
+  console.log(clickEvents);
+  const projectList = clickEvents.querySelector('[aria-label="Projects"]');
+  console.log(projectList);
   if (projectList) {
     projectList.classList.toggle("click-effect");
+  } else if (!projectList) {
+    clickEvents.classList.toggle("click-effect");
   } else {
     console.log("Element not found");
   }

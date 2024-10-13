@@ -49,6 +49,8 @@ export class Project {
         displayProject(project.title, key);
       }
     }
+    
+    toggleClickEffect();
   }
 
   AssignIdToAddTask(id) {

@@ -23,7 +23,7 @@
   - [x] <span style="color:#50fa7b;"><s>View Project</s></span> ⭐
   - [x] <span style="color:#50fa7b;"><s>Delete Project</s></span> ⭐
   - [x] <span style="color:#50fa7b;"><s>Rename Project</s></span> ⭐
-  - [ ] All Task ⭐
+  - [x] All Task ⭐
   - [ ] Today ⭐
   - [ ] Next 7 days ⭐
   - [ ] Important ⭐
@@ -43,7 +43,8 @@
   - [ ] If we delete the a project the todo panel automatically reflect the above todo
   - [ ] When the project list become long the add task form affected and cant be seen
   - [x] On Project rename avoid No input
-
+  - [ ] Remove the Add Task on the Preset Project 🔵
+ 
   PLANING
   -RENAME FEATURE
   // CREATE RENAME FORM IN JUST OVERLAY IT TO THE TODO

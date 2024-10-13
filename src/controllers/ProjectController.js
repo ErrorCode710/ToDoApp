@@ -79,7 +79,7 @@ export class ProjectController {
   handleProjectClick() {
     const parent = document.querySelector("#projectContainer");
     const presetProject = document.querySelector("#presetProjectContainer");
-  
+
     if (parent) {
       console.log("Project container found"); // Debug log
 
@@ -113,6 +113,7 @@ export class ProjectController {
           const presetProjectID = getData2(e);
           if (presetProjectID) {
             const project = new Project();
+
             const todo = new Todo();
             this.handleProjectActions(presetProjectID, project, todo, e);
           }
