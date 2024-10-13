@@ -4,6 +4,7 @@ import { isDateValid } from "../helper/isDateValid";
 import { getAddTaskButtonID } from "../helper/getAddTaskButtonID.js";
 import { getData2 } from "../helper/getDataID.js";
 import { strikeThrough } from "../views/ToDoView";
+import { Project } from "./Project.js";
 export class Todo {
   constructor(title, details, date) {
     this.title = title;
@@ -66,9 +67,23 @@ export class Todo {
       renameDate
     );
   }
+  retrieveAllTodos() {
+    this.storage.retrieveAllTodos();
+  }
   displayToDo() {
     const key = getAddTaskButtonID();
+    const project = new Project();
+    const projectContainer = project.isIdPresetProject(key);
+    console.log("is key an presetID?", projectContainer);
+    if (projectContainer) {
+      const todos = this.storage.retrieveAllTodos();
+      this.displayToDoItem(todos);
+    }
     const todos = this.storage.retrieveTodos(key);
+    console.log(`Check DsT`, todos);
+    this.displayToDoItem(todos);
+  }
+  displayToDoItem(todos) {
     todos.forEach((todo) => {
       displayToDo(
         todo.id,
@@ -81,3 +96,4 @@ export class Todo {
     });
   }
 }
+// THE PROBLEM HERE IS WE CANT SHOW THE ALL TASK BECAUSE ITS NOT FOUND ON THE PROJECTSTORAGE

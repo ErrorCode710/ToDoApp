@@ -25,6 +25,7 @@ export class Storage {
   }
   retrieveTodos(key) {
     const todos = Storage.projectStorage[key]?.todo;
+    console.log(todos);
     return todos ? todos : [];
   }
   findTodoIndex(key, targetID) {
@@ -42,12 +43,6 @@ export class Storage {
     const newDate = (Storage.projectStorage[key]["todo"][index]["date"] =
       renameDate);
   }
-  // renameTodoDescription(key,targetID,renameValue){
-  //    const index = this.findTodoIndex(key, targetID);
-  //   const newDescription = (Storage.projectStorage[key]["todo"][index]["taskName"] =
-  //     renameValue);
-  // }
-
   removeTodo(key, targetID) {
     if (targetID) {
       const index = this.findTodoIndex(key, targetID);
@@ -90,5 +85,11 @@ export class Storage {
   }
   retrieveProjectIds() {
     return Object.keys(Storage.projectStorage);
+  }
+  retrieveAllTodos() {
+    const allTodos = Object.values(Storage.projectStorage).flatMap(
+      (project) => project.todo
+    );
+    return allTodos;
   }
 }

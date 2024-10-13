@@ -13,7 +13,7 @@
   - [ ] Due Date ✨
   - [ ] Priority (e.g., Low, Medium, High) ✨
   - [x] <span style="color:#50fa7b;"><s>View To-Dos</s></span> ✨
-  - [ ] Edit To-Dos ⭐
+  - [x] Edit To-Dos ⭐
   - [x] Delete To-Dos ⭐
   - [x] 🔵 Done To-Dos⭐
 

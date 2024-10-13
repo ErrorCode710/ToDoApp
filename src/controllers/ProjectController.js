@@ -111,10 +111,10 @@ export class ProjectController {
             target.classList.contains("sidepanel__buttons-container"))
         ) {
           const presetProjectID = getData2(e);
-
           if (presetProjectID) {
             const project = new Project();
-            project.updateBanner(presetProjectID);
+            const todo = new Todo();
+            this.handleProjectActions(presetProjectID, project, todo, e);
           }
         }
       });
@@ -122,6 +122,7 @@ export class ProjectController {
   }
   handleProjectActions(projectID, project, todo, event) {
     const found = this.isProjectValid(projectID);
+    console.log(found);
     if (found) {
       project.updateBanner(projectID);
       project.AssignIdToAddTask(projectID);
@@ -193,10 +194,17 @@ export class ProjectController {
   isProjectValid(projectID) {
     const project = new Project();
     const isProjectValid = project.retrieveProject(projectID);
-    const found = isProjectValid.some((key) => {
-      return key === projectID;
-    });
-    return found;
+    const isPresetProjectValid = project.isIdPresetProject(projectID);
+
+    if (
+      (Array.isArray(isProjectValid) &&
+        isProjectValid.some((key) => key === projectID)) ||
+      isPresetProjectValid
+    ) {
+      return true; // Returns true if projectID is valid
+    }
+
+    return false; // Returns false if neither is valid
   }
 }
 export class PresetProjectController extends ProjectController {
