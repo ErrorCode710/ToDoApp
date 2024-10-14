@@ -123,8 +123,9 @@ export function clearContents() {
 export function toggleClickEffect() {
   const key = getAddTaskButtonID();
   let clickEvents = document.querySelector(`[data-id="${key}"]`);
+  console.log(clickEvents);
   if (!clickEvents) {
-    clickEvents = document.querySelector(`#${key}`);
+    clickEvents = document.querySelector(`[data-id]="${key}"`);
     console.error("Event target is undefined");
   }
   const grandParent = document.querySelector("#sidenav");
