@@ -46,8 +46,9 @@
   - [ ] Remove the Add Task on the Preset Project 🔵
  
   PLANING
-  -RENAME FEATURE
-  // CREATE RENAME FORM IN JUST OVERLAY IT TO THE TODO
+  -IMPORTANT TODO
+  // FIRST GET REFERENCE ON DELETE FUNCTION
+  // LETS TRY TO PUT ANOTHER PROPERTIES ON OBJECT 
 
  <form>
   <li class="list">

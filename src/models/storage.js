@@ -6,6 +6,7 @@ export class Storage {
         {
           id: 1,
           done: true,
+          isImportant: false,
           taskName: "Learn Coding",
           details: "Short",
           date: "07-10-24",
