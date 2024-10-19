@@ -49,7 +49,7 @@ export class Project {
         displayProject(project.title, key);
       }
     }
-    
+
     toggleClickEffect();
   }
 
@@ -63,7 +63,6 @@ export class Project {
     toggleClickEffect(e);
   }
   updateBanner(id) {
-    console.log("update banner id", id);
     // displayBanner(this.storage.retrieveProjectTitle(id));
     const projectTitle = this.retrieveProjectTitle(id);
     displayBanner(projectTitle);

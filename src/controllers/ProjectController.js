@@ -123,7 +123,6 @@ export class ProjectController {
   }
   handleProjectActions(projectID, project, todo, event) {
     const found = this.isProjectValid(projectID);
-    console.log(found);
     if (found) {
       project.updateBanner(projectID);
       project.AssignIdToAddTask(projectID);

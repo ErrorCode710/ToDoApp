@@ -73,22 +73,33 @@ export class TodoController {
     if (parent) {
       parent.addEventListener("click", (e) => {
         // Check if the clicked element is a checkbox
-        if (e.target.type === "checkbox" && e.target.hasAttribute("data-id")) {
-          // const condition = this.isRunningBackground(parent);
-          const condition = true; // Testing if this condition will work
+        // Check the conditions
+        const isCheckbox = e.target.type === "checkbox";
+        const hasDataImportant = e.target.hasAttribute("data-important");
+        const hasDataId =
+          e.target.hasAttribute("data-id") ||
+          e.target.hasAttribute("data-important");
+
+        if ((isCheckbox || hasDataImportant) && hasDataId) {
+          const condition = this.isRunningBackground(parent);
+          // const condition = true; // Testing if this condition will work
           if (condition) {
             const targetID = getData2(e.target); // Pass the clicked checkbox to get the ID
             const checkboxId = document.querySelector(
               `[data-id="checkboxId-${targetID}"]`
             );
+            const importantTodoId = document.querySelector(
+              `#importantTodo-${targetID}`
+            );
 
-            if (checkboxId) {
+            if (e.target === checkboxId) {
               const todo = new Todo();
               const value = checkboxId.checked;
-              console.log(value);
               this.handleDoneTodoRemove(targetID);
-              todo.isTodoDone(targetID, value); // Process checkbox click
-              console.log(targetID);
+              todo.isTodoDone(targetID, value);
+            }
+            if (importantTodoId) {
+              this.handleImportantTodo(targetID, importantTodoId, e);
             }
           }
         }
@@ -106,13 +117,24 @@ export class TodoController {
         this.handleRemoveTodo(targetID);
       }
     });
-    // console.log("outside click")
-    // const btn = document.querySelector(`#deleteDoneTodo-${targetID}`);
-    // if (btn) {
-    //   btn.addEventListener("click", () => {
-    //     this.handleRemoveTodo(targetID);
-    //   });
-    // }
+  }
+  handleImportantTodo(targetID, importantTodoId, event) {
+    const parent = document.querySelector("#listContainer");
+
+    const btn = parent.querySelector(`#importantTodo-${targetID}`);
+    event.stopPropagation();
+
+    if (btn) {
+      const todo = new Todo();
+      const isImportant =
+        importantTodoId.getAttribute("data-important") === "true";
+
+      // Toggle the important status
+      importantTodoId.setAttribute("data-important", !isImportant);
+      todo.isTodoImportant(targetID, !isImportant);
+
+      // Check if any important todos exist after toggling
+    }
   }
   handleRemoveTodo(targetID) {
     const todo = new Todo();

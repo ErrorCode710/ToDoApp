@@ -79,7 +79,6 @@ export class Storage {
   //     return todos.find((todo) => todo.id === id) || null;
   // }
   findProjectKeyById(id) {
-    console.log(`testfind`, id);
     // Iterate over each project in projectStorage
     for (const [key, project] of Object.entries(Storage.projectStorage)) {
       const todo = project.todo.find((todo) => todo.id == id);
@@ -111,10 +110,11 @@ export class Storage {
       console.error(`${targetID} is not found`);
     }
   }
-  markAsDone(targetID, value) {
+  markTodo(targetID, value, properties) {
     const ProjectKey = this.findProjectKeyById(targetID);
     const index = this.findTodoIndex(ProjectKey, targetID);
-    Storage.projectStorage[ProjectKey]["todo"][index]["done"] = value; // to find the exact or specific todo then modified value
+    console.log("Task complete");
+    Storage.projectStorage[ProjectKey]["todo"][index][properties] = value; // to find the exact or specific todo then modified value
     return Storage.projectStorage;
   }
   removeProject(key) {

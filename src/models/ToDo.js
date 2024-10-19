@@ -18,6 +18,7 @@ export class Todo {
     const todo = {
       id: this.id,
       done: false,
+      isImportant: false,
       taskName: this.title,
       details: this.details,
       date: this.date,
@@ -54,8 +55,14 @@ export class Todo {
     return this.storage.retrieveProjectIds();
   }
   isTodoDone(targetID, value) {
-    this.storage.markAsDone(targetID, value);
+    const properties = "done";
+    this.storage.markTodo(targetID, value, properties);
     strikeThrough(targetID);
+    this.renderAllTodo();
+  }
+  isTodoImportant(targetID, value) {
+    const properties = "isImportant";
+    this.storage.markTodo(targetID, value, properties);
     this.renderAllTodo();
   }
   renameTodo(targetID, renameValue, renameDescription, renameDate) {
@@ -82,6 +89,9 @@ export class Todo {
     this.displayToDoItem(todos);
   }
   displayToDoItem(todos) {
+    if (todos.some((todo) => todo.isImportant)) {
+      console.log("There are important todos.");
+    }
     todos.forEach((todo) => {
       displayToDo(
         todo.id,
@@ -89,7 +99,8 @@ export class Todo {
         isDateValid(todo.date),
         todo.details,
         todo.id,
-        todo.done
+        todo.done,
+        todo.isImportant
       );
     });
   }

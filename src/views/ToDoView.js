@@ -65,7 +65,8 @@ export function displayToDo(
   toDoDate,
   toDoDescription,
   todoID,
-  isTodoDone = false
+  isTodoDone = false,
+  isTodoImportant = false
 ) {
   const listWrapper = document.querySelector("#listContainer");
 
@@ -140,11 +141,24 @@ export function displayToDo(
             ? createElement(
                 "div",
                 {
-                  className: "Important",
-                  id: "importantTodo",
+                  className: isTodoImportant
+                    ? "TodoImportant"
+                    : "TodoNotImportant",
+
+                  "aria-label": isTodoImportant
+                    ? `TodoImportant`
+                    : `TodoNotImportant`,
+                  "data-important": isTodoImportant ? "true" : "false",
+                  id: `importantTodo-${todoID}`,
+                  // id: isTodoImportant ? "TodoImportant" : "TodoNotImportant",
                 },
                 createElement("img", {
-                  src: "assets/StarOut.svg",
+                  src: isTodoImportant
+                    ? "assets/StarFill.svg"
+                    : "assets/StarOut.svg",
+                  "data-important": isTodoImportant ? "true" : "false",
+                  id: isTodoImportant ? "TodoImportant" : "TodoNotImportant",
+
                   alt: "",
                 })
               )
