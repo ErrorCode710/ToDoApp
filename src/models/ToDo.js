@@ -5,6 +5,7 @@ import { getAddTaskButtonID } from "../helper/getAddTaskButtonID.js";
 import { getData2 } from "../helper/getDataID.js";
 import { strikeThrough } from "../views/ToDoView";
 import { Project } from "./Project.js";
+import { isToday } from "date-fns";
 export class Todo {
   constructor(title, details, date) {
     this.title = title;
@@ -80,8 +81,15 @@ export class Todo {
   retrieveOnlyImportantTodo() {
     return this.storage.retrieveOnlyImportantTodos();
   }
+  retrieveTodayTodo() {
+    return this.storage.retrieveTodayTodos();
+  }
+  retrieveNext7daysTodo() {
+    return this.storage.retrieveNext7daysTodo();
+  }
   displayToDo() {
     const key = getAddTaskButtonID();
+    console.log(key);
     const project = new Project();
     const projectContainer = project.isIdPresetProject(key);
 
@@ -95,6 +103,15 @@ export class Todo {
       if (key === "ProjectImportant") {
         const todos = this.retrieveOnlyImportantTodo();
         this.displayToDoItem(todos);
+      }
+      if (key === "ProjectToday") {
+        const todos = this.retrieveTodayTodo();
+        this.displayToDoItem(todos);
+      }
+      if (key === "Project7days") {
+        const todos = this.retrieveNext7daysTodo();
+        this.displayToDoItem(todos);
+        console.log("ABOT KA DIRI?");
       }
     }
     const todos = this.storage.retrieveTodos(key);

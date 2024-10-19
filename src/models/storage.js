@@ -1,3 +1,5 @@
+import { isToday, isWithinInterval, addDays } from "date-fns";
+
 export class Storage {
   static projectStorage = {
     key1: {
@@ -9,7 +11,7 @@ export class Storage {
           isImportant: false,
           taskName: "Learn Coding",
           details: "Short",
-          date: "07-10-24",
+          date: "2024-10-9",
         },
       ],
     },
@@ -129,6 +131,12 @@ export class Storage {
     console.log(`Name of the project: ${name}, the key ${key}`);
     console.log(Storage.projectStorage);
   }
+  isDateInNext7days(date) {
+    const today = new Date(); // Get the current date
+    const next7Days = addDays(today, 7); // Get the date 7 days from today
+
+    return isWithinInterval(date, { start: today, end: next7Days });
+  }
   isIdPresetProject(id) {
     return Object.keys(Storage.presetTitles).includes(id);
   }
@@ -161,5 +169,29 @@ export class Storage {
     );
 
     return importantTodo;
+  }
+  retrieveTodayTodos() {
+    // CHECK ALL OF THE TODO HAS DATE
+    // AND IF THE TODO HAS DATE GET THE DATE
+    // USE DATE-FNS TO KNOW IF ITS TODAY
+    // IF ITS TRUE THEN GET THE WHOLE TODO
+
+    // const project = Object.values(Storage.projectStorage);
+    // const flat = project.flatMap((project) => project.todo);
+    // const todo = flat.filter((todo) => isToday(todo.date));
+    // console.table(todo);
+    // return todo;
+    const todayTodo = Object.values(Storage.projectStorage).flatMap((project) =>
+      project.todo.filter((todo) => isToday(todo.date))
+    );
+    return todayTodo;
+  }
+  retrieveNext7daysTodo() {
+    const next7dayTodo = Object.values(Storage.projectStorage).flatMap(
+      (project) =>
+        project.todo.filter((todo) => this.isDateInNext7days(todo.date))
+    );
+    console.table(next7dayTodo);
+    return next7dayTodo;
   }
 }
