@@ -32,7 +32,6 @@ export class Storage {
   }
   retrieveTodos(key) {
     const todos = Storage.projectStorage[key]?.todo;
-    console.log(todos);
     return todos ? todos : [];
   }
   // findTodoIndex(key, targetID) {
@@ -155,5 +154,12 @@ export class Storage {
     );
     console.log(`This is the all of todos`, allTodos);
     return allTodos;
+  }
+  retrieveOnlyImportantTodos() {
+    const importantTodo = Object.values(Storage.projectStorage).flatMap(
+      (project) => project.todo.filter((todo) => todo.isImportant)
+    );
+
+    return importantTodo;
   }
 }

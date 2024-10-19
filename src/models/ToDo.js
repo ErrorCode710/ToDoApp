@@ -74,24 +74,37 @@ export class Todo {
     );
   }
   retrieveAllTodos() {
-    this.storage.retrieveAllTodos();
+    return this.storage.retrieveAllTodos();
+    // return this.storage.retrieveOnlyImportantTodos();
+  }
+  retrieveOnlyImportantTodo() {
+    return this.storage.retrieveOnlyImportantTodos();
   }
   displayToDo() {
     const key = getAddTaskButtonID();
     const project = new Project();
     const projectContainer = project.isIdPresetProject(key);
-    console.log("is key an presetID?", projectContainer);
+
+    console.log(projectContainer);
+
     if (projectContainer) {
-      const todos = this.storage.retrieveAllTodos();
-      this.displayToDoItem(todos);
+      if (key === "ProjectAllTask") {
+        const todos = this.retrieveAllTodos();
+        this.displayToDoItem(todos);
+      }
+      if (key === "ProjectImportant") {
+        const todos = this.retrieveOnlyImportantTodo();
+        this.displayToDoItem(todos);
+      }
     }
     const todos = this.storage.retrieveTodos(key);
     this.displayToDoItem(todos);
   }
   displayToDoItem(todos) {
-    if (todos.some((todo) => todo.isImportant)) {
-      console.log("There are important todos.");
-    }
+    // if (todos.some((todo) => todo.isImportant)) {
+    //   console.log("There are important todos.");
+    // }
+
     todos.forEach((todo) => {
       displayToDo(
         todo.id,

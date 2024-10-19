@@ -113,7 +113,6 @@ export class ProjectController {
           const presetProjectID = getData2(e);
           if (presetProjectID) {
             const project = new Project();
-
             const todo = new Todo();
             this.handleProjectActions(presetProjectID, project, todo, e);
           }
