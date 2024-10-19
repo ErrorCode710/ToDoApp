@@ -3,6 +3,7 @@ import { createButton } from "../helper/createButton";
 import { Todo } from "../models/ToDo";
 import { TodoController } from "../controllers/ToDoController";
 import doneIcon from "../assets/img/Done.svg";
+import { getAddTaskButtonID } from "../helper/getAddTaskButtonID";
 
 export function displayToDoForm() {
   const parent = document.querySelector(".list-toDo");
@@ -316,4 +317,18 @@ function updateRenameBtnForm(replaceElement, targetID) {
   }
   renameBtn.setAttribute("data-id", `add-${targetID}`);
   renameBtn.removeAttribute("id");
+}
+export function ToggleAddTaskBtn(state) {
+  const id = getAddTaskButtonID();
+  const addTaskBtn = document.querySelector(`[data-btnId="${id}"]`);
+  if (state) {
+    addTaskBtn.style.opacity = 0;
+    addTaskBtn.style.visibility = "hidden";
+    console.log("DELETED", addTaskBtn);
+  } else {
+    // addTaskBtn.style.opacity = 0.5;
+    // addTaskBtn.style.visibility = "visible";
+    // console.log("ALIVE", addTaskBtn);
+    addTaskBtn.removeAttribute("style");
+  }
 }

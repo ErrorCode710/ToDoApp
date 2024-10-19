@@ -1,5 +1,10 @@
 import { Storage } from "./storage.js";
-import { changeToDeleteIcon, displayToDo } from "../views/ToDoView";
+import {
+  changeToDeleteIcon,
+  displayToDo,
+  removeAddTaskBtn,
+  ToggleAddTaskBtn,
+} from "../views/ToDoView";
 import { isDateValid } from "../helper/isDateValid";
 import { getAddTaskButtonID } from "../helper/getAddTaskButtonID.js";
 import { getData2 } from "../helper/getDataID.js";
@@ -92,7 +97,8 @@ export class Todo {
     console.log(key);
     const project = new Project();
     const projectContainer = project.isIdPresetProject(key);
-
+    console.log(projectContainer);
+    this.removeAddTaskBtnOnPresetProject(projectContainer);
     console.log(projectContainer);
 
     if (projectContainer) {
@@ -133,6 +139,11 @@ export class Todo {
         todo.isImportant
       );
     });
+  }
+  removeAddTaskBtnOnPresetProject(state) {
+    // const addTaskBtn = this.storage.isIdPresetProject(getAddTaskButtonID());
+    console.log(`TESTING THE ADDTASK`, state);
+    ToggleAddTaskBtn(state);
   }
 }
 // THE PROBLEM HERE IS WE CANT SHOW THE ALL TASK BECAUSE ITS NOT FOUND ON THE PROJECTSTORAGE

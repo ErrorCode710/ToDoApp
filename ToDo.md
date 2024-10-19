@@ -10,8 +10,8 @@
 
   - [x] <span style="color:#50fa7b;"><s>Title</s></span>
   - [x] <span style="color:#50fa7b;"><s>Description</s></span>
-  - [ ] Due Date ✨
-  - [ ] Priority (e.g., Low, Medium, High) ✨
+  - [x] Due Date ✨
+  - [x] Important
   - [x] <span style="color:#50fa7b;"><s>View To-Dos</s></span> ✨
   - [x] Edit To-Dos ⭐
   - [x] Delete To-Dos ⭐
@@ -24,9 +24,9 @@
   - [x] <span style="color:#50fa7b;"><s>Delete Project</s></span> ⭐
   - [x] <span style="color:#50fa7b;"><s>Rename Project</s></span> ⭐
   - [x] All Task ⭐
-  - [ ] Today ⭐
-  - [ ] Next 7 days ⭐
-  - [ ] Important ⭐
+  - [x] Today ⭐
+  - [x] Next 7 days ⭐
+  - [x] Important ⭐
 
 - [ ] 3. Persistence
 
@@ -44,6 +44,8 @@
   - [ ] When the project list become long the add task form affected and cant be seen
   - [x] On Project rename avoid No input
   - [ ] Remove the Add Task on the Preset Project 🔵
+  - [ ] Make the data style center
+  - [ ] Make a unique background for important todo
 
   PLANING
   -IMPORTANT TODO
