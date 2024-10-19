@@ -99,7 +99,7 @@ export class Todo {
     const projectContainer = project.isIdPresetProject(key);
     console.log(projectContainer);
     this.removeAddTaskBtnOnPresetProject(projectContainer);
-    console.log(projectContainer);
+    console.log("DO YOU GOT HRE?");
 
     if (projectContainer) {
       if (key === "ProjectAllTask") {

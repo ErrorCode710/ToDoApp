@@ -36,8 +36,7 @@ document.addEventListener("DOMContentLoaded", function () {
   project.initializedAll();
   const todo = new TodoController();
   todo.initialize();
-  const presetProject = new PresetProjectController();
-  presetProject.initializedPreset();
+
   // ProjectController();
   // popoverMenu();
   // handleProjectClick();

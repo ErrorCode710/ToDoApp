@@ -206,9 +206,4 @@ export class ProjectController {
     return false; // Returns false if neither is valid
   }
 }
-export class PresetProjectController extends ProjectController {
-  constructor() {
-    super();
-  }
-  initializedPreset() {}
-}
+

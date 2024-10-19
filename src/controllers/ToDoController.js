@@ -13,6 +13,7 @@ export class TodoController {
   initialize() {
     this.setUpAddProject();
     this.handleTodoClick();
+    this.firstLoad();
   }
   // EVENT SETUP
   setUpAddProject() {
@@ -183,6 +184,11 @@ export class TodoController {
     const details = form.querySelector("#detailsInput").value;
     const date = form.querySelector("#dateInput").value;
     return new Todo(title, details, date);
+  }
+  firstLoad() {
+    const todo = new Todo();
+    console.log("Already Render");
+    todo.renderAllTodo();
   }
 
   formAction(todo) {

@@ -3,7 +3,7 @@ import { isToday, isWithinInterval, addDays } from "date-fns";
 export class Storage {
   static projectStorage = {
     key1: {
-      title: "TestValue",
+      title: "Coding Journey",
       todo: [
         {
           id: 1,
