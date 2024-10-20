@@ -26,12 +26,14 @@ import {
   toDoController,
 } from "./controllers/ToDoController.js";
 import { driver } from "driver.js";
-
+import { Storage } from "./models/storage.js";
 import { popoverMenu } from "./views/ProjectView.js";
 
 document.addEventListener("DOMContentLoaded", function () {
   sideBar();
   // toDoController();
+  const storage = new Storage();
+  storage.firstLoad();
   const project = new ProjectController();
   project.initializedAll();
   const todo = new TodoController();

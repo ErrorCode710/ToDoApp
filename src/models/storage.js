@@ -15,6 +15,19 @@ export class Storage {
         },
       ],
     },
+    key2: {
+      title: "Practicing Journal",
+      todo: [
+        {
+          id: 2,
+          done: true,
+          isImportant: false,
+          taskName: "Buy notebook",
+          details: "Short",
+          date: "2024-10-9",
+        },
+      ],
+    },
   };
   static presetTitles = {
     ProjectAllTask: "All Task",
@@ -23,6 +36,51 @@ export class Storage {
     ProjectImportant: "Important",
   };
   constructor() {}
+  firstLoad() {
+    // Try to retrieve and parse the stored data from localStorage
+    let storage_deserialized =
+      JSON.parse(localStorage.getItem("StorageKey")) || {};
+
+    // If the deserialized object is empty, use the default projectStorage
+    if (Object.keys(storage_deserialized).length === 0) {
+      console.log(
+        "No data found in localStorage. Initializing with default data."
+      );
+      storage_deserialized = Storage.projectStorage;
+
+      // Save the default data to localStorage to initialize it
+      this.sendStorageToLocal(storage_deserialized);
+    }
+
+    console.table(`TESTER FOR LOCAL STORAGE`, storage_deserialized);
+    this.storageUpdater(storage_deserialized);
+  }
+  storageUpdater(newStorage) {
+    Storage.projectStorage = newStorage;
+  }
+  sendStorageToLocal() {
+    // NEW DATA
+    const storage = Storage.projectStorage;
+    const storage_serialized = JSON.stringify(storage);
+    const serializedOutput = localStorage.setItem(
+      "StorageKey",
+      storage_serialized
+    );
+    // const storage_deserialized = JSON.parse(localStorage.getItem("StorageKey"));
+    // console.table(`TESTER FOR LOCAL STORAGE`, storage_deserialized);
+    // return storage_deserialized;
+  }
+  isLocalStorageAvailable() {
+    try {
+      const testKey = "test";
+      localStorage.setItem(testKey, "testValue");
+      localStorage.removeItem(testKey);
+      return true;
+    } catch (error) {
+      console.error("LocalStorage is not available", error);
+      return false;
+    }
+  }
   createProject(key, title) {
     if (!Storage.projectStorage[key]) {
       Storage.projectStorage[key] = { title: title, todo: [] };

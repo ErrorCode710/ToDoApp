@@ -187,7 +187,6 @@ export class TodoController {
   }
   firstLoad() {
     const todo = new Todo();
-    console.log("Already Render");
     todo.renderAllTodo();
   }
 

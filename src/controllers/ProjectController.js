@@ -11,9 +11,11 @@ export class ProjectController {
     console.log("ProjectController initialized"); // Debug log
   }
   initializedAll() {
+    this.firstProjectload();
     this.setUpAddProjectForm();
     this.handleProjectClick();
     this.setUpPopoverMenu();
+    
   }
   //EVENT SETUP
   setUpAddProjectForm() {
@@ -205,5 +207,8 @@ export class ProjectController {
 
     return false; // Returns false if neither is valid
   }
+  firstProjectload() {
+    const project = new Project();
+    project.renderAllProjects();
+  }
 }
-

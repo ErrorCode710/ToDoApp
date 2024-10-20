@@ -35,6 +35,7 @@ export class Todo {
     this.storage.removeTodo(targetID);
   }
   renderAllTodo() {
+    this.storage.sendStorageToLocal();
     const container = document.querySelector("#listContainer");
     container.innerHTML = "";
     this.displayToDo();

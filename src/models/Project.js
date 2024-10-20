@@ -41,6 +41,7 @@ export class Project {
     }
   }
   renderAllProjects() {
+    this.storage.sendStorageToLocal();
     const parent = document.querySelector("#projectContainer");
     parent.innerHTML = "";
     for (let key in Storage.projectStorage) {
