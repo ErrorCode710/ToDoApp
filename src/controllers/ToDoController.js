@@ -77,14 +77,16 @@ export class TodoController {
         // Check the conditions
         const isCheckbox = e.target.type === "checkbox";
         const hasDataImportant = e.target.hasAttribute("data-important");
+        const hasClass = e.target.closest(".deleteToDo");
         const hasDataId =
-          e.target.hasAttribute("data-id") ||
-          e.target.hasAttribute("data-important");
+          e.target.hasAttribute("data-id") || hasDataImportant || hasClass;
 
-        if ((isCheckbox || hasDataImportant) && hasDataId) {
+        if ((isCheckbox || hasDataImportant || hasClass) && hasDataId) {
           const condition = this.isRunningBackground(parent);
+
           // const condition = true; // Testing if this condition will work
           if (condition) {
+            console.log("TEST FOR THE E.TARGET SECOND STEP");
             const targetID = getData2(e.target); // Pass the clicked checkbox to get the ID
             const checkboxId = document.querySelector(
               `[data-id="checkboxId-${targetID}"]`
@@ -92,12 +94,16 @@ export class TodoController {
             const importantTodoId = document.querySelector(
               `#importantTodo-${targetID}`
             );
-
-            if (e.target === checkboxId) {
+            console.log("TEST IF THERE IS CLASS", hasClass);
+            if (
+              e.target === checkboxId ||
+              e.target.closest(".deleteToDo") === hasClass
+            ) {
               const todo = new Todo();
               const value = checkboxId.checked;
-              this.handleDoneTodoRemove(targetID);
+
               todo.isTodoDone(targetID, value);
+              this.handleDoneTodoRemove(targetID, e);
             }
             if (importantTodoId) {
               this.handleImportantTodo(targetID, importantTodoId, e);
@@ -109,15 +115,12 @@ export class TodoController {
       console.error(`not found`);
     }
   }
-  handleDoneTodoRemove(targetID) {
-    const parent = document.querySelector("#listContainer");
-    parent.addEventListener("click", (e) => {
-      const btn = e.target.closest(`#deleteDoneTodo-${targetID}`);
-      e.stopPropagation();
-      if (btn) {
-        this.handleRemoveTodo(targetID);
-      }
-    });
+  handleDoneTodoRemove(targetID, e) {
+    const btn = e.target.closest(`#deleteDoneTodo-${targetID}`);
+    e.stopPropagation();
+    if (btn) {
+      this.handleRemoveTodo(targetID);
+    }
   }
   handleImportantTodo(targetID, importantTodoId, event) {
     const parent = document.querySelector("#listContainer");

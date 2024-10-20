@@ -62,6 +62,7 @@ export class Todo {
     return this.storage.retrieveProjectIds();
   }
   isTodoDone(targetID, value) {
+    
     const properties = "done";
     this.storage.markTodo(targetID, value, properties);
     strikeThrough(targetID);
