@@ -1,6 +1,6 @@
 //Index.Js file
 import "./assets/style/reset.css";
-// import "./style.css";
+
 import "./assets/style/main.css";
 import "./assets/style/globalVariable.css";
 import "./assets/style/sidePanel.css";

@@ -4,6 +4,7 @@ import { TodoController } from "../controllers/ToDoController";
 import { getAddTaskButtonID } from "../helper/getAddTaskButtonID";
 import confetti from "canvas-confetti";
 import importantSound from "../assets/sound/ImportantSound1.mp3";
+import doneIcon from "../assets/img/Done.svg";
 export function displayToDoForm() {
   const parent = document.querySelector(".list-toDo");
 
@@ -170,7 +171,7 @@ export function displayToDo(
                   id: `deleteDoneTodo-${todoID}`,
                 },
                 createElement("img", {
-                  src: "assets/Done.svg",
+                  src: doneIcon,
                   alt: "",
                 })
               ),

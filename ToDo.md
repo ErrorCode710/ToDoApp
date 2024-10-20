@@ -38,15 +38,18 @@
   - [ ] Implement double-click to rename feature 🔵
   - [x] <span style="color:#50fa7b;"><s>Refactor the handleRename function</s></span> ✨
   - [ ] Fix styling issues of input fields on smaller screens ⭐
-  - [ ] Ensure click effect persists when adding a new project ⭐
+  - [x] Ensure click effect persists when adding a new project ⭐
   - [x] Expand the side panel to fit the screen ⭐
-  - [ ] If we delete the a project the todo panel automatically reflect the above todo
+  - [x] If we delete the a project the todo panel automatically reflect the above todo
   - [ ] When the project list become long the add task form affected and cant be seen
   - [x] On Project rename avoid No input
   - [ ] Remove the Add Task on the Preset Project 🔵
   - [ ] Make the data style center
-  - [ ] Make a unique background for important todo
-  - [ ] FIX: if we delete todo it also trigger the addconfetti
+  - [x] Make a unique background for important todo
+  - [x] FIX: if we delete todo it also trigger the addconfetti
+
+- [ ] 5. SUGGESTION
+  - [ ] Preload my css and scripts
   PLANING
   -IMPORTANT TODO
   // FIRST GET REFERENCE ON DELETE FUNCTION
