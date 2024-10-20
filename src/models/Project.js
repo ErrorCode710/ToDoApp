@@ -1,5 +1,5 @@
 import { Storage } from "./storage.js";
-import { displayProject, updateAddTaskID } from "../views/ProjectView";
+import { displayProject } from "../views/ProjectView";
 import { displayBanner } from "../views/ProjectView";
 import { clearContents } from "../views/ProjectView";
 import { toggleClickEffect } from "../views/ProjectView";
@@ -44,12 +44,11 @@ export class Project {
     this.storage.sendStorageToLocal();
     const parent = document.querySelector("#projectContainer");
     parent.innerHTML = "";
-    for (let key in Storage.projectStorage) {
-      if (Storage.projectStorage.hasOwnProperty(key)) {
-        const project = Storage.projectStorage[key];
-        displayProject(project.title, key);
-      }
-    }
+
+    Object.keys(Storage.projectStorage).forEach((key) => {
+      const project = Storage.projectStorage[key];
+      displayProject(project.title, key);
+    });
 
     toggleClickEffect();
   }

@@ -1,8 +1,6 @@
 import { createElement } from "../helper/createElement";
 import { createButton } from "../helper/createButton";
-import { Todo } from "../models/ToDo";
 import { TodoController } from "../controllers/ToDoController";
-import doneIcon from "../assets/img/Done.svg";
 import { getAddTaskButtonID } from "../helper/getAddTaskButtonID";
 import confetti from "canvas-confetti";
 import importantSound from "../assets/sound/ImportantSound1.mp3";
@@ -231,11 +229,9 @@ export function strikeThrough(targetID = "On") {
     );
     const state = checkboxId.checked;
     const parent = document.querySelector(`[data-id="${targetID}"]`);
-   
 
     if (parent) {
       if (state) {
-       
         parent.classList.add("done-todo");
       } else if (state === false) {
         parent.classList.remove("done-todo");
@@ -303,7 +299,6 @@ function setFocusOnTaskNameField(replaceElement) {
   }
   setTimeout(() => {
     taskNameField.focus();
-  
   }, 0);
 }
 function updateRemoveBtnForm(replaceElement, targetID) {
@@ -328,7 +323,6 @@ export function ToggleAddTaskBtn(state) {
   if (state) {
     addTaskBtn.style.opacity = 0;
     addTaskBtn.style.visibility = "hidden";
-    
   } else {
     // addTaskBtn.style.opacity = 0.5;
     // addTaskBtn.style.visibility = "visible";
@@ -337,7 +331,6 @@ export function ToggleAddTaskBtn(state) {
   }
 }
 export function addConfetti() {
-  
   confetti({
     particleCount: 100, // Number of confetti particles
     spread: 180, // How spread out the particles are

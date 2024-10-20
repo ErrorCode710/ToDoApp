@@ -17,22 +17,15 @@ import "./assets/style/todoItems.css";
 // Js file
 import sideBar from "./sideBar.js";
 import { toggleTheme } from "./theme.js";
-import {
-  PresetProjectController,
-  ProjectController,
-} from "./controllers/ProjectController.js";
-import { handleProjectClick } from "./controllers/ProjectController.js";
-import {
-  TodoController,
-  toDoController,
-} from "./controllers/ToDoController.js";
-import { driver } from "driver.js";
+import { ProjectController } from "./controllers/ProjectController.js";
+
+import { TodoController } from "./controllers/ToDoController.js";
+
 import { Storage } from "./models/storage.js";
-import { popoverMenu } from "./views/ProjectView.js";
 
 document.addEventListener("DOMContentLoaded", function () {
   sideBar();
-  toggleTheme()
+  toggleTheme();
   // toDoController();
   const storage = new Storage();
   storage.firstLoad();

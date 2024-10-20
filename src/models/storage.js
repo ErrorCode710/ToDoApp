@@ -59,10 +59,7 @@ export class Storage {
     // NEW DATA
     const storage = Storage.projectStorage;
     const storage_serialized = JSON.stringify(storage);
-    const serializedOutput = localStorage.setItem(
-      "StorageKey",
-      storage_serialized
-    );
+    localStorage.setItem("StorageKey", storage_serialized);
     // const storage_deserialized = JSON.parse(localStorage.getItem("StorageKey"));
     // console.table(`TESTER FOR LOCAL STORAGE`, storage_deserialized);
     // return storage_deserialized;
@@ -148,13 +145,9 @@ export class Storage {
   renameTodo(targetID, renameValue, renameDescription, renameDate) {
     const key = this.findProjectKeyById(targetID);
     const index = this.findTodoIndex(key, targetID);
-    const newTitle = (Storage.projectStorage[key]["todo"][index]["taskName"] =
-      renameValue);
-    const newDescription = (Storage.projectStorage[key]["todo"][index][
-      "details"
-    ] = renameDescription);
-    const newDate = (Storage.projectStorage[key]["todo"][index]["date"] =
-      renameDate);
+    Storage.projectStorage[key]["todo"][index]["taskName"] = renameValue;
+    Storage.projectStorage[key]["todo"][index]["details"] = renameDescription;
+    Storage.projectStorage[key]["todo"][index]["date"] = renameDate;
   }
   removeTodo(targetID) {
     if (targetID) {
@@ -169,7 +162,7 @@ export class Storage {
   markTodo(targetID, value, properties) {
     const ProjectKey = this.findProjectKeyById(targetID);
     const index = this.findTodoIndex(ProjectKey, targetID);
-    
+
     Storage.projectStorage[ProjectKey]["todo"][index][properties] = value; // to find the exact or specific todo then modified value
     return Storage.projectStorage;
   }
@@ -198,7 +191,7 @@ export class Storage {
   retrieveProjectTitle(key) {
     if (key) {
       const title = Storage.projectStorage[key].title || null;
-     
+
       if (title) {
         return title;
       } else {
@@ -215,7 +208,7 @@ export class Storage {
     const allTodos = Object.values(Storage.projectStorage).flatMap(
       (project) => project.todo
     );
-   
+
     return allTodos;
   }
   retrieveOnlyImportantTodos() {

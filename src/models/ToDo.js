@@ -1,16 +1,11 @@
 import { Storage } from "./storage.js";
-import {
-  changeToDeleteIcon,
-  displayToDo,
-  removeAddTaskBtn,
-  ToggleAddTaskBtn,
-} from "../views/ToDoView";
+import { displayToDo, ToggleAddTaskBtn } from "../views/ToDoView";
 import { isDateValid } from "../helper/isDateValid";
 import { getAddTaskButtonID } from "../helper/getAddTaskButtonID.js";
-import { getData2 } from "../helper/getDataID.js";
+
 import { strikeThrough } from "../views/ToDoView";
 import { Project } from "./Project.js";
-import { isToday } from "date-fns";
+
 export class Todo {
   constructor(title, details, date) {
     this.title = title;
@@ -62,7 +57,6 @@ export class Todo {
     return this.storage.retrieveProjectIds();
   }
   isTodoDone(targetID, value) {
-    
     const properties = "done";
     this.storage.markTodo(targetID, value, properties);
     strikeThrough(targetID);
@@ -96,12 +90,11 @@ export class Todo {
   }
   displayToDo() {
     const key = getAddTaskButtonID();
-   
+
     const project = new Project();
     const projectContainer = project.isIdPresetProject(key);
-    
+
     this.removeAddTaskBtnOnPresetProject(projectContainer);
-    
 
     if (projectContainer) {
       if (key === "ProjectAllTask") {
@@ -119,7 +112,6 @@ export class Todo {
       if (key === "Project7days") {
         const todos = this.retrieveNext7daysTodo();
         this.displayToDoItem(todos);
-       
       }
     }
     const todos = this.storage.retrieveTodos(key);
@@ -144,7 +136,7 @@ export class Todo {
   }
   removeAddTaskBtnOnPresetProject(state) {
     // const addTaskBtn = this.storage.isIdPresetProject(getAddTaskButtonID());
-    
+
     ToggleAddTaskBtn(state);
   }
 }

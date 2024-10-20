@@ -1,12 +1,9 @@
 import { createElement } from "../helper/createElement";
 import { createButton } from "../helper/createButton";
 import menuIcon from "/src/assets/img/Menu.svg";
-import { popoverMenu } from "../controllers/ProjectController";
 import { ProjectController } from "../controllers/ProjectController";
 import "tippy.js/themes/light.css";
-import { strikeThrough } from "./ToDoView";
 import { getAddTaskButtonID } from "../helper/getAddTaskButtonID";
-import { Project } from "../models/Project";
 export function displayForm() {
   const parent = document.querySelector("#projectContainer");
   // We need to put like it only need one #projecForm here
@@ -112,7 +109,6 @@ export function displayBanner(projectTitle) {
   banner.innerHTML = projectTitle;
 }
 export function AssignIdToAddTask(uniqueID) {
-  const project = new Project();
   // project.isIdPresetProject(uniqueID)
   // if(project)
   const btn = document.querySelector(".sidepanel__buttons-container--add-task");
@@ -136,9 +132,9 @@ export function toggleClickEffect() {
   targetClass.forEach((element) => {
     element.classList.remove("click-effect");
   });
-  
+
   const projectList = clickEvents.querySelector('[aria-label="Projects"]');
-  
+
   if (projectList) {
     projectList.classList.toggle("click-effect");
   } else if (!projectList) {

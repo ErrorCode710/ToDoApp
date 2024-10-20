@@ -1,10 +1,10 @@
-import { displayToDo, displayToDoForm } from "../views/ToDoView";
+import { displayToDoForm } from "../views/ToDoView";
 import { Todo } from "../models/ToDo";
 import { getAddTaskButtonID } from "../helper/getAddTaskButtonID";
 import { removeForm } from "../helper/removeForm";
 import tippy from "tippy.js";
 import { getData2 } from "../helper/getDataID";
-import { strikeThrough } from "../views/ToDoView";
+
 import { displayRenameForm } from "../views/ToDoView";
 import { addConfetti } from "../views/ToDoView";
 export class TodoController {
@@ -41,7 +41,7 @@ export class TodoController {
         const popoverContent = instance.popper.querySelector("#optionTodo");
         const editButton = popoverContent.querySelector("#editTodoBtn");
         const deleteButton = popoverContent.querySelector("#deleteTodoBtn");
-        editButton.addEventListener("click", (e) => {
+        editButton.addEventListener("click", () => {
           const targetID = getData2("#editTodoBtn");
           this.handleEditTodo(targetID);
         });
@@ -86,7 +86,6 @@ export class TodoController {
 
           // const condition = true; // Testing if this condition will work
           if (condition) {
-          
             const targetID = getData2(e.target); // Pass the clicked checkbox to get the ID
             const checkboxId = document.querySelector(
               `[data-id="checkboxId-${targetID}"]`
@@ -97,8 +96,7 @@ export class TodoController {
             if (e.target === checkboxId) {
               const value = checkboxId.checked;
               if (value) {
-                addConfetti(
-                );
+                addConfetti();
               }
             }
             if (
@@ -107,8 +105,7 @@ export class TodoController {
             ) {
               const todo = new Todo();
               const value = checkboxId.checked;
-              if (value) {
-              }
+
               todo.isTodoDone(targetID, value);
               this.handleDoneTodoRemove(targetID, e);
             }
@@ -185,9 +182,7 @@ export class TodoController {
       form.remove();
     });
     removeForm(`[data-id="remove-${targetID}"]`, form);
-    const closeButton = document.querySelector(
-      `[data-id="remove-${targetID}"]`
-    );
+    document.querySelector(`[data-id="remove-${targetID}"]`);
   }
   // UTILITY
 
@@ -203,7 +198,7 @@ export class TodoController {
   }
 
   formAction(todo) {
-    const key = getAddTaskButtonID();
+    // const key = getAddTaskButtonID();
     this.addToDoToStorage(todo);
     todo.renderAllTodo();
     todo.print();
@@ -230,8 +225,7 @@ export class TodoController {
   isRunningBackground(parent) {
     const popover = document.querySelector("#optionTodo");
     const form = document.querySelector("form");
-    const renameForm =
-      parent.querySelector(`input[type="text"].edit-task-name.hidden`) !== null;
+    parent.querySelector(`input[type="text"].edit-task-name.hidden`) !== null;
     // console.log("Popover:", popover);
     // console.log("Form:", form);
     // console.log("Rename form hidden:", renameForm);
