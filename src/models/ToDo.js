@@ -96,12 +96,12 @@ export class Todo {
   }
   displayToDo() {
     const key = getAddTaskButtonID();
-    console.log(key);
+   
     const project = new Project();
     const projectContainer = project.isIdPresetProject(key);
-    console.log(projectContainer);
+    
     this.removeAddTaskBtnOnPresetProject(projectContainer);
-    console.log("DO YOU GOT HRE?");
+    
 
     if (projectContainer) {
       if (key === "ProjectAllTask") {
@@ -119,7 +119,7 @@ export class Todo {
       if (key === "Project7days") {
         const todos = this.retrieveNext7daysTodo();
         this.displayToDoItem(todos);
-        console.log("ABOT KA DIRI?");
+       
       }
     }
     const todos = this.storage.retrieveTodos(key);
@@ -144,7 +144,7 @@ export class Todo {
   }
   removeAddTaskBtnOnPresetProject(state) {
     // const addTaskBtn = this.storage.isIdPresetProject(getAddTaskButtonID());
-    console.log(`TESTING THE ADDTASK`, state);
+    
     ToggleAddTaskBtn(state);
   }
 }

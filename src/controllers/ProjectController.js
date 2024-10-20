@@ -15,7 +15,6 @@ export class ProjectController {
     this.setUpAddProjectForm();
     this.handleProjectClick();
     this.setUpPopoverMenu();
-    
   }
   //EVENT SETUP
   setUpAddProjectForm() {

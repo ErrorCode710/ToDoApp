@@ -136,9 +136,9 @@ export function toggleClickEffect() {
   targetClass.forEach((element) => {
     element.classList.remove("click-effect");
   });
-  console.log(clickEvents);
+  
   const projectList = clickEvents.querySelector('[aria-label="Projects"]');
-  console.log(projectList);
+  
   if (projectList) {
     projectList.classList.toggle("click-effect");
   } else if (!projectList) {

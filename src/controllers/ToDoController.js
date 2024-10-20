@@ -86,7 +86,7 @@ export class TodoController {
 
           // const condition = true; // Testing if this condition will work
           if (condition) {
-            console.log("TEST FOR THE E.TARGET SECOND STEP");
+          
             const targetID = getData2(e.target); // Pass the clicked checkbox to get the ID
             const checkboxId = document.querySelector(
               `[data-id="checkboxId-${targetID}"]`

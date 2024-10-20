@@ -37,18 +37,15 @@ export class Storage {
   };
   constructor() {}
   firstLoad() {
-    // Try to retrieve and parse the stored data from localStorage
     let storage_deserialized =
       JSON.parse(localStorage.getItem("StorageKey")) || {};
 
-    // If the deserialized object is empty, use the default projectStorage
     if (Object.keys(storage_deserialized).length === 0) {
       console.log(
         "No data found in localStorage. Initializing with default data."
       );
       storage_deserialized = Storage.projectStorage;
 
-      // Save the default data to localStorage to initialize it
       this.sendStorageToLocal(storage_deserialized);
     }
 
@@ -88,7 +85,7 @@ export class Storage {
   }
   addToDo(key, value) {
     Storage.projectStorage[key].todo.push(value);
-    console.log(Storage.projectStorage);
+    // console.log(Storage.projectStorage);
   }
   retrieveTodos(key) {
     const todos = Storage.projectStorage[key]?.todo;
@@ -172,7 +169,7 @@ export class Storage {
   markTodo(targetID, value, properties) {
     const ProjectKey = this.findProjectKeyById(targetID);
     const index = this.findTodoIndex(ProjectKey, targetID);
-    console.log("Task complete");
+    
     Storage.projectStorage[ProjectKey]["todo"][index][properties] = value; // to find the exact or specific todo then modified value
     return Storage.projectStorage;
   }
@@ -201,7 +198,7 @@ export class Storage {
   retrieveProjectTitle(key) {
     if (key) {
       const title = Storage.projectStorage[key].title || null;
-      console.log(title);
+     
       if (title) {
         return title;
       } else {
@@ -218,7 +215,7 @@ export class Storage {
     const allTodos = Object.values(Storage.projectStorage).flatMap(
       (project) => project.todo
     );
-    console.log(`This is the all of todos`, allTodos);
+   
     return allTodos;
   }
   retrieveOnlyImportantTodos() {

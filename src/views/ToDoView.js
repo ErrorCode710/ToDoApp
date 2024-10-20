@@ -231,11 +231,11 @@ export function strikeThrough(targetID = "On") {
     );
     const state = checkboxId.checked;
     const parent = document.querySelector(`[data-id="${targetID}"]`);
-    console.log(parent);
+   
 
     if (parent) {
       if (state) {
-        console.log("StrikethroughTestTrigger");
+       
         parent.classList.add("done-todo");
       } else if (state === false) {
         parent.classList.remove("done-todo");
@@ -303,7 +303,7 @@ function setFocusOnTaskNameField(replaceElement) {
   }
   setTimeout(() => {
     taskNameField.focus();
-    console.log("Task name field after focus:", taskNameField);
+  
   }, 0);
 }
 function updateRemoveBtnForm(replaceElement, targetID) {
@@ -328,7 +328,7 @@ export function ToggleAddTaskBtn(state) {
   if (state) {
     addTaskBtn.style.opacity = 0;
     addTaskBtn.style.visibility = "hidden";
-    console.log("DELETED", addTaskBtn);
+    
   } else {
     // addTaskBtn.style.opacity = 0.5;
     // addTaskBtn.style.visibility = "visible";
@@ -337,7 +337,7 @@ export function ToggleAddTaskBtn(state) {
   }
 }
 export function addConfetti() {
-  console.log("Confetti is running");
+  
   confetti({
     particleCount: 100, // Number of confetti particles
     spread: 180, // How spread out the particles are

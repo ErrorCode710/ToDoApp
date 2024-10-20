@@ -5,7 +5,7 @@ export function toggleTheme() {
     const theme = html.getAttribute("data-theme") === "dark";
     const themeLabel = document.querySelector("#themeLabel");
     if (theme) {
-      console.log(themeLabel);
+     
       html.setAttribute("data-theme", "light");
       themeLabel.textContent = "Light";
     } else {
