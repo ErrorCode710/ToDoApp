@@ -137,7 +137,7 @@
   --primary-900: #ccfcff;
   --primary-950: #e5feff;
 
-  --secondary-50: #0b0c0e;
+  --secondary-50: #171717;
   --secondary-100: #17191c;
   --secondary-200: #2e3238;
   --secondary-300: #454b54;
@@ -163,18 +163,27 @@
 }
 
 :root[data-theme="light"] {
-  --text: #121212;
-  --background: #ced4de;
-  --primary: #4df6ff;
-  --secondary: #b9bec6;
+  --text: #212731;
+  --background: #f7f9fc;
+  --primary: #00c2cc;
+  --secondary: #e3e5e8;
   --accent: #4df6ff;
 }
 :root[data-theme="dark"] {
   --text: #ededed;
-  --background: #212731;
+  --background: #212121;
   --primary: #00aab3;
   --secondary: #393e46;
 }
+:root[data-theme="dark"]{
+--btn-theme: #f2f2f2
+
+}
+:root[data-theme="light"]{
+--btn-theme: #5c6470,
+--btn-theme-txt:
+}
+
 
 :root {
   --ff-main: "Inter", sans-serif;

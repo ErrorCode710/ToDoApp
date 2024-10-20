@@ -12,7 +12,7 @@
   cursor: not-allowed !important;
 }
 .click-effect {
-  border-radius: 30px;
+  border-radius: 15px;
   background-color: var(--secondary);
   opacity: 1;
 }
@@ -22,3 +22,46 @@
 .hidden {
   display: none;
 }
+
+@keyframes pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 10px white;
+  }
+  50% {
+    box-shadow: 0 0 20px white;
+  }
+}
+@keyframes myAnim {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+
+  10%,
+  30%,
+  50%,
+  70% {
+    transform: translateX(-5px);
+  }
+
+  20%,
+  40%,
+  60% {
+    transform: translateX(5px);
+  }
+
+  80% {
+    transform: translateX(3px);
+  }
+
+  90% {
+    transform: translateX(-3px);
+  }
+}
+.important {
+  animation: myAnim 2s ease 0s infinite normal forwards;
+}
+/* [data-important="true"] {
+  border: var(--primary) 1px solid;
+} */

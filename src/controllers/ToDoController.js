@@ -6,7 +6,7 @@ import tippy from "tippy.js";
 import { getData2 } from "../helper/getDataID";
 import { strikeThrough } from "../views/ToDoView";
 import { displayRenameForm } from "../views/ToDoView";
-
+import { addConfetti } from "../views/ToDoView";
 export class TodoController {
   constructor() {}
   // INITIALIZER
@@ -94,14 +94,21 @@ export class TodoController {
             const importantTodoId = document.querySelector(
               `#importantTodo-${targetID}`
             );
-            console.log("TEST IF THERE IS CLASS", hasClass);
+            if (e.target === checkboxId) {
+              const value = checkboxId.checked;
+              if (value) {
+                addConfetti(
+                );
+              }
+            }
             if (
               e.target === checkboxId ||
               e.target.closest(".deleteToDo") === hasClass
             ) {
               const todo = new Todo();
               const value = checkboxId.checked;
-
+              if (value) {
+              }
               todo.isTodoDone(targetID, value);
               this.handleDoneTodoRemove(targetID, e);
             }
@@ -132,7 +139,9 @@ export class TodoController {
       const todo = new Todo();
       const isImportant =
         importantTodoId.getAttribute("data-important") === "true";
-
+      // if(!isImportant){
+      //   addConfetti()
+      // }
       // Toggle the important status
       importantTodoId.setAttribute("data-important", !isImportant);
       todo.isTodoImportant(targetID, !isImportant);

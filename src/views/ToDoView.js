@@ -4,7 +4,8 @@ import { Todo } from "../models/ToDo";
 import { TodoController } from "../controllers/ToDoController";
 import doneIcon from "../assets/img/Done.svg";
 import { getAddTaskButtonID } from "../helper/getAddTaskButtonID";
-
+import confetti from "canvas-confetti";
+import importantSound from "../assets/sound/ImportantSound1.mp3";
 export function displayToDoForm() {
   const parent = document.querySelector(".list-toDo");
 
@@ -80,9 +81,10 @@ export function displayToDo(
     createElement(
       "div",
       {
-        className: isTodoDone
-          ? "list__container done-todo "
-          : "list__container ",
+        className: `${
+          isTodoDone ? "list__container done-todo" : "list__container"
+        } ${!isTodoDone && isTodoImportant ? "important" : ""}`.trim(),
+
         "data-id": todoID,
       },
       createElement(
@@ -207,8 +209,10 @@ export function displayToDo(
   );
 
   listWrapper.append(list);
+  TodoImportantStyling();
   const todo = new TodoController();
   todo.setUpPopoverMenu();
+
   // strikeThrough("On");
 }
 
@@ -331,4 +335,26 @@ export function ToggleAddTaskBtn(state) {
     // console.log("ALIVE", addTaskBtn);
     addTaskBtn.removeAttribute("style");
   }
+}
+export function addConfetti() {
+  console.log("Confetti is running");
+  confetti({
+    particleCount: 100, // Number of confetti particles
+    spread: 180, // How spread out the particles are
+    origin: { y: 0.6 }, // Y-origin of the particles (0.6 means starting a bit down the page)
+    // colors: ["#00f2ff", "#009199", "#66f7ff", "#99faff"],
+  });
+  playImportantSound();
+}
+function playImportantSound() {
+  const audio = new Audio(importantSound); // Create an Audio object
+  audio.play(); // Play the sound
+}
+function TodoImportantStyling() {
+  document.querySelectorAll('[data-important="true"]').forEach((child) => {
+    const parent = child.closest(".list__container"); // Select the closest parent with the desired class
+    if (parent) {
+      parent.classList.add("important");
+    }
+  });
 }

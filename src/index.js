@@ -16,6 +16,7 @@ import "./assets/style/todoItems.css";
 
 // Js file
 import sideBar from "./sideBar.js";
+import { toggleTheme } from "./theme.js";
 import {
   PresetProjectController,
   ProjectController,
@@ -31,6 +32,7 @@ import { popoverMenu } from "./views/ProjectView.js";
 
 document.addEventListener("DOMContentLoaded", function () {
   sideBar();
+  toggleTheme()
   // toDoController();
   const storage = new Storage();
   storage.firstLoad();

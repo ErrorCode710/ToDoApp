@@ -23,6 +23,17 @@ module.exports = {
         test: /\.html$/i,
         loader: "html-loader",
       },
+      {
+        test: /\.(mp3|wav|ogg|m4a|aac)$/i,
+        use: [
+          {
+            loader: "file-loader",
+            options: {
+              name: "sounds/[name].[hash].[ext]", // Output naming
+            },
+          },
+        ],
+      },
     ],
   },
   plugins: [

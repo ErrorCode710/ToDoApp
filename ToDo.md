@@ -6,7 +6,7 @@
 - ⭐ MVP
 - ✨ Sprinkle
 
-- [ ] 1. To-Do Item Management</span>
+- [x] 1. To-Do Item Management</span>
 
   - [x] <span style="color:#50fa7b;"><s>Title</s></span>
   - [x] <span style="color:#50fa7b;"><s>Description</s></span>
@@ -17,7 +17,7 @@
   - [x] Delete To-Dos ⭐
   - [x] 🔵 Done To-Dos⭐
 
-- [ ] 2. Project Management
+- [x] 2. Project Management
 
   - [x] <span style="color:#50fa7b;"><s>Default Project</s></span> ⭐
   - [x] <span style="color:#50fa7b;"><s>View Project</s></span> ⭐
@@ -30,7 +30,7 @@
 
 - [ ] 3. Persistence
 
-  - [ ] Local Storage ⭐
+  - [x] Local Storage ⭐
 
 - [ ] 4. Bugs/Note
 
@@ -46,7 +46,7 @@
   - [ ] Remove the Add Task on the Preset Project 🔵
   - [ ] Make the data style center
   - [ ] Make a unique background for important todo
-
+  - [ ] FIX: if we delete todo it also trigger the addconfetti
   PLANING
   -IMPORTANT TODO
   // FIRST GET REFERENCE ON DELETE FUNCTION
