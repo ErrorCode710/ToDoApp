@@ -34,9 +34,9 @@ main {
   transition: background-color 0.3s, transform 0.1s;
   min-width: 100px;
   max-width: 150px;
-  width: auto;
+  width: auto;  
   background-color: var(--secondary-20);
-  border: var(--primary) 2.5px solid;
+ 
 }
 /* Header Styling */
 .header__nav-btn {
